@@ -4,6 +4,7 @@
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \usepackage{setspace}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
 \graphicspath{{C:/Users/Bilge Kutay/Downloads/}}
@@ -29,7 +30,7 @@ governing equations can be used to model the waves for your selected problem. Ex
 why you have selected these equations with a few paragraphs.
 \vspace{0.3cm}
 
-A key problem in coastal engineering involves modeling non-linear wave transformation as waves propagate from deep to shallow water. This process includes shoaling, refraction, and breaking, which are governed by the Boussinesq equations and the Korteweg-de Vries (KdV) equation. These equations are selected for their ability to balance nonlinear and dispersive effects, critical for simulating wave behavior in shallow coastal zones.\par
+A key problem in coastal engineering involves modeling non-linear wave transformation as waves propagate from deep to shallow water. This process includes shoaling, refraction, and breaking, which are governed by the Boussinesq equations and the Korteweg-de Vries (KdV) equation. These equations are selected for their ability to balance nonlinear and dispersive effects, critical for simulating wave behavior in shallow coastal zones.
 
 The Boussinesq equations simplify the Navier-Stokes equations by retaining nonlinear and dispersive terms while reducing complexity. Unlike linear wave theory, which assumes small wave amplitudes and ignores non-linear interactions, the Boussinesq captures wave steepening, energy transfer, and frequency dispersion. This makes it effective for predicting wave asymmetry and breaking in shallow water.
 
@@ -63,6 +64,34 @@ The surface elevation plot illustrates Stokes’ second-order wave theory, combi
     \label{fig:plot2b}
 \end{figure}
 \vspace{0.3cm}
-The velocity profiles illustrate the decay of horizontal (\(u\)) and vertical (\(w\)) velocities with depth. At \(t = 0\) (wave crest), the vertical velocity (\(w\)) peaks near the surface and diminishes to zero at the seabed, aligning with linear theory due to the cancellation of second-order terms (\(\sin(2\theta) = 0\)). The horizontal velocity (\(u\)) exhibits a slight non-zero value near the surface in Stokes' theory, exceeding the linear prediction due to second-order corrections. Both components weaken with depth, consistent with theoretical behavior. The results validate Stokes' framework in capturing depth-dependent velocity trends under the given conditions.  
+
+The velocity profiles illustrate the decay of horizontal (\(u\)) and vertical (\(w\)) velocities with depth. At \(t = 0\), the vertical velocity (\(w\)) peaks near the surface and diminishes to zero at the seabed, aligning with linear theory due to the cancellation of second-order terms (\(\sin(2\theta) = 0\)). The horizontal velocity (\(u\)) exhibits a slight non-zero value near the surface in Stokes' theory, exceeding the linear prediction due to second-order corrections. Both components weaken with depth, consistent with theoretical behavior. The results validate Stokes' framework in capturing depth-dependent velocity trends under the given conditions.  
+\vspace{0.3cm}
+
+\textbf{(c)} Repeat the calculations in Part (b), changing the water depth as \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \). Compare your results with your results from Part (b).
+\vspace{0.3cm}
+
+
+Changing the water depth to \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \) alters the velocity profiles:  
+
+\begin{itemize}  
+    \item {Shallower depth (\( h = 20 \, \text{m} \))}: Increased bottom influence causes the horizontal velocity to intensify near the surface due to energy concentration, while vertical velocity exhibits more rapid decrease with depth as bottom boundary effects become more dominant.\( u \). 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{CE591HW1-Q1c1.png}
+        \caption{\small Velocity profiles for h = 20 m.}
+        \label{fig:plot2c_1}
+    \end{figure} 
+    \item {Deeper depth (\( h = 30 \, \text{m} \))}: Bottom inffluence decreases with increased depth. The horizontal velocity weakens near the surface, while the vertical velocity decays more gradually with depth. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{CE591HW1-Q1c2.png}
+        \caption{\small Velocity profiles for h = 30 m.}
+        \label{fig:plot2c_2}
+    \end{figure} 
+\end{itemize}  
+
+\textbf{(d)} Repeat the calculations in Part (b), changing the water depth as \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \). Compare your results with your results from Part (b).
+\vspace{0.3cm}
 
 \end{document}
