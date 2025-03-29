@@ -1,0 +1,26 @@
+\documentclass[a4paper]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{./Figures}}
+
+% Configure the header
+\pagestyle{fancy} % Enable fancy headers
+\fancyhead[L]{CE 7029} % Left-aligned header
+\fancyhead[C]{Numerical Modelli̇ng of Offshore Wind Turbi̇nes} % Centered header
+\fancyhead[R]{-/03/2025} % Right-aligned header
+
+\onehalfspacing
+
+\begin{document}
+
+\begin{center}
+\textbf{\large{Homework \#1}}
+
+Bilge Kutay - 2511798
+\end{center}
