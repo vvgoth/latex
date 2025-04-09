@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Question 1}{3}{section.1}%
+\contentsline {section}{\numberline {2}Question 2}{3}{section.2}%
+\contentsline {section}{\numberline {3}Question 3}{7}{section.3}%
+\contentsline {section}{\numberline {4}Question 4}{8}{section.4}%
+\contentsline {section}{\numberline {5}Question 5}{11}{section.5}%
+\contentsline {section}{\numberline {A}Appendix}{14}{appendix.A}%
+\contentsline {section}{\numberline {B}\small MATLAB function for non-dimensional dynamic pressure}{16}{appendix.B}%
+\contentsline {section}{\numberline {C}\small MATLAB function for solitary wave surface elevation}{17}{appendix.C}%
+\contentsline {section}{\numberline {D}\small MATLAB function for cnoidal wave surface elevation}{17}{appendix.D}%
+\contentsline {section}{\numberline {E}\small blockMeshDict file for the mesh generation}{19}{appendix.E}%
