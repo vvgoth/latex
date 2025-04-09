@@ -8,9 +8,11 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{matlab-prettifier}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{titlesec}
+\usepackage{tocloft}
 
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 \graphicspath{{./Figures}}
 
@@ -26,7 +28,7 @@
 \titleformat{\section}
   {\normalfont\bfseries\fontsize{12}{10}\selectfont}
   {\large\thesection.} 
-  {0.5em}
+  {0.3em}
   {}
 
 \thispagestyle{empty}
@@ -213,7 +215,6 @@ The surface elecation of the solitary wave is calculated using the following equ
 \[\eta = H \cdot \text{sech}^2\left(X \cdot \sqrt{\frac{3H}{4h^3}}\right)\]
 
 The comparison between theoretical and experimental solitary wave profiles shows a good match, with some expected discrepancies. The theoretical model assumes ideal conditions, while experimental data may be influenced by factors like wave reflection, bottom friction, and measurement errors. The experimental data also shows some oscillations, likely caused by wave interactions or reflections. Overall, the theoretical model provides a solid foundation for solitary waves, but real-world conditions can introduce variations that need to be considered in practical applications.
-\vspace{0.5cm}
 
 \section{Question 4} Write a program utilizing cnoidal wave theory summarized in your lecture notes for a given wave height H, wave period T and water depth h. Plot the water surface elevations for at least three selected waves on the same figure for two wave periods. Describe the procedure you have used and discuss your results.
 
@@ -363,7 +364,9 @@ The mesh is generated with 1 m length in z direction, 25 m length in x direction
 The total number of cells in the mesh is \textbf{700,000}, the minimum cell area is \textbf{$2.547 \cdot 10^{-6}$ m}, the maximum cell area is \textbf{0.001 m}, and the maximum aspect ratio is \textbf{1}, as obtained from the checkMesh function.
 
 \newpage
-
+\renewcommand{\refname}{}
+\section{References}
+\vspace{-1cm}
 \begin{thebibliography}{99}
     \bibitem{CE591} CE591 Lecture Notes. (2025). 
     \bibitem{CoastalBook} Ergin, A. (2019). \textit{Coastal engineering} (2nd ed.). Middle East Technical University Development Foundation Publishing and Communications Co.
@@ -468,7 +471,7 @@ function stokes_velocity_profile(T, h)
 end
 \end{lstlisting}
 
-\section{\small MATLAB function for non-dimensional dynamic pressure}
+\section*{\small MATLAB function for non-dimensional dynamic pressure}
 \begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
 function stokes_dynamic_pressure(T, h)
     H = 3;
@@ -496,7 +499,7 @@ end
 \end{lstlisting}
 \newpage
 
-\section{\small MATLAB function for solitary wave surface elevation}
+\section*{\small MATLAB function for solitary wave surface elevation}
 \begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
 function solitary_wave(t)
     H = 0.074;
@@ -520,7 +523,7 @@ function solitary_wave(t)
 end
 \end{lstlisting}
 
-\section{\small MATLAB function for cnoidal wave surface elevation}
+\section*{\small MATLAB function for cnoidal wave surface elevation}
 \begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
 function [m, L_c, Ur] = cnodial_wave(H, T, h)
     max_iter = 1000;
@@ -590,7 +593,7 @@ function [m, L_c, Ur] = cnodial_wave(H, T, h)
 end
 \end{lstlisting}
 
-\section{\small blockMeshDict file for the mesh generation}
+\section*{\small blockMeshDict file for the mesh generation}
 \begin{verbatim}
 
 /*--------------------------------*- C++ -*----------------------------------*\
