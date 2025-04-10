@@ -120,7 +120,7 @@ Figures 2 and 3 show the vertical variation of horizontal (\(u\)) and vertical (
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{CE591HW1-Q1b.png}
+    \includegraphics[width=0.75\textwidth]{CE591HW1-Q1b.png}
     \caption{\small Horizontal velocity profiles for Stokes' second-order wave theory.}
     \label{fig:plot2b}
 \end{figure}
@@ -128,7 +128,7 @@ Figures 2 and 3 show the vertical variation of horizontal (\(u\)) and vertical (
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{CE591HW1-Q1b_2.png}
+    \includegraphics[width=0.75\textwidth]{CE591HW1-Q1b_2.png}
     \caption{\small Vertical velocity profiles for Stokes' second-order wave theory.}
     \label{fig:plot2.2b}
 \end{figure}
@@ -193,17 +193,19 @@ P_d = \frac{\cosh(k(z+h))}{\cosh(kh)}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{CE591HW1-Q1d.png}
+    \includegraphics[width=0.9\textwidth]{CE591HW1-Q1d.png}
     \caption{\small Dynamic pressure profiles for different water depths.}
     \label{fig:plot2d}
 \end{figure} 
+
+The plots reveal how wave energy interacts with the water column differently depending on depth. In shallow water (20 m), dynamic pressure persists significantly toward the seabed, reflecting how wave energy is squeezed into a smaller volume—this means waves in coastal zones exert influence all the way to the bottom, stirring sediment and impacting seafloor structures. For deeper water (30 m), pressure drops off sharply below the surface, showing that wave energy barely reaches the seabed; here, wave effects are surface-dominated, critical for offshore platforms but negligible for benthic ecosystems. The intermediate depth (25 m) exhibits transitional behavior, where energy gradually fades with depth.
 
 \section{Question 3} Write a program that calculates the water surface elevation of a solitary wave for a given solitary wave height H and water depth h. Plot the water surface elevation for H = 0.074 m and h = 30 cm. Compare your theoretical calculation and experimental measurements. Discuss potential discrepancies.
 \vspace{0.3cm}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.67\textwidth]{CE591HW1-Q3.png}
+    \includegraphics[width=0.85\textwidth]{CE591HW1-Q3.png}
     \caption{\small Surface elevation of a solitary wave.}
     \label{fig:plot3}
 \end{figure} 
@@ -347,18 +349,21 @@ The mesh is generated with 1 m length in z direction, 25 m length in x direction
 \end{figure} 
 \vspace{0.3cm}
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{mesh2.png}
-    \caption{\small Inlet part of the mesh.}
-    \label{fig:mesh2}
-\end{figure} 
-\vspace{0.3cm}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{mesh3.png}
-    \caption{\small Outlet part of the mesh.}
-    \label{fig:mesh3}
-\end{figure} 
+    \begin{minipage}{0.53\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{mesh2.png}
+        \caption{\small Inlet part of the mesh.}
+        \label{fig:mesh2}
+    \end{minipage} 
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{mesh3.png}
+        \caption{\small Outlet part of the mesh.}
+        \label{fig:mesh3}
+    \end{minipage} 
+\end{figure}
+
 \vspace{0.3cm}
 
 The total number of cells in the mesh is \textbf{700,000}, the minimum cell area is \textbf{$2.547 \cdot 10^{-6}$ m}, the maximum cell area is \textbf{0.001 m}, and the maximum aspect ratio is \textbf{1}, as obtained from the checkMesh function.
