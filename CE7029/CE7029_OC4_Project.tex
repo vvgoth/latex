@@ -7,6 +7,12 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
 \graphicspath{{./Figures}}
 
 % Configure the header
@@ -18,28 +24,53 @@
 \onehalfspacing
 
 \begin{document}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12}{10}\selectfont}
+  {\large\thesection.} 
+  {0.3em}
+  {}
+
 \thispagestyle{empty}
 
 \begin{figure}[H]
-    \vspace{2.5cm} % Increased vertical space to move the image lower
+    \vspace{0.6cm}
     \centering
-    \includegraphics[width=0.4\textwidth]{logo.png}
+    \includegraphics[width=0.45\textwidth]{logo.png}
 \end{figure}
-\vspace{1cm}
+\vspace{0.8cm}
 
 \begin{center}
-    \textbf{\LARGE CE 7029}\\
+    \textbf{\LARGE Middle East Technical University}
     \vspace{0.3cm}
-    \textbf{\LARGE Numerical Modelling of Offshore Wind Turbines}\\
-    \vspace{0.5cm}
-    \textbf{\Large Project Report}\\
-    \vspace{0.8cm}
-    \textbf{\large Student Name: }\large Bilge Kutay
-    
-    \textbf{\large Student ID: }\large 2511798
-    \vspace{0.8cm}
 
-    \textbf{\large Date: }\large -/03/2025
+    \textbf{\LARGE Department of Civil Engineering}
+    \vspace{0.5cm}
+
+    \textbf{\Large 2024-2025 Spring Semester}
+    \vspace{1.5cm}
+
+    \textbf{\Large CE 7029 Numerical Modelling of Offshore Wind Turbines}
+    \vspace{0.9cm}
+
+    \textbf{\Large Semester Project Report}
+    \vspace{1.5cm}
+
+    \large Instructor:
+
+    \large Assoc. Prof. Dr. Elif Oğuz
+    \vspace{1.2cm}
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+
+    \large 2511798
+
 \end{center}
+
+\newpage
+\tableofcontents
+\newpage
 
 \end{document}
