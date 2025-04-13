@@ -7,6 +7,11 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage[small,bf,hypcap=true]{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}%
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
 \usepackage[hidelinks]{hyperref}
 \usepackage{titlesec}
 \usepackage{tocloft}
@@ -70,6 +75,7 @@
 \end{center}
 
 \newpage
+\renewcommand{\contentsname}{Table of Contents} % Rename "Contents" to "Table of Contents"
 \tableofcontents
 \newpage
 
@@ -87,17 +93,44 @@ This report provides a detailed account of the methodologies and results obtaine
 
 \section{OC4 Semisubmersible Platform Analysis}
 \subsection{Article Review}
-\hspace*{0.5cm}The study by Robertson et al. (2014) presents an analysis of the OC4 semisubmersible floating wind turbine platform, comparing results from 21 different load cases (Table 1) simulated by 21 organizations using 19 distinct modeling tools. The research evaluates the platform’s dynamic behavior under progressively complex conditions, from basic system identification to combined environmental loads and damage scenarios. The study emphasizes the importance of accurate modeling in predicting the platform's response to environmental forces, including wind, waves, and currents. 
+\hspace*{0.5cm}The study by Robertson et al. (2014) presents an analysis of the OC4 semisubmersible floating offshore wind system developed for the DeepCwind project (\autoref{fig:OC4}), comparing results from 21 different load cases (\autoref{tab:image_table}) simulated by 21 organizations using 19 distinct modeling tools. The research evaluates the platform’s dynamic behavior under progressively complex conditions, from basic system identification to combined environmental loads and damage scenarios. The study emphasizes the importance of accurate modeling in predicting the platform's response to environmental forces, including wind, waves, and currents. 
 
 The most significant findings highlight that accurate platform modeling requires proper treatment of dynamic pressure effects on submerged members, particularly for heave motion. Nonlinear wave kinematics prove especially important for extreme wave conditions, where simplified approaches may fail to capture critical response characteristics.
 The study emphasizes the need for comprehensive validation of numerical models against experimental data, particularly in the context of floating wind turbine platforms. The results show the importance of considering various modeling approaches and their implications for predicting platform behavior under different environmental conditions.
 
 This study focuses on the cases of free decay tests and wave-induced responses, which are crucial for understanding the platform's dynamic behavior. The free decay tests involve subjecting the platform to initial displacements and allowing it to oscillate freely, while the wave-induced responses are analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
 The results of these tests provide valuable insights into the platform's natural frequencies and response characteristics, which are essential for designing and optimizing floating offshore wind systems.
+\vspace{0.5cm}
+
+\begin{figure}[htbp]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=0.93\textwidth]{OC4.png}
+        \caption{\small OC4-DeepCwind floating wind system design. (Robertson et al., 2014)}
+        \label{fig:OC4}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{characteristics.png}
+        \caption{\small Summary of semisubmersible properties (Robertson et al., 2014)}
+        \label{fig:characteristics}
+    \end{minipage}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Load cases run in OC4 Phase II. (Robertson et al., 2014)}
+    \label{tab:image_table}
+    \begin{tabular}{c}
+        \includegraphics[width=0.95\textwidth]{table_3.png} \\
+    \end{tabular}
+\end{table}
+
 
 \subsection{Pre-existing Model Analysis}
 
-\hspace*{0.5cm}The analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST. The model was subjected to various load cases, including free decay tests and wave-induced responses, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
+\hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST. The model was subjected to various load cases, including free decay tests and wave-induced responses, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
 The free decay tests involved subjecting the platform to initial displacements and allowing it to oscillate freely. The response of the platform was recorded, and the natural frequencies were extracted from the time-domain data. The wave-induced responses were analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
 
 \end{document}
