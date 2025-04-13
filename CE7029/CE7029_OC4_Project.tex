@@ -73,4 +73,31 @@
 \tableofcontents
 \newpage
 
+\section{Introduction}
+
+\hspace*{0.5cm}The demand for renewable energy has driven significant advancements in offshore wind energy technologies, with floating offshore wind turbines (FOWTs) emerging as a practical solution for deep-water energy generation. This report focuses on the numerical modeling and analysis of two floating offshore wind systems: the OC4 semisubmersible platform and a spar buoy design.
+
+The analysis of the OC4 semisubmersible platform was conducted using two approaches. Initially, simulations were performed using a pre-existing OC4 model in OpenFAST, a simulation tool for FOWTs, to analyze the platform's dynamic behavior under various load cases. These load cases, based on the methodology outlined in the study by Robertson et al. (2014), titled "Offshore Code Comparison Collaboration Continuation within IEA Wind Task 30: Phase II Results Regarding a Floating Semisubmersible Wind System," included free decay tests and wave-induced responses. The results were processed using BEMRosetta to extract natural frequencies and generate response graphs, which were compared to the reference study to validate the findings.
+
+In addition to using the pre-existing OC4 model, the platform was also recreated independently using Rhino. The hydrodynamic properties of this recreated model were analyzed using HAMS to generate WAMIT output files, which were then converted into OpenFAST input files. The same load cases were applied to the recreated model in OpenFAST, allowing for a direct comparison between the pre-existing and recreated models. This approach provided a deeper understanding of the platform's performance and validated the modeling process.
+
+For the spar buoy design, the structure was modeled using Rhino 8, and its hydrodynamic properties were analyzed using WAMIT. The outputs from WAMIT were integrated into HAMS for further analysis and subsequently processed in BEMRosetta to determine the natural frequencies and other dynamic characteristics of the spar buoy.
+
+This report provides a detailed account of the methodologies and results obtained during the numerical modeling and analysis of these floating offshore wind systems. By applying consistent load cases to both pre-existing and recreated models, the findings contribute to a comprehensive understanding of the dynamic behavior and performance of FOWTs under various conditions.
+
+\section{OC4 Semisubmersible Platform Analysis}
+\subsection{Article Review}
+\hspace*{0.5cm}The study by Robertson et al. (2014) presents an analysis of the OC4 semisubmersible floating wind turbine platform, comparing results from 21 different load cases (Table 1) simulated by 21 organizations using 19 distinct modeling tools. The research evaluates the platform’s dynamic behavior under progressively complex conditions, from basic system identification to combined environmental loads and damage scenarios. The study emphasizes the importance of accurate modeling in predicting the platform's response to environmental forces, including wind, waves, and currents. 
+
+The most significant findings highlight that accurate platform modeling requires proper treatment of dynamic pressure effects on submerged members, particularly for heave motion. Nonlinear wave kinematics prove especially important for extreme wave conditions, where simplified approaches may fail to capture critical response characteristics.
+The study emphasizes the need for comprehensive validation of numerical models against experimental data, particularly in the context of floating wind turbine platforms. The results show the importance of considering various modeling approaches and their implications for predicting platform behavior under different environmental conditions.
+
+This study focuses on the cases of free decay tests and wave-induced responses, which are crucial for understanding the platform's dynamic behavior. The free decay tests involve subjecting the platform to initial displacements and allowing it to oscillate freely, while the wave-induced responses are analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
+The results of these tests provide valuable insights into the platform's natural frequencies and response characteristics, which are essential for designing and optimizing floating offshore wind systems.
+
+\subsection{Pre-existing Model Analysis}
+
+\hspace*{0.5cm}The analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST. The model was subjected to various load cases, including free decay tests and wave-induced responses, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
+The free decay tests involved subjecting the platform to initial displacements and allowing it to oscillate freely. The response of the platform was recorded, and the natural frequencies were extracted from the time-domain data. The wave-induced responses were analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
+
 \end{document}
