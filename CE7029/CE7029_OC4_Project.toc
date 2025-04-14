@@ -2,3 +2,5 @@
 \contentsline {section}{\numberline {2}OC4 Semisubmersible Platform Analysis}{3}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Article Review}{3}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Pre-existing Model Analysis}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Free Decay Tests}{5}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Wave-Induced Responses}{9}{subsubsection.2.2.2}%

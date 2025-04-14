@@ -132,7 +132,170 @@ The results of these tests provide valuable insights into the platform's natural
 
 \subsection{Pre-existing Model Analysis}
 
-\hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST. The model was subjected to various load cases, including free decay tests and wave-induced responses, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
-The free decay tests involved subjecting the platform to initial displacements and allowing it to oscillate freely. The response of the platform was recorded, and the natural frequencies were extracted from the time-domain data. The wave-induced responses were analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
+\hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST called "5MW\_OC4Semi\_WSt\_WavesWN". The model was subjected to free decay and wave-induced load cases, namely Group 1.3X, 2.1, and 2.2, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
+
+\subsubsection{Free Decay Tests}
+\hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 4-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}.
+\vspace{0.3cm}
+
+%%1.3a figures
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3a_surge.png}
+        \caption{\small Surge free decay platform motion response for 1.3a (Robertson et al., 2014)}
+        \label{fig:1.3a_surge}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3a_surge_mine.png}
+        \caption{\small Surge free decay platform motion response for 1.3a}
+        \label{fig:1.3a_surge_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3a_heave.png}
+        \caption{\small Heave free decay platform motion response for 1.3a (Robertson et al., 2014)}
+        \label{fig:1.3a_heave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3a_heave_mine.png}
+        \caption{\small Heave free decay platform motion response for 1.3a}
+        \label{fig:1.3a_heave_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3a_pitch.png}
+        \caption{\small Pitch free decay platform motion response for 1.3a (Robertson et al., 2014)}
+        \label{fig:1.3a_pitch}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3a_pitch_mine.png}
+        \caption{\small Pitch free decay platform motion response for 1.3a}
+        \label{fig:1.3a_pitch_mine}
+    \end{minipage}
+\end{figure}
+
+%%1.3b figures
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3b_surge.png}
+        \caption{\small Surge free decay platform motion response for 1.3b (Robertson et al., 2014)}
+        \label{fig:1.3b_surge}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3b_surge_mine.png}
+        \caption{\small Surge free decay platform motion response for 1.3b}
+        \label{fig:1.3b_surge_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3b_heave.png}
+        \caption{\small Heave free decay platform motion response for 1.3b (Robertson et al., 2014)}
+        \label{fig:1.3b_heave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3b_heave_mine.png}
+        \caption{\small Heave free decay platform motion response for 1.3b}
+        \label{fig:1.3b_heave_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=0.97\textwidth]{1.3b_pitch.png}
+        \caption{\small Pitch free decay platform motion response for 1.3b (Robertson et al., 2014)}
+        \label{fig:1.3b_pitch}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \vspace{-0.3cm}
+        \includegraphics[width=1\textwidth]{1.3b_pitch_mine.png}
+        \caption{\small Pitch free decay platform motion response for 1.3b}
+        \label{fig:1.3b_pitch_mine}
+    \end{minipage}
+\end{figure}
+
+%%natural frequencies
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{nat_freq.png}
+    \caption{\small Full-system natural frequencies (Robertson et al., 2014)}
+    \label{fig:nat_freq}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_surge.png}
+        \caption{\small Surge natural frequency}
+        \label{fig:nat_freq_surge}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_sway.png}
+        \caption{\small Sway natural frequency}
+        \label{fig:nat_freq_sway}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_heave.png}
+        \caption{\small Heave natural frequency}
+        \label{fig:nat_freq_heave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_roll.png}
+        \caption{\small Roll natural frequency}
+        \label{fig:nat_freq_roll}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_pitch.png}
+        \caption{\small Pitch natural frequency}
+        \label{fig:nat_freq_pitch}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_yaw.png}
+        \caption{\small Yaw natural frequency}
+        \label{fig:nat_freq_yaw}
+    \end{minipage}
+\end{figure}
+
+\subsubsection{Wave-Induced Responses}
+\hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the platform. The response of the platform was measured in terms of heave, pitch, and surge motions. The response characteristics were compared to the reference study to validate the findings.
+
 
 \end{document}
