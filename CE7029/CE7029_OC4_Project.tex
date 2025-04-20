@@ -1,8 +1,9 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper, 11pt]{article}
 \usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{blindtext}
 \usepackage{lastpage}
 \usepackage{fancyhdr}
+\usepackage{xcolor}
 \usepackage{setspace}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -24,7 +25,7 @@
 \pagestyle{fancy} % Enable fancy headers
 \fancyhead[L]{CE 7029} % Left-aligned header
 \fancyhead[C]{Numerical Modelling of Offshore Wind Turbines} % Centered header
-\fancyhead[R]{-/03/2025} % Right-aligned header
+\fancyhead[R]{-/-/2025} % Right-aligned header
 
 \onehalfspacing
 
@@ -91,13 +92,8 @@ In addition to using the pre-existing OC4 model, the platform was also recreated
 
 This report provides a detailed account of the methodologies and results obtained during the numerical modeling and analysis of these floating offshore wind systems. By applying consistent load cases to both pre-existing and recreated models, the findings contribute to a comprehensive understanding of the dynamic behavior and performance of FOWTs under various conditions.
 
-\section{OC4 Semisubmersible Platform Analysis}
-\subsection{Article Review}
+\section{Article Review}
 \hspace*{0.5cm}The study by Robertson et al. (2014) presents an analysis of the OC4 semisubmersible floating offshore wind system developed for the DeepCwind project (\autoref{fig:OC4}), comparing results from 21 different load cases (\autoref{tab:image_table}) simulated by 21 organizations using 19 distinct modeling tools. The research evaluates the platform’s dynamic behavior under progressively complex conditions, from basic system identification to combined environmental loads and damage scenarios. The study emphasizes the importance of accurate modeling in predicting the platform's response to environmental forces, including wind, waves, and currents. 
-
-!!!RECONSIDER!!!!!!!
-The most significant findings highlight that accurate platform modeling requires proper treatment of dynamic pressure effects on submerged members, particularly for heave motion. Nonlinear wave kinematics prove especially important for extreme wave conditions, where simplified approaches may fail to capture critical response characteristics. 
-The study emphasizes the need for comprehensive validation of numerical models against experimental data, particularly in the context of floating wind turbine platforms. The results show the importance of considering various modeling approaches and their implications for predicting platform behavior under different environmental conditions.
 
 This report focuses on the cases of free decay tests and wave-induced responses, which are crucial for understanding the platform's dynamic behavior. The free decay tests involve subjecting the platform to initial displacements and allowing it to oscillate freely, while the wave-induced responses are analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
 The results of these tests provide valuable insights into the platform's natural frequencies and response characteristics, which are essential for designing and optimizing floating offshore wind systems.
@@ -106,14 +102,14 @@ The results of these tests provide valuable insights into the platform's natural
 \begin{figure}[htbp]
     \begin{minipage}{0.47\textwidth}
         \centering
-        \includegraphics[width=0.93\textwidth]{OC4.png}
+        \includegraphics[width=0.99\textwidth]{OC4.png}
         \caption{\small OC4-DeepCwind floating wind system design. (Robertson et al., 2014)}
         \label{fig:OC4}
     \end{minipage}
     \hfill
     \begin{minipage}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{characteristics.png}
+        \includegraphics[width=0.97\textwidth]{characteristics.png}
         \caption{\small Summary of semisubmersible properties (Robertson et al., 2014)}
         \label{fig:characteristics}
     \end{minipage}
@@ -124,17 +120,17 @@ The results of these tests provide valuable insights into the platform's natural
     \caption{Load cases run in OC4 Phase II. (Robertson et al., 2014)}
     \label{tab:image_table}
     \begin{tabular}{c}
-        \includegraphics[width=0.95\textwidth]{table_3.png} \\
+        \includegraphics[width=1\textwidth]{table_3.png} \\
     \end{tabular}
 \end{table}
 
 
-\subsection{Pre-existing Model Analysis}
+\section{Pre-existing Model Analysis}
 
 \hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST called "5MW\_OC4Semi\_WSt\_WavesWN". The model was subjected to free decay and wave-induced load cases, namely Group 1.3X, 2.1, and 2.2, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
 
-\subsubsection{Free Decay Tests}
-\hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 4-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}.
+\subsection{Free Decay Tests}
+\hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 4-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}. \textcolor{red}{For pitch, a very distinct grouping is seen for codes using Morison’s equation for calculating the viscous drag (dotted or dash-dotted results) versus those using a quadratic drag matrix (solid line results).}
 \vspace{0.3cm}
 
 %%1.3a figures
@@ -295,28 +291,31 @@ The results of these tests provide valuable insights into the platform's natural
 
 The natural frequency analysis of the semisubmersible platform shows a distinction in the magnitude of these frequencies across the six degrees of freedom. Specifically, the natural frequencies for heave, roll and pitch were notably higher than those for surge, sway and yaw, with heave demonstrating highest frequency overall.
 
-This difference arises from the restoring mechanisms associated with each mode. Heave, roll, and pitch are governed by strong hydrostatic restoring forces. For heave, this is primarily due to buoyancy, where vertical displacements lead to significant changes in the buoyant force. Roll and pitch experience restoring moments due to the platform's metacentric heights, which resist angular displacements !!!!!(Jonkman, 2007) FIND BETTER REFERENCE. These restoring forces result in higher natural frequencies. In contrast, for a freely floating platform in calm water, the restoring forces for surge and sway are minimal for small displacements, leading to very low natural frequencies. Yaw experiences some hydrodynamic resistance to rotation, but this is generally weaker than the hydrostatic restoring forces in roll and pitch, resulting in a lower natural frequency compared to them. 
+This difference originates from the restoring mechanisms associated with each degree of freedom. Heave, roll, and pitch are governed by strong hydrostatic restoring forces. For heave, this is primarily due to buoyancy, where vertical displacements lead to significant changes in the buoyant force. Roll and pitch experience restoring moments due to the platform's metacentric heights, which resist angular displacements. These restoring forces result in higher natural frequencies. In contrast, the restoring forces for surge and sway are minimal for small displacements, leading to very low natural frequencies. The yaw response shows restoring strength of similar but reduced magnitude to roll and pitch. This rotational stiffness is primarily from hydrodynamic sources like the geometry of the body, rather than the hydrostatic mechanisms that dominate roll and pitch (Jonkman, 2007).
 
 
-\subsubsection{Wave-Induced Tests}
-\hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the platform. 
+\subsection{Wave-Induced Tests}
+\hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the platform. The peak period of the waves were taken as 10 seconds, and the significant wave height was set to 6 meters. For the irregular waves, the JONSWAP spectrum was used to generate the wave field, with a peak wave shape parameter of 2.87. 
 
 
-\paragraph{Load Case 2.1}
-The load case 2.1 was used to analyze the platform's response to regular waves in terms of heave, pitch, and surge motions and fairlead 2 tension force. The results were processed using BEMRosetta to extract the platform's response and compared to the reference study, which can be seen in Figures 22-27. The comparison shows that the platform's response to regular waves is consistent with the reference study, specifically very similar to the NREL results for motions, confirming the accuracy of the modeling approach. The fairlead 2 tension force showed a similar trend to participants that used a dynamic mooring model, which means that this type of model treats the mooring lines as flexible structures with mass, stiffness, and damping .
+\subsubsection{Load Case 2.1}
+
+\hspace{0.5cm}Load case 2.1 was used to analyze the platform’s response to regular waves, focusing on heave, pitch, surge motions, and the tension force at fairlead 2. The analysis was conducted using two approaches: one incorporating second-order drift effects through quadratic transfer functions (QTF) to account for low-frequency wave forces, and another excluding drift effects to isolate first-order wave responses. The results, processed using BEMRosetta, were compared to the reference study (Figures 22–29).
+
+The platform's motion responses showed a strong resemblence to NREL's FAST v8 simulations when drift effects were neglected, as expected, since they did not utilize QTF-based second-order analysis in their calculations. This alignment confirms that both approaches produced equivalent first-order hydrodynamic responses. This consistency validates the first-order hydrodynamic modeling approach. However, when drift forces were introduced, surge motion showed significant sensitivity to QTF inclusion due to its weak hydrodynamic restoring forces. In contrast, heave and pitch motions remained virtually unaffected by second-order effects because their strong hydrostatic stiffness and higher natural frequencies (Figures 16, 18, and 20) make them more responsive to first-order wave excitations. The observed reduction in maximum fairlead 2 tension when neglecting QTF stems from this mooring point's direct coupling with surge motion along the y-axis; as the slow-drift components were removed, both surge displacement and consequent line tension decreased proportionally. These tension results aligned with dynamic mooring models, validating that the simulation properly accounted for the mooring system's mass, stiffness, and damping characteristics.
 
 %% 2.1 figures
 \begin{figure}[H]
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{2.1_surge.png}
         \caption{\small Surge response for 2.1 (Robertson et al., 2014)}
         \label{fig:2.1_surge}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.51\textwidth}
         \centering
-        \vspace{-0.6cm}
+        \vspace{-0.3cm}
         \includegraphics[width=1\textwidth]{2.1_surge_mine.png}
         \caption{\small Surge response for 2.1}
         \label{fig:2.1_surge_mine}
@@ -324,16 +323,16 @@ The load case 2.1 was used to analyze the platform's response to regular waves i
 \end{figure}
 
 \begin{figure}[H]
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{2.1_heave.png}
         \caption{\small Heave response for 2.1 (Robertson et al., 2014)}
         \label{fig:2.1_heave}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.51\textwidth}
         \centering
-        \vspace{-0.6cm}
+        \vspace{-0.3cm}
         \includegraphics[width=1\textwidth]{2.1_heave_mine.png}
         \caption{\small Heave response for 2.1}
         \label{fig:2.1_heave_mine}
@@ -341,16 +340,16 @@ The load case 2.1 was used to analyze the platform's response to regular waves i
 \end{figure}
 
 \begin{figure}[H]
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{2.1_pitch.png}
         \caption{\small Pitch response for 2.1 (Robertson et al., 2014)}
         \label{fig:2.1_pitch}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.51\textwidth}
         \centering
-        \vspace{-0.6cm}
+        \vspace{-0.3cm}
         \includegraphics[width=1\textwidth]{2.1_pitch_mine.png}
         \caption{\small Pitch response for 2.1}
         \label{fig:2.1_pitch_mine}
@@ -358,23 +357,69 @@ The load case 2.1 was used to analyze the platform's response to regular waves i
 \end{figure}
 
 \begin{figure}[H]
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{2.1_fairten2.png}
         \caption{\small Fairlead 2 response for 2.1 (Robertson et al., 2014)}
         \label{fig:2.1_fairten2}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.51\textwidth}
         \centering
-        \vspace{-0.6cm}
+        \vspace{-0.3cm}
         \includegraphics[width=0.95\textwidth]{2.1_fairten2_mine.png}
         \caption{\small Fairlead 2 response for 2.1}
         \label{fig:2.1_fairten2_mine}
     \end{minipage}
 \end{figure}
 
-\paragraph{Load Case 2.2}
-The load case 2.2 was used to analyze the platform's response to irregular waves in terms of surge and pitch motions and tower moment. The results given in the reference study shows that the average responses to irregular waves are quite various between the participants (Figure 30). This is caused by the   
+\subsubsection{Load Case 2.2}
+
+\hspace{0.5cm}Load case 2.2 analyzes the platform's response to irregular waves, examining surge motion, pitch motion, and tower bending moment. The reference study shows significant variation in average responses between participants (Figure 30), caused by different modeling approaches, particularly whether drift effects were included. Results processed through BEMRosetta compare simulations with and without quadratic transfer function (QTF) analysis (Figures 31-33).
+
+Similar to load case 2.1, the results show that the surge motion is highly sensitive to second-order drift effects. In contrast, pitch motion and tower bending moment show minimal changes. The consistent patterns observed in this analysis match well with participant results when accounting for each study's specific modeling choices. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{2.2.png}
+    \caption{\small Average responses to irregular waves (Robertson et al., 2014)}
+    \label{fig:2.2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.78\textwidth]{2.2_surge.png}
+    \caption{\small Surge response to irregular waves}
+    \label{fig:2.2_surge}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.78\textwidth]{2.2_pitch.png}
+    \caption{\small Pitch response to irregular waves}
+    \label{fig:2.2_pitch}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.78\textwidth]{2.2_twr.png}
+    \caption{\small Tower bending response to irregular waves (fore/aft direction)}
+    \label{fig:2.2_twr}
+\end{figure}
+
+\section{Recreated Platform Model Analysis}
+
+\hspace*{0.5cm}The OC4 semisubmersible platform was recreated independently using Rhino (Figure 34), and the hydrodynamic properties of this model were calculated using HAMS to generate WAMIT output files. The same load cases were applied to the recreated model in OpenFAST, allowing for a direct comparison between the pre-existing and recreated models.
+The recreated model was subjected to the same load cases as the pre-existing model, including free decay tests and wave-induced responses.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.78\textwidth]{rhino.png}
+    \caption{\small Recreated OC4 semisubmersible platform in Rhino}
+    \label{fig:rhino}
+\end{figure}
+
+
+
 
 \end{document}
