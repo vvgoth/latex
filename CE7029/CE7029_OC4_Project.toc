@@ -2,7 +2,11 @@
 \contentsline {section}{\numberline {2}Article Review}{3}{section.2}%
 \contentsline {section}{\numberline {3}Pre-existing Model Analysis}{5}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Free Decay Tests}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Wave-Induced Tests}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Wave-Induced Tests}{10}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Load Case 2.1}{10}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Load Case 2.2}{11}{subsubsection.3.2.2}%
-\contentsline {section}{\numberline {4}Recreated Platform Model Analysis}{13}{section.4}%
+\contentsline {subsubsection}{\numberline {3.2.2}Load Case 2.2}{12}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Recreated Platform Model Analysis}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Free Decay Tests}{15}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Wave-Induced Tests}{18}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Load Case 2.1}{18}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Load Case 2.2}{19}{subsubsection.4.2.2}%

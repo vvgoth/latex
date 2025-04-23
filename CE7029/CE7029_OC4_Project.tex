@@ -130,7 +130,7 @@ The results of these tests provide valuable insights into the platform's natural
 \hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST called "5MW\_OC4Semi\_WSt\_WavesWN". The model was subjected to free decay and wave-induced load cases, namely Group 1.3X, 2.1, and 2.2, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
 
 \subsection{Free Decay Tests}
-\hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 4-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}. \textcolor{red}{For pitch, a very distinct grouping is seen for codes using Morison’s equation for calculating the viscous drag (dotted or dash-dotted results) versus those using a quadratic drag matrix (solid line results).}
+\hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 3-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}.
 \vspace{0.3cm}
 
 %%1.3a figures
@@ -231,6 +231,8 @@ The results of these tests provide valuable insights into the platform's natural
         \label{fig:1.3b_pitch_mine}
     \end{minipage}
 \end{figure}
+
+When the graphs plotted for the surge, heave, and pitch motions are compared to the reference study, it is observed that the results are consistent in terms of the overall pattern of the motion response. Specifically, for the 1.3b case, the pitch motion response shows a very close resemblance to the distinct grouping using Morison’s equation for calculating the viscous drag (dotted or dash-dotted results) versus those using a quadratic drag matrix (solid line results).
 
 %%natural frequencies
 
@@ -409,17 +411,199 @@ Similar to load case 2.1, the results show that the surge motion is highly sensi
 
 \section{Recreated Platform Model Analysis}
 
-\hspace*{0.5cm}The OC4 semisubmersible platform was recreated independently using Rhino (Figure 34), and the hydrodynamic properties of this model were calculated using HAMS to generate WAMIT output files. The same load cases were applied to the recreated model in OpenFAST, allowing for a direct comparison between the pre-existing and recreated models.
-The recreated model was subjected to the same load cases as the pre-existing model, including free decay tests and wave-induced responses.
+\hspace*{0.5cm}The OC4 semisubmersible platform was recreated independently using Rhino (Figure 34), and the WAMIT files of this model were created using the HAMS software. In Figures 35 and 36, the hydrostatic matrices of the models can be seen. The matrix for the recreated model includes some coupling forces caused by the meshing process. This results in slight differences between the outputs of the cases, which will be discussed in their respective sections. The same load cases were applied to the recreated model in OpenFAST, allowing for a direct comparison between the pre-existing (presented as the purple plot named "Ex") and recreated models (presented as the blue plot named "Re"). The comparison is done using the case without including the second-drift effects for the pre-existing model, as the HAMS software does not provide the required WAMIT outputs to use the QTF method.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.78\textwidth]{rhino.png}
+    \includegraphics[width=1\textwidth]{rhino.png}
     \caption{\small Recreated OC4 semisubmersible platform in Rhino}
     \label{fig:rhino}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{hyd_st_org.png}
+    \caption{\small Hydrostatic matrix of the pre-existing model}
+    \label{fig:hyd_st_org}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{hyd_st_re.png}
+    \caption{\small Hydrostatic matrix of the recreated model}
+    \label{fig:hyd_st_re}
+\end{figure}
+
+\subsection{Free Decay Tests}
+\hspace*{0.5cm}The free decay tests were conducted on the recreated model, and the results were compared to those obtained from the pre-existing model (Figures 35-40). The natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. (Figures 41-46). 
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3_surge_mine.png}
+        \caption{\small Surge free decay platform motion response for 1.3a (recreated model vs. pre-existing model)}
+        \label{fig:1.3a_surge_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{1.3a_heave_mine_1.png}
+        \caption{\small Heave free decay platform motion response for 1.3a (recreated model vs. pre-existing model)}
+        \label{fig:1.3a_heave_mine_recreated}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3a_pitch_mine_1.png}
+        \caption{\small Pitch free decay platform motion response for 1.3a (recreated model vs. pre-existing model)}
+        \label{fig:1.3a_pitch_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{1.3b_surge_mine_1.png}
+        \caption{\small Surge free decay platform motion response for 1.3b (recreated model vs. pre-existing model)}
+        \label{fig:1.3b_surge_mine_recreated}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{1.3b_heave_mine_1.png}
+        \caption{\small Heave free decay platform motion response for 1.3b (recreated model vs. pre-existing model)}
+        \label{fig:1.3b_heave_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{1.3b_pitch_mine_1.png}
+        \caption{\small Pitch free decay platform motion response for 1.3b (recreated model vs. pre-existing model)}
+        \label{fig:1.3b_pitch_mine_recreated}
+    \end{minipage}
+\end{figure}
+
+The graphs plotted for the surge motion in both load cases shows a very close resemblance to the pre-existing model, whereas the pitch and especially heave motion response shows differences in the amplitude of the oscillations. This is due to the differences in the modeling approaches and the volume calculated for the submerged part of the platform from the recreated model. The recreated model was created to closely match the dimensions and properties of the pre-existing model, but slight variations in the geometry may have led to these differences in response. The original model had a volume of 13,917 m³, while the recreated model had a volume of 13,603 m³. The difference in volume causes the bouyancy force to be different, which directly affects the heave motion response. The recreated model's heave motion response shows a higher amplitude than the pre-existing model, since the volume of the body is smaller. On the heave plot for the load case 1.3a, the green colored line represents the recreated model with the volume kept same as the original model (Figure 36). For this case, the recreated model's heave motion response is very close to the pre-existing model, confirming that the volume of the submerged part of the platform is a significant factor in determining the heave motion response. The recreated model's pitch motion response is also affected by the volume difference, but to a lesser extent than the heave motion response, which is presumably due to coupling effects.
+
+%%nat frequencies recreated model
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_sway_1.png}
+        \caption{\small Sway natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_sway_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_surge_1.png}
+        \caption{\small Surge natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_surge_recreated}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_heave_1.png}
+        \caption{\small Heave natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_heave_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_roll_1.png}
+        \caption{\small Roll natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_roll_recreated}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_pitch_1.png}
+        \caption{\small Pitch natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_pitch_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{nat_freq_yaw_1.png}
+        \caption{\small Yaw natural frequency (recreated model vs. pre-existing model)}
+        \label{fig:nat_freq_yaw_recreated}
+    \end{minipage}
+\end{figure}
 
 
+The natural frequencies extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta were consistent with those obtained from the pre-existing model, confirming the accuracy of the recreated model. As discussed previously, the heave motion shows some difference in natural frequency, which is due to the difference in the volume of the submerged part of the platform (Figure 43). The recreated model's heave natural frequency is lower than the pre-existing model's, which is consistent with the heave motion response. Additionally, the yaw motion also presents a slight difference, which is likely a result of the different hydrostatic matrices caused by the modelling process (Figure 46). The other degrees of freedom show very close results to the pre-existing model.
+
+\subsection{Wave-Induced Tests}
+
+\hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the recreated model. The peak period of the waves were taken as 10 seconds, and the significant wave height was set to 6 meters. For the irregular waves, the JONSWAP spectrum was used to generate the wave field, with a peak wave shape parameter of 2.87. The results were compared to those obtained from the pre-existing model (No QTF case).
+
+\subsubsection{Load Case 2.1}
+\hspace*{0.5cm}The load case 2.1 was used to analyze the platform’s response to regular waves, focusing on heave, pitch, surge motions, and the tension force at fairlead 2. The analysis was conducted using the pre-existing model and the recreated model and compared (Figures 47-50).
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.1_surge_mine_1.png}
+        \caption{\small Surge response for 2.1}
+        \label{fig:2.1_surge_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{2.1_heave_mine_1.png}
+        \caption{\small Heave response for 2.1}
+        \label{fig:2.1_heave_mine_recreated}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.1_pitch_mine_1.png}
+        \caption{\small Pitch response for 2.1}
+        \label{fig:2.1_pitch_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{2.1_fairten2_mine_1.png}
+        \caption{\small Fairlead 2 response for 2.1}
+        \label{fig:2.1_fairten2_mine_recreated}
+    \end{minipage}
+\end{figure}
+
+The results show that the surge and pitch motions are very close to the pre-existing model, while the heave motion shows a difference in the amplitude of the oscillations. This is consistent with the free decay tests, where the heave motion response was affected by the volume and slight position difference between the two models, which causes the hydrostatic restoring matrix to have coupling forces between degrees of freedom. The fairlead 2 tension response also shows a difference in amplitude, which is due to the same reason as the heave response.
+
+\subsubsection{Load Case 2.2}
+\hspace*{0.5cm}The load case 2.2 analyzes the platform's response to irregular waves, examining surge motion, pitch motion, and tower bending moment. The results were compared to those obtained from the pre-existing model (Figures 53-55). 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2.2_surge_mine.png}
+    \caption{\small Surge response to irregular waves (recreated model vs. pre-existing model)}
+    \label{fig:2.2_surge_mine}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2.2_pitch_mine.png}
+    \caption{\small Pitch response to irregular waves (recreated model vs. pre-existing model)}
+    \label{fig:2.2_pitch_mine}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{2.2_twr_mine.png}
+    \caption{\small Tower bending response to irregular waves (fore/aft direction) (recreated model vs. pre-existing model)}
+    \label{fig:2.2_twr_mine}
+\end{figure}
+
+Comparing the results of the recreated model to the pre-existing model, it can be observed that the mean values for both models align closely, with very similar patterns. The mean surge motion shows the largest difference with 18\% higher amplitude for the recreated model, while the pitch motion shows a 7\% lower amplitude and the tower bending moment shows a 1.4\% lower amplitude. These differences are due to the same reasons discussed previously, including the volume difference and the coupling forces in the hydrostatic matrix. 
 
 \end{document}
