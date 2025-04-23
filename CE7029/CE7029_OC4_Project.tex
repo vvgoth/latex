@@ -95,7 +95,7 @@ This report provides a detailed account of the methodologies and results obtaine
 \section{Article Review}
 \hspace*{0.5cm}The study by Robertson et al. (2014) presents an analysis of the OC4 semisubmersible floating offshore wind system developed for the DeepCwind project (\autoref{fig:OC4}), comparing results from 21 different load cases (\autoref{tab:image_table}) simulated by 21 organizations using 19 distinct modeling tools. The research evaluates the platform’s dynamic behavior under progressively complex conditions, from basic system identification to combined environmental loads and damage scenarios. The study emphasizes the importance of accurate modeling in predicting the platform's response to environmental forces, including wind, waves, and currents. 
 
-This report focuses on the cases of free decay tests and wave-induced responses, which are crucial for understanding the platform's dynamic behavior. The free decay tests involve subjecting the platform to initial displacements and allowing it to oscillate freely, while the wave-induced responses are analyzed by applying regular and irregular waves to the platform and measuring its response in terms of heave, pitch, and surge motions.
+This report focuses on the cases of free decay tests and wave and current-induced responses, which are crucial for understanding the platform's dynamic behavior. The free decay tests involve subjecting the platform to initial displacements and allowing it to oscillate freely, while the wave and current-induced responses are analyzed by applying regular and irregular waves and standard currents to the platform and measuring its response in terms of various motions.
 The results of these tests provide valuable insights into the platform's natural frequencies and response characteristics, which are essential for designing and optimizing floating offshore wind systems.
 \vspace{0.5cm}
 
@@ -127,7 +127,7 @@ The results of these tests provide valuable insights into the platform's natural
 
 \section{Pre-existing Model Analysis}
 
-\hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST called "5MW\_OC4Semi\_WSt\_WavesWN". The model was subjected to free decay and wave-induced load cases, namely Group 1.3X, 2.1, and 2.2, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
+\hspace*{0.5cm}In this section, the analysis of the OC4 semisubmersible platform was conducted using a pre-existing model in OpenFAST called "5MW\_OC4Semi\_WSt\_WavesWN". The model was subjected to free decay and wave-induced load cases, namely Group 1.3X and 2.x, as outlined in the study by Robertson et al. (2014). The results were processed using BEMRosetta to extract natural frequencies and generate response graphs.
 
 \subsection{Free Decay Tests}
 \hspace*{0.5cm}The free decay tests involves subjecting the platform to initial displacements and allowing it to oscillate freely. Each of the four cases from 1.3a to 1.3d analyze the four individual degrees of freedom, specifically surge, heave, pitch, and yaw. The platform is given an initial displacement in the respective degree of freedom for each load case. The motion response of the platform was calculated using OpenFAST, and the natural frequencies were extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta. The motion results of the 1.3a and 1.3b can be seen in Figures 3-14. The natural frequencies obtained from the tests for 6 degrees of freedom are shown in Figures 16-21 and consistent with the reference study, confirming the accuracy of the modeling approach \autoref{fig:nat_freq}.
@@ -296,7 +296,7 @@ The natural frequency analysis of the semisubmersible platform shows a distincti
 This difference originates from the restoring mechanisms associated with each degree of freedom. Heave, roll, and pitch are governed by strong hydrostatic restoring forces. For heave, this is primarily due to buoyancy, where vertical displacements lead to significant changes in the buoyant force. Roll and pitch experience restoring moments due to the platform's metacentric heights, which resist angular displacements. These restoring forces result in higher natural frequencies. In contrast, the restoring forces for surge and sway are minimal for small displacements, leading to very low natural frequencies. The yaw response shows restoring strength of similar but reduced magnitude to roll and pitch. This rotational stiffness is primarily from hydrodynamic sources like the geometry of the body, rather than the hydrostatic mechanisms that dominate roll and pitch (Jonkman, 2007).
 
 
-\subsection{Wave-Induced Tests}
+\subsection{Wave and Current Induced Tests}
 \hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the platform. The peak period of the waves were taken as 10 seconds, and the significant wave height was set to 6 meters. For the irregular waves, the JONSWAP spectrum was used to generate the wave field, with a peak wave shape parameter of 2.87. 
 
 
