@@ -304,7 +304,7 @@ This difference originates from the restoring mechanisms associated with each de
 
 \hspace{0.5cm}Load case 2.1 was used to analyze the platform’s response to regular waves, focusing on heave, pitch, surge motions, and the tension force at fairlead 2. The analysis was conducted using two approaches: one incorporating second-order drift effects through quadratic transfer functions (QTF) to account for low-frequency wave forces, and another excluding drift effects to isolate first-order wave responses. The results, processed using BEMRosetta, were compared to the reference study (Figures 22–29).
 
-The platform's motion responses showed a strong resemblence to NREL's FAST v8 simulations when drift effects were neglected, as expected, since they did not utilize QTF-based second-order analysis in their calculations. This alignment confirms that both approaches produced equivalent first-order hydrodynamic responses. This consistency validates the first-order hydrodynamic modeling approach. However, when drift forces were introduced, surge motion showed significant sensitivity to QTF inclusion due to its weak hydrodynamic restoring forces. In contrast, heave and pitch motions remained virtually unaffected by second-order effects because their strong hydrostatic stiffness and higher natural frequencies (Figures 16, 18, and 20) make them more responsive to first-order wave excitations. The observed reduction in maximum fairlead 2 tension when neglecting QTF stems from this mooring point's direct coupling with surge motion along the y-axis; as the slow-drift components were removed, both surge displacement and consequent line tension decreased proportionally. These tension results aligned with dynamic mooring models, validating that the simulation properly accounted for the mooring system's mass, stiffness, and damping characteristics.
+The platform's motion responses showed a strong resemblence to NREL's FAST v8 simulations when drift effects were neglected, as expected, since they did not utilize QTF-based second-order analysis in their calculations. This alignment confirms that both approaches produced equivalent first-order hydrodynamic responses. This consistency validates the first-order hydrodynamic modeling approach. However, when drift forces were introduced, surge motion showed significant sensitivity to QTF inclusion due to its weak hydrodynamic restoring forces. In contrast, heave and pitch motions remained relatively unaffected by second-order effects because of their strong hydrostatic stiffness and higher natural frequencies (Figures 16, 18, and 20) make them more responsive to first-order wave excitations. The observed reduction in maximum fairlead 2 tension when neglecting QTF stems from this mooring point's direct coupling with surge motion along the y-axis; as the slow-drift components were removed, both surge displacement and consequent line tension decreased proportionally. These tension results aligned with dynamic mooring models, validating that the simulation properly accounted for the mooring system's mass, stiffness, and damping characteristics.
 
 %% 2.1 figures
 \begin{figure}[H]
@@ -408,6 +408,171 @@ Similar to load case 2.1, the results show that the surge motion is highly sensi
     \caption{\small Tower bending response to irregular waves (fore/aft direction)}
     \label{fig:2.2_twr}
 \end{figure}
+
+\subsubsection{Load Case 2.4 \& 2.5}
+\hspace{0.5cm}The load cases 2.4 and 2.5 were not analyzed in detail in the reference study. However, the results of these load cases were processed using BEMRosetta to extract the platform's response, comparing simulations with and without second-order drift effects using the QTF method.
+
+Load case 2.4 represents operational conditions with regular waves that have a significant wave height of 6 meters and a wave period of 10 seconds, along with a surface current of 0.5 meters per second. Load case 2.5 examines extreme conditions characterized by irregular waves with a significant wave height of 50 meters and a wave period of 19.2 seconds.
+
+The comparative results, presented in Figures 34-39, demonstrate that second-order drift effects impact platform response. Surge and pitch motions show higher sensitivity to these effects, particularly under the extreme wave conditions of load case 2.5. Heave motion, consistent with findings from previous load cases, remains relatively unaffected by the inclusion of second-order analysis.
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.4_surge.png}
+        \caption{\small Surge response for 2.4} 
+        \label{fig:2.4_surge}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \vspace{-0.3cm}
+        \includegraphics[width=1\textwidth]{2.4_heave.png}
+        \caption{\small Heave response for 2.4}
+        \label{fig:2.4_heave}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.4_pitch.png}
+        \caption{\small Pitch response for 2.4} 
+        \label{fig:2.4_pitch}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \vspace{-0.3cm}
+        \includegraphics[width=1\textwidth]{2.5_surge.png}
+        \caption{\small Surge response for 2.5}
+        \label{fig:2.5_surge}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.5_heave.png}
+        \caption{\small Heave response for 2.5}
+        \label{fig:2.5_heave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \vspace{-0.3cm}
+        \includegraphics[width=1\textwidth]{2.5_pitch.png}
+        \caption{\small Pitch response for 2.5}
+        \label{fig:2.5_pitch}
+    \end{minipage}
+\end{figure}
+
+\subsubsection{Load Case 2.6}
+Load case 2.6 analyzes the platform's response to banded white noise to obtain Response Amplitudes Operators (RAOs) for the platform. RAOs represent the ratio of a system's response to the wave amplitude caused by wave excitation and are widely used to evaluate the linear wave-induced behavior of floating platforms in the frequency domain. For this study, the RAOs were calculated through dividing the each response PSD to the wave elevation PSD in the banded white-noise spectrum between 0.05 and 0.25 Hz and compared to the results from the reference study for both QTF and non-QTF cases (Figures 40-51).
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_wave.png}
+        \caption{\small Wave elevation PSD for load case 2.6 (Robertson et al., 2014)} 
+        \label{fig:2.6_wave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.51\textwidth}
+        \centering
+        \vspace{-0.3cm}
+        \includegraphics[width=1\textwidth]{2.6_wave_mine.png}
+        \caption{\small Wave elevation PSD for load case 2.6}
+        \label{fig:2.6_wave_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{2.6_twr.png}
+        \caption{\small Tower bending moment RAO for load case 2.6 (Robertson et al., 2014)}
+        \label{fig:2.6_twr}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \vspace{0.6cm}
+        \includegraphics[width=1\textwidth]{2.6_twr_mine.png}
+        \caption{\small Tower bending moment RAO for load case 2.6} 
+        \label{fig:2.6_twr_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_ten.png}
+        \caption{\small Mooring tension RAO for 2.6 (Robertson et al., 2014)}
+        \label{fig:2.6_fairten2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \vspace{0.4cm}
+        \includegraphics[width=1\textwidth]{2.6_ten_mine.png}
+        \caption{\small Fairlead 2 RAO for 2.6}
+        \label{fig:2.6_fairten2_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_surge.png}
+        \caption{\small Surge RAO for load case 2.6 (Robertson et al., 2014)} 
+        \label{fig:2.6_surge}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \vspace{-0.2cm}
+        \includegraphics[width=1\textwidth]{2.6_surge_mine.png}
+        \caption{\small Surge RAO for load case 2.6}
+        \label{fig:2.6_surge_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_heave.png}
+        \caption{\small Heave RAO for load case 2.6 (Robertson et al., 2014)}
+        \label{fig:2.6_heave}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_heave_mine.png}
+        \caption{\small Heave RAO for load case 2.6} 
+        \label{fig:2.6_heave_mine}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{2.6_pitch.png}
+        \caption{\small Pitch RAO for 2.6 (Robertson et al., 2014)}
+        \label{fig:2.6_pitch}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \vspace{-0.4cm}
+        \includegraphics[width=1\textwidth]{2.6_pitch_mine.png}
+        \caption{\small Pitch RAO for 2.6}
+        \label{fig:2.6_pitch_mine}
+    \end{minipage}
+\end{figure}
+
+The results compared to the reference study show a good agreement. 
+
 
 \section{Recreated Platform Model Analysis}
 
