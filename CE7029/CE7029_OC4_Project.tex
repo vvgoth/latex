@@ -1,5 +1,5 @@
 \documentclass[a4paper, 11pt]{article}
-\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[letterpaper,margin=0.8in]{geometry}
 \usepackage{blindtext}
 \usepackage{lastpage}
 \usepackage{fancyhdr}
@@ -99,7 +99,7 @@ This report focuses on the cases of free decay tests and wave and current-induce
 The results of these tests provide valuable insights into the platform's natural frequencies and response characteristics, which are essential for designing and optimizing floating offshore wind systems.
 \vspace{0.5cm}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \begin{minipage}{0.47\textwidth}
         \centering
         \includegraphics[width=0.99\textwidth]{OC4.png}
@@ -468,7 +468,35 @@ The comparative results, presented in Figures 34-39, demonstrate that second-ord
 \end{figure}
 
 \subsubsection{Load Case 2.6}
-Load case 2.6 analyzes the platform's response to banded white noise to obtain Response Amplitudes Operators (RAOs) for the platform. RAOs represent the ratio of a system's response to the wave amplitude caused by wave excitation and are widely used to evaluate the linear wave-induced behavior of floating platforms in the frequency domain. For this study, the RAOs were calculated through dividing the each response PSD to the wave elevation PSD in the banded white-noise spectrum between 0.05 and 0.25 Hz and compared to the results from the reference study for both QTF and non-QTF cases (Figures 40-51).
+Load case 2.6 analyzes the platform's response to banded white noise to obtain Response Amplitudes Operators (RAOs) for the platform. RAOs represent the ratio of a system's response to the wave amplitude caused by wave excitation and are widely used to evaluate the linear wave-induced behavior of floating platforms in the frequency domain. For this study, the RAOs were calculated through dividing the each response PSD to the wave elevation PSD in the banded white-noise spectrum between 0.05 and 0.25 Hz and compared to the results from the reference study for both QTF (purple plot) and non-QTF (green plot) cases (Figures 40-55).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{w_t_t_p.png}
+    \caption{\small Wave elevation, tower bending, and mooring tension PSD for load case 2.6 (Robertson et al., 2014)}
+    \label{fig:w_t_t_p}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{wave_twr_ten_psd.png}
+    \caption{\small Wave elevation, tower bending, and mooring tension PSD for load case 2.6}
+    \label{fig:w_t_t_p_mine}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{s_h_p_p.png}
+    \caption{\small Sugre, heave, and pitch PSD for load case 2.6 (Robertson et al., 2014)}
+    \label{fig:s_h_p_p}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{sur_hea_pit_psd.png}
+    \caption{\small Sugre, heave, and pitch PSD for load case 2.6}
+    \label{fig:s_h_p_p_mine}
+\end{figure}
 
 \begin{figure}[H]
     \begin{minipage}{0.48\textwidth}
@@ -564,14 +592,13 @@ Load case 2.6 analyzes the platform's response to banded white noise to obtain R
     \hfill
     \begin{minipage}{0.5\textwidth}
         \centering
-        \vspace{-0.4cm}
         \includegraphics[width=1\textwidth]{2.6_pitch_mine.png}
         \caption{\small Pitch RAO for 2.6}
         \label{fig:2.6_pitch_mine}
     \end{minipage}
 \end{figure}
 
-The results compared to the reference study show a good agreement. 
+Both the PSD and RAO graphs show a good agreement with the reference study, particularly the non-QTF case with less oscillations in the surge, heave, and pitch responses. The QTF case shows more oscillations overall, which is expected as the QTF method accounts for second-order drift effects. From the PSD graphs, it can be seen that the natural frequency of heave, being around 0.058 Hz, falls within the wave excitation frequency range, leading to a significant increase in the chance of resonance. This is also reflected in the heave RAO graph, showing the peak to be over 4 m/m.  The peaks for the rest of the responses are outside of this range, indicating that they are less sensitive to wave excitation. 
 
 
 \section{Recreated Platform Model Analysis}
@@ -704,7 +731,7 @@ The graphs plotted for the surge motion in both load cases shows a very close re
 
 The natural frequencies extracted from the time-domain data using the Fast Fourier Transform (FFT) method on BEMRosetta were consistent with those obtained from the pre-existing model, confirming the accuracy of the recreated model. As discussed previously, the heave motion shows some difference in natural frequency, which is due to the difference in the volume of the submerged part of the platform (Figure 43). The recreated model's heave natural frequency is lower than the pre-existing model's, which is consistent with the heave motion response. Additionally, the yaw motion also presents a slight difference, which is likely a result of the different hydrostatic matrices caused by the modelling process (Figure 46). The other degrees of freedom show very close results to the pre-existing model.
 
-\subsection{Wave-Induced Tests}
+\subsection{Wave and Current Induced Tests}
 
 \hspace*{0.5cm}The wave-induced responses were analyzed by applying regular and irregular waves to the recreated model. The peak period of the waves were taken as 10 seconds, and the significant wave height was set to 6 meters. For the irregular waves, the JONSWAP spectrum was used to generate the wave field, with a peak wave shape parameter of 2.87. The results were compared to those obtained from the pre-existing model (No QTF case).
 
