@@ -7,8 +7,12 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Load Case 2.2}{11}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Load Case 2.4 \& 2.5}{13}{subsubsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.4}Load Case 2.6}{14}{subsubsection.3.2.4}%
-\contentsline {section}{\numberline {4}Recreated Platform Model Analysis}{17}{section.4}%
+\contentsline {section}{\numberline {4}Recreated Platform Model Analysis}{18}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Free Decay Tests}{19}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Wave and Current Induced Tests}{21}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Load Case 2.1}{21}{subsubsection.4.2.1}%
-\contentsline {subsubsection}{\numberline {4.2.2}Load Case 2.2}{22}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2}Wave and Current Induced Tests}{22}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Load Case 2.1}{22}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Load Case 2.2}{23}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Load Case 2.4 \& 2.5}{24}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Load Case 2.6}{25}{subsubsection.4.2.4}%
+\contentsline {section}{\numberline {5}Conclusion}{27}{section.5}%
+\contentsline {section}{References}{28}{section.5}%
