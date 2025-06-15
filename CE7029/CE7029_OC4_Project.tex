@@ -10,7 +10,7 @@
 \usepackage{float}
 \usepackage[small,bf,hypcap=true]{caption}
 \newenvironment{Figure}
-  {\par\medskip\noindent\minipage{\linewidth}%
+  {\par\medskip\noindent\minipage{\linewidth}
    \captionsetup{type=figure}}
   {\endminipage\par\medskip}
 \usepackage[hidelinks]{hyperref}
@@ -921,6 +921,13 @@ For load cases 2.4 and 2.5, which represents operational conditions with regular
 \end{figure}
 
 From the results of the PSD and RAO graphs, it can be seen that the recreated model shows a good agreement with the pre-existing model, particularly in the non-QTF case with less oscillations. As expected, the heave RAO amplitude is higher than the pre-existing model, which is consistent with the heave motion response. The tower bending moment RAO also shows a higher amplitude, which is caused by higher tower bending moments in the recreated model. The surge and pitch RAOs show a very close resemblance to the pre-existing model, indicating that the overall platform dynamics are well captured despite geometric differences. The results confirm that the recreated model is capable of replicating the general response characteristics of the pre-existing OC4 platform under banded white noise conditions.
+
+\subsubsection{Load Case 3.1}
+\hspace*{0.5cm}The load case 3.1 analyzes the platform's response to regular airy waves with a period of 10 seconds and a significant wave height of 6 meters, and unlike load case 2.1, it includes steady and uniform wind with a speed of 8 m/s. This load case was not analyzed in the reference study, but the results were processed using BEMRosetta to extract the platform's response, comparing the recreated model to the pre-existing model (Figures 90-92).
+
+\subsubsection{Load Case 3.2}
+\hspace*{0.5cm}The load case 3.2 analyzes the platform's response to irregular waves using JONSWAP spectrum with a peak wave shape parameter of 2.87, a period of 10 seconds, and a significant wave height of 6 meters, and includes turbulent wind with a speed of 11.4 m/s. For this case, the wind data was generated using both the TurbSim code included in OpenFAST files with the IECKAI model, and IEC Turbulance Simulator code made by Tecnical University of Denmark Wind Atlas Analysis and Application Program (WAsP) with the Mann model. The results were compared to those obtained from the pre-existing model (Figures 93-95).
+
 
 \section{Conclusion}%%Revisit!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -1,0 +1,113 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[small,bf,hypcap=true]{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\graphicspath{{./Figures}}
+
+% Configure the header
+\pagestyle{fancy} % Enable fancy headers
+\fancyhead[L]{CE 473} % Left-aligned header
+\fancyhead[C]{Open Channel Hydraulics} % Centered header
+\fancyhead[R]{-/-/2025} % Right-aligned header
+
+\onehalfspacing
+
+\begin{document}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12}{10}\selectfont}
+  {\large\thesection.} 
+  {0.3em}
+  {}
+
+\thispagestyle{empty}
+
+\begin{figure}[H]
+    \vspace{0.6cm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{logo.png}
+\end{figure}
+\vspace{0.8cm}
+
+\begin{center}
+    \textbf{\LARGE Middle East Technical University}
+    \vspace{0.3cm}
+
+    \textbf{\LARGE Department of Civil Engineering}
+    \vspace{0.5cm}
+
+    \textbf{\Large 2024-2025 Spring Semester}
+    \vspace{0.9cm}
+
+    \textbf{\Large CE473 Open Channel Hydraulics}
+    \vspace{1.5cm}
+
+    \textbf{\Large Summary Report:}
+    \Large Assessment of the Effects of Multiple Extreme Floods on Flow and Transport Processes Under Competing Flood Protection and Environmental Management Strategies
+    \vspace{0.5cm}  
+
+    \textbf{\large Authors:}
+    \large Tu, T., Carr, K. J., Ercan, A., Trinh, T., Kavvas, M. L., Nosacka, J.
+    \vspace{1.5cm}
+
+    \large Instructor:
+
+    \large Assoc. Prof. Dr. Ali Ercan
+    \vspace{1.2cm}
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+
+    \large 2511798
+
+\end{center}
+
+\section{Introduction}
+
+\hspace*{0.5cm}Extreme floods are signficant natural hazards that can cause catastrophic damage and cause morphological changes in river systems and floodplains due to high sediment erosion and deposition. Understanding these effects, especially under various return periods and potential human interventions is crucial for effective flood protection and environmental management. Existing studies often focus on a single flood event and overlook the cumulative effects of multiple extreme floods. 
+
+This study outlines several key objectives. Firstly, it aims to investigate the extent of flood inundation and the morphological changes caused by extreme flood events of different return periods, specifically 10-year, 50-year, 100-year, and 200-year floods, under existing conditions. Secondly, the research evaluates the effects of a potential future engineering modification scenario on these flood responses. Lastly, it compares the modeling results derived from the current and modified scenarios. The goal of this comparison is to provide insights for decision-makers who must navigate management strategies for large water bodies.
+
+\section{Study Area and Methodology}
+\hspace*{0.5cm}The study is centered on the Lower Cache Creek system, located in northern California, USA. This geographical area covers approximately 400 km². The system is comprised of several key features; an approximately 18 km reach of Cache Creek itself, the 14.5 km² Cache Creek Settling Basin (CCSB), which is designed to trap sediment carried by Cache Creek before it can enter the Yolo Bypass, and a floodplain that includes residential and industrial areas. The CCSB plays a vital role in mitigating the transport of pollution, particularly mercury which is often associated with sediment originating from abandoned mines within the Cache Creek Watershed.
+
+The proposed alternative modification includes three key changes; constructing a 10-km levee north of the CCSB, removing a 1,600-m segment of the existing training levee within the CCSB, and installing a new inlet weir.
+
+The CCHE2D model, a two-dimensional hydrodynamic and sediment transport tool, was used to simulate unsteady flow, non-uniform sediment transport (clay, silt, sand, gravel), and bed morphology changes. The model was calibrated using observed flow data from 2011 and validated against historical flood events. Simulations incorporated design storm hydrographs from the U.S. Army Corps of Engineers.
+
+\section{Results and Key Findings}
+
+\hspace*{0.5cm}The modeling yielded significant findings regarding flood inundation. A general trend observed was that the alternative modification scenario typically led to increased flood inundation depth in specific areas when compared to the current condition for the same flood event. For the 10-year and 50-year flood events, the simulations showed that no overbank flow would enter the new inlet weir under the alternative modification. However, for the more extreme 100-year and 200-year events, significant overbank flow was predicted. During a 100-year event, water depths downstream of the removed levee section were expected to increase by 0.1 to 0.5 meters. For the 200-year event, water depths within the CCSB were expected to increase by 0.1 to 0.5 meters over a broader area. In terms of flood protection, the modification was found to offer benefits by helping to protect the urban area from extreme flood events, even those with a 200-year return period, while areas located close to and above the new levee would likely experience higher inundation depths in this scenario.
+
+\hspace*{0.5cm}Regarding sediment transport, the study found that trap efficiencies generally increased with the magnitude of the extreme event under both scenarios. This is attributed to increased overbank flow leading to more deposition in inundated areas, and the transport of larger grain size particles into the settling basin during higher flows. Importantly, for each flood event the trap efficiencies were observed to be higher under the alternative modification scenario than under the current condition, with the exception of the 200-year full domain calculation, which was slightly lower. For instance, within the CCSB, the trap efficiency for a 10-year event increased from 31\% under current conditions to 41\% under the modified scenario. For a 100-year event, it rose from 57\% to 63\%, and for a 200-year event, from 66\% to 71\%. The analysis of sediment composition showed that for all flood events and both scenarios, over 99\% of gravel and sand particles, and over 95\% of silt particles were deposited upstream of the outlet weir. Sediment loads to the Yolo Bypass under the alternative modification scenario were generally found to be lower than or comparable to those under the current condition.
+
+\hspace*{0.5cm}The study also discusses morphological changes. A general trend was that deposition depth and the area of deposition within the CCSB increased with the magnitude of the flood in both modeling scenarios. The simulations indicated that significant deposition in the channel, particularly during the 100-year and 200-year flood events, would affect the channel's conveyance capacity. In the northern CCSB, positive bed change differences were observed under the alternative modification. This was caused by changes in flow patterns resulting from the removal of a section of the training levee. In the southern CCSB, negative bed change differences were observed. This was a result of the redistribution of flow, which delivered less sediment to this area. The alternative modification seems to utilize the CCSB more fully for sediment entrapment when compared to its performance under the current condition. The study strongly emphasizes that assuming a fixed or unchanging river morphology for flood risk assessment, especially during extreme floods, can be questionable, as the morphological changes themselves significantly impact flood dynamics.
+
+\hspace*{0.5cm}However, it is also important to acknowledge that while the alternative modification shows clear benefits in terms of flood protection for targeted areas and enhanced sediment trapping, it also presents certain challenges. These include increased inundation in other areas and the significant economic costs associated with the construction of the new infrastructure. Therefore, further evaluation and refinement of the proposed modification are necessary. This could involve, optimizing the heights of the new levee and inflow weir, and conducting a more detailed analysis that weighs potential economic losses against environmental benefits.
+
+\section{Conclusion}
+\hspace*{0.5cm}This study applies a coupled two-dimensional hydrodynamic and sediment transport model to assess the effects of multiple extreme floods, with 10, 50, 100, and 200-year return periods, on flow patterns, sediment transport processes, and morphological changes within the Lower Cache Creek system. These assessments were conducted for both the existing conditions and a potential future modification scenario.
+
+Several key conclusions can be drawn from the research. The proposed future modification scenario has the potential to significantly change flood dynamics, sediment transport behavior, and morphological responses to extreme events. The alternative modification can provide increased flood protection to developed areas and enhance sediment trapping efficiency within the Cache Creek Settling Basin, an outcome that is beneficial for reducing the downstream transport of pollutants.
+
+However, the implementation of this modification also leads to increased inundation in other areas and involves financial costs. An important takeaway from the study is that the assumption of a movable river bed is essential for conducting realistic flood risk assessments in river systems. Ultimately, further evaluation, taking into account both economic and broader environmental consequences is necessary before any modifications are implemented.
+
+\end{document}
