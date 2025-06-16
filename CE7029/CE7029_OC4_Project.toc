@@ -1,0 +1,24 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Article Review}{3}{section.2}%
+\contentsline {section}{\numberline {3}Pre-existing Model Analysis}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Free Decay Tests}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Wave and Current Induced Tests}{9}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Load Case 2.1}{9}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Load Case 2.2}{11}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Load Case 2.4 \& 2.5}{13}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Load Case 2.6}{14}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Wave and Wind Induced Tests}{17}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Load Case 3.1}{17}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Load Case 3.2}{18}{subsubsection.3.3.2}%
+\contentsline {section}{\numberline {4}Recreated Platform Model Analysis}{19}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Free Decay Tests}{20}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Wave and Current Induced Tests}{23}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Load Case 2.1}{23}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Load Case 2.2}{24}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Load Case 2.4 \& 2.5}{25}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Load Case 2.6}{26}{subsubsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.3}Wave and Wind Induced Tests}{28}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Load Case 3.1}{28}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Load Case 3.2}{28}{subsubsection.4.3.2}%
+\contentsline {section}{\numberline {5}Conclusion}{29}{section.5}%
+\contentsline {section}{References}{30}{section.5}%
