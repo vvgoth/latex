@@ -1009,6 +1009,22 @@ From the results of the PSD and RAO graphs, it can be seen that the recreated mo
 \subsubsection{Load Case 3.2}
 \hspace*{0.5cm}The load case 3.2 analyzes the platform's response to irregular waves using JONSWAP spectrum with a peak wave shape parameter of 2.87, a period of 10 seconds, and a significant wave height of 6 meters, and includes turbulent wind with a speed of 11.4 m/s. For this case, the wind data was generated using both the TurbSim code included in OpenFAST files with the IECKAI model, and IEC Turbulance Simulator code made by Tecnical University of Denmark Wind Atlas Analysis and Application Program (WAsP) with the Mann model. The results were compared to those obtained from the pre-existing model (Figures 93-95).
 
+\begin{figure}[H]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{3.2_turb_surge.png}
+        \caption{\small Surge response for 3.1 (recreated model vs. pre-existing model)}
+        \label{fig:3.1_surge_mine_recreated}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{3.1_heave_mine.png}
+        \caption{\small Heave response for 3.1 (recreated model vs. pre-existing model)}
+        \label{fig:3.1_heave_mine_recreated}
+    \end{minipage}
+\end{figure}
+
 
 \section{Conclusion}%%Revisit!!!!!!!!!!!!!!!!!!!!!!!!!!
 
