@@ -1076,7 +1076,7 @@ The results show that the surge and pitch motions are very close to the pre-exis
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=0.95\textwidth]{3.2_turb_pitch_mine.png}
-        \caption{\small Heave response from TurbSim (recreated model vs. pre-existing mode)}
+        \caption{\small Pitch response from TurbSim (recreated model vs. pre-existing mode)}
         \label{fig:3.2_turb_pitch_mine_recreated}
     \end{minipage}
 \end{figure}
@@ -1113,14 +1113,21 @@ The results show that the surge and pitch motions are very close to the pre-exis
     \end{minipage}
 \end{figure}
 
-The results show that the platform's response to irregular waves is consistent with the pre-existing model, with minor differences in mean values. 
+The results show that the platform's response to irregular waves and turbulent wind is in the recreated model is very similar to that of the pre-existing model, with minor differences in the mean values. For both wind models used, the results were almost identical to those from the existing model. The recreated model showed a slightly higher mean value for surge motion ($\sim$0.8\%), and slightly lower mean values for pitch and tower bending moment ($\sim$2.3\%). These small differences are in line with what was observed in previous load cases. Overall, the recreated model is able to accurately represent the platform's dynamic behavior under irregular wave and turbulent wind conditions. This agreement confirms the validity of the recreation process and the accuracy of the hydrodynamic properties calculated using HAMS.
 
-\section{Conclusion}%%Revisit!!!!!!!!!!!!!!!!!!!!!!!!!!
+\section{Conclusion}
 
-\hspace*{0.5cm}This study focused on the recreation of the OC4 semisubmersible platform model using Rhino and the HAMS software, followed by a comprehensive analysis of its dynamic behavior under various load cases. The analysis included free decay tests, wave-induced tests, and RAO analysis, with a direct comparison to the pre-existing model for the OC4 provided by OpenFAST. The results demonstrated that the recreated model closely matched the pre-existing model's dynamic behavior, with minor differences attributed to geometric variations and hydrostatic matrix coupling forces. The free decay tests showed that the recreated model's natural frequencies were consistent with those of the pre-existing model, confirming the accuracy of the recreation process. The wave-induced tests revealed that the heave motion was particularly sensitive to the volume difference between the two models, while the surge and pitch motions exhibited similar patterns. The RAO analysis indicated that the recreated model was capable of accurately capturing the general response characteristics of the OC4 platform under banded white noise conditions, with good agreement with the pre-existing model. The findings highlight the importance of precise modeling in predicting the dynamic behavior of floating platforms and provide a foundation for further research and development in this field. Overall, the study successfully validated the recreated model's performance and its potential for future applications in offshore wind energy research.
+\hspace*{0.5cm}This report examined the numerical modeling and dynamic analysis of the OC4 semisubmersible platform using both a pre-existing OpenFAST model, and a recreated model developed in Rhino 8, with hydrodynamic analysis performed in HAMS. The primary objective was to validate the platform's behavior under various environmental loads, including free decay tests, regular and irregular waves, and combined wave and wind loads, while also demonstrating the applicability of modern tools such as HAMS and OpenFAST in offshore platform analysis
+
+The pre-existing model's results aligned closely with the results of the participants who used similar tools and methods in the reference study \cite{Robertson2014} to the ones used in this study. The free decay tests confirmed the platform's natural periods and damping characteristics, while wind and wave induced load cases demonstrated the platform's responses to various environmental loads. Notably, the significant impact of second-order drift effects on the surge motion and the risk of resonance in the heave motion were found as a result of the analysis. These findings have direct implications for real-world applications, as excessive motions or resonance could lead to structural damage or failure.
+
+The recreated model successfully reproduced the general behavior of the pre-existing model, with minor deviations primarily due to differences in submerged volume and coupling effects in the hydrostatic matrix. These were addressed in the analysis, confirming the reliability of the recreated model for simulating offshore wind platforms.
+
+While the 2014 reference study provided a solid foundation, this report has expanded on that work by implementing a modern modeling environment and validating its performance. The findings demonstrate the value of updated simulation tools in offshore wind research, supporting their use in continued efforts to improve accuracy, safety, and long-term reliability of floating renewable energy systems.
+
 
 \newpage
-\begin{thebibliography}{99} %%Revisit!!!!!!!!!!!!!!!!!!!!!!!!!!
+\begin{thebibliography}{99}
 \addcontentsline{toc}{section}{References}
 
 \bibitem{Robertson2014} Robertson, A. N., Jonkman, J., and Musial, W. (2014). \textit{OC4-DeepCwind Semi-Submersible Baseline Control System Design}. National Renewable Energy Laboratory (NREL), Golden, CO.
