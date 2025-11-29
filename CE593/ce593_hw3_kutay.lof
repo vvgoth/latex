@@ -1,4 +1,8 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces Surface elevation $\eta (t)$ for individual wave components of $i = 1, 10, 30, 50$.}}{5}{figure.caption.2}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Total surface elevation $\eta (t)$ over 0–300 s from the superposition of 50 components.}}{5}{figure.caption.3}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Total surface elevation $\eta (t)$ over 0–300 s from the superposition of 500 components.}}{6}{figure.caption.4}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Total surface elevation $\eta (t)$ over 0–300 s from the superposition of 1000 components.}}{6}{figure.caption.5}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Histogram of Non-dimensional Wave Heights $H/H_m$}}{7}{figure.caption.2}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Empirical PDF vs Rayleigh Distribution}}{7}{figure.caption.3}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Rayleigh Distribution Linearity Test}}{8}{figure.caption.4}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Contour Plot of Joint Distribution $p(x,\tau )$}}{8}{figure.caption.5}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Variance Density Spectrum $S(f)$}}{9}{figure.caption.6}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Comparison of $H_{1/3}$ and $H_{m0}$}}{9}{figure.caption.7}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Original vs Filtered Surface Elevation}}{10}{figure.caption.9}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Monte-Carlo PDFs of $H_{max}/H_s$ for Different $N$}}{11}{figure.caption.10}%

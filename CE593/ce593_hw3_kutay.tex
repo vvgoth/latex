@@ -90,87 +90,189 @@
 \newpage
 
 \listoffigures
+\listoftables
 \newpage
 
 \section{Introduction}
 
-\hspace*{0.5cm}Random sea waves observed in the ocean can be represented as a superposition of linear wave components with different frequencies, amplitudes, and directions. Each wave component contributes to the overall sea surface elevation, and the combined effect results in a random complex surface profile. 
+\hspace*{0.5cm}Random sea waves arise from the superposition of many wave components with different frequencies, amplitudes, and phases. The sea surface fluctuates irregularly due to these components. These irregular waves are represented by wave spectra, which describe how wave energy is distributed across frequencies.
 
-In this assignment, a MATLAB routine was developed to generate and visualize the surface elevation of random sea waves based on a specified wave spectrum. The Pierson-Moskowitz (PM) spectrum, which describes the energy distribution of fully developed sea states, was used as the basis for generating the wave components. 
+In this study, a statistical analysis of a random sea surface was carried out using MATLAB. A Pierson-Moskowitz spectrum was used to generate the amplitudes of 1000 frequency components in the range of 0.1  Hz to 2 Hz. The total surface elevation $\eta(t)$ was obtained by summing these components with random phases. The resulting surface elevation time series was analyzed to extract wave statistics such as significant wave height, mean period, the Rayleigh distribution of individual height records, joint statistics of $H$ and $T$, and the variance density spectrum $S(f)$.
 
-The aim of this study is to demonstrate how a random wave field can be created from a known spectrum and to visualize the resulting sea surface elevation over a specified spatial domain. 
+A new time series was also generated from the variance density spectrum to verify that it matched the original statistics. Additionally, a low-pass filter was applied to observe its effect on the surface elevation. Finally, a Monte-Carlo simulation was performed to estimate the probability distribution of maximum wave heights for different numbers of waves.
 
 \section{Methodology}
 
-\hspace*{0.5cm}The sea surface was modeled as the sum of $N$ sinusoidal wave components where $N = 50$ is the number of frequency components, $f_i$ are the wave frequencies between $0.1\,\mathrm{Hz}$ and $10\,\mathrm{Hz}$, $a_i$ are the amplitudes, and $\varepsilon_i$ are random phases uniformly distributed between $0$ and $2\pi$ (\autoref{eq:surface_elevation}).
+\subsection{Creating Wave Surface Elevation}
+
+\hspace*{0.5cm}A set of $N = 1000$ frequencies was created between $0.1\,\mathrm{Hz}$ and $2\,\mathrm{Hz}$. The frequencies were randomly distributed within this range by dividing it into $N$ equal intervals and selecting a random frequency within each interval. For each frequency $f_i$, the deep water PM spectrum (\autoref{eq:spectrum}) was used to calculate the amplitude $a_i$ (\autoref{eq:amplitude}). Random phases $\varepsilon_i$ were generated uniformly between $0$ and $2\pi$. The surface elevation $\eta(t)$ was then computed as the sum of all wave components using \autoref{eq:surface_elevation}. Mean sea level correction was applied to ensure the average surface elevation was zero.
+
+\begin{equation}
+    S(f_i) = 0.205A^2B^{-4}f_i^{-5} \exp(-0.75(Bf_i)^{-4})
+    \label{eq:spectrum}
+\end{equation}
+
+\begin{equation}
+    a_i = \sqrt{2S(f_i)\Delta f}
+    \label{eq:amplitude}
+\end{equation}
 
 \begin{equation}
     \eta(t) = \sum_{i=1}^{N} a_i \cos(2 \pi f_i t + \varepsilon_i)
     \label{eq:surface_elevation}
 \end{equation}
 
-The amplitude of each component was obtained from the Pierson-Moskowitz spectrum (\autoref{eq:pm_spectrum}), which is defined as:
+\subsection{Zero-Upcrossing Method}
+\hspace{0.5cm}The zero-upcrossing method was employed to identify individual waves in the surface elevation time series. The times when the surface elevation crossed zero from below were recorded as upcrossing times. For each wave defined between two consecutive upcrossings, the wave height $H_i$ was calculated as the difference between the maximum and minimum surface elevations within that interval. The wave period $T_i$ was determined as the time difference between the two upcrossings. From these individual wave records, characteristic wave parameters such as significant wave height $H_{1/3}$, mean wave height $H_m$, root mean square wave height $H_{rms}$, mean wave period $T_m$, and significant wave period $T_{1/3}$ were computed.
+
+\subsection{Histogram and Rayleigh Distribution}
+\hspace{0.5cm}A histogram of the non-dimensional wave heights $H/H_m$ was created using a bin width of 0.1. The empirical probability density function (pdf) was estimated from the histogram counts (\autoref{pdf}). The Rayleigh distribution for wave heights was also plotted for comparison, given by \autoref{eq:rayleigh_pdf}. The empirical and Rayleigh pdfs were compared visually, and a linearity test was performed by plotting $\sqrt{-\ln Q}$ against $H/H_m$, where $Q$ is the exceedance probability.
+
 \begin{equation}
-    a_i = 2\Delta f [0.205A^2B^{-4}f_i^{-5} \exp(-0.75(Bf_i)^{-4})]\phi(\omega_i)
-    \label{eq:pm_spectrum}
+    p_{emp}(x) = \frac{\text{counts}}{N_{w} \Delta x}
+    \label{pdf}
 \end{equation}
 
-where $A = 0.15, B = 1.6, \omega_i = 2\pi f_i$ and $\phi(\omega_i)$ is a correction factor defined as:
 \begin{equation}
-\begin{split}
-\phi(\omega_i) = \frac{1}{2\,n_i}\tanh^2\!(k_i h),\\
-n_i = \frac{1}{2}\left[1+\frac{2k_i h}{\sinh(2k_i h)}\right]
-\end{split}
-\label{eq:phi}
+    p_{R}(x) = \frac{\pi}{2} x \exp\left(-\frac{\pi}{4} x^2\right)
+    \label{eq:rayleigh_pdf}
 \end{equation}
 
-The wave length $L_i$ for each frequency component was calculated using the  dispersion equation from the previous assignment. The wave numbers $k_i$ were then determined as $k_i = 2\pi / L_i$ and $h$ was taken as $0.4 m$. The random phases $\varepsilon_i$ were generated using MATLAB's random number generator between 0 and $2\pi$. The surface elevation $\eta(t)$ was computed over a time vector $t_1$ ranging from $0$ to $10\,\mathrm{s}$ with a time step of $\Delta t = 0.05\,\mathrm{s}$ to display individual wave components ($\eta_1, \eta_{10}, \eta_{30}, \eta_{50}$) and a time vector $t_2$ ranging from $0$ to $300\,\mathrm{s}$ with a time step of $\Delta t = 0.05\,\mathrm{s}$ to visualize the complete sea surface elevation $\eta(t)$. 
+\subsection{Joint Distribution of H and T}
 
-Finally, the surface elevation was plotted against time to visualize the random wave field.
+\hspace{0.5cm}The joint distribution of non-dimensional wave heights $H/H_m$ and non-dimensional wave periods $T/T_m$ was analyzed by creating a 2D histogram. The joint probability density function $p(x,\tau)$ was estimated from the counts in each bin divided by the total number of waves and the area of each bin (\autoref{2d_histogram}). A contour plot was generated to visualize the joint distribution. 
+\begin{equation}
+    p(x,\tau) = \frac{\text{counts}}{N \Delta x \Delta \tau}
+    \label{2d_histogram}
+\end{equation}
+
+\subsection{Variance Density Spectrum}
+\hspace{0.5cm}The variance density spectrum $S(f)$ of the surface elevation time series was computed using the Fast Fourier Transform (FFT) (\autoref{eq:fft}). The one-sided spectrum was calculated from the FFT coefficients, and the zeroth moment $m_0$ was obtained by integrating $S(f)$ over frequency (\autoref{eq:m0}). The significant wave height from the spectrum $H_{m0}$ was calculated using \autoref{eq:hm0}.
+
+\begin{equation}
+    S(f) = \frac{2}{N_{fft} F_s} |E(f)|^2
+    \label{eq:fft}
+\end{equation}
+
+\begin{equation}
+    m_0 = \int S(f) df
+    \label{eq:m0}
+\end{equation}
+
+\begin{equation}
+    H_{m0} = 4 \sqrt{m_0}
+    \label{eq:hm0}
+\end{equation}
+
+\subsection{Recreating Surface Elevation from Spectrum}
+
+\hspace{0.5cm}A new surface elevation time series was generated from the variance density spectrum. The amplitudes for each frequency component were calculated from $S(f)$, and new random phases were assigned. The new surface elevation $\eta_{new}(t)$ was computed by summing these components. The zero-upcrossing method was applied to the new time series to extract wave statistics, which were then compared to those of the original series. 
+
+\subsection{Low-Pass Filtering}
+
+\hspace{0.5cm}A low-pass filter with a cutoff frequency of $1\,\mathrm{Hz}$ was applied to the original surface elevation time series in the frequency domain. The FFT coefficients corresponding to frequencies above the cutoff were set to zero, and the inverse FFT was used to obtain the filtered surface elevation $\eta_{f<1}(t)$. A comparison plot of the original and filtered time series over a 20-second interval was created.
+
+\subsection{Monte-Carlo Simulation of Maximum Wave Heights}
+
+\hspace{0.5cm}A Monte-Carlo simulation was performed to estimate the probability distribution of maximum wave heights $H_{max}$ for different numbers of waves $N = 100, 1000, 10000$. For each $N$, $5000$ simulations were run where $N$ random wave heights were generated from the Rayleigh distribution. The maximum wave height from each simulation was recorded, and histograms were created to estimate the pdf of $H_{max}/H_s$. The mean, median, and mode of the distributions were calculated and reported.
 
 \section{Results}
-
-\hspace{0.5cm}\autoref{fig:partial_sums} illustrates four individual wave components ($\eta_1(t)$, $\eta_{10}(t)$, $\eta_{30}(t)$, and $\eta_{50}(t)$) each corresponding to a different frequency in the [0.1,10] Hz band. The amplitudes of the waves vary with frequency. Lower frequencies show longer period, larger wavelength oscillations, while higher frequencies produce shorter and faster oscillations of smaller amplitude. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{partial_sums.png}
-\caption{Surface elevation $\eta(t)$ for individual wave components of $i = 1, 10, 30, 50$.}
-\label{fig:partial_sums}
-\end{figure}
-
-\autoref{fig:total_elevation} presents the total surface elevation $\eta(t)$ obtained by summing all 50 wave components over a period of 300 seconds. The plot exhibits irregular fluctuations and brief wave groups that form through the interaction of waves with similar frequencies.
+\hspace{0.5cm}The statistical characteristics of individual wave heights were first examined through the non-dimensional histogram shown in \autoref{fig:histogram}. The distribution displays the expected Rayleigh-type behaviour, where moderate wave heights occur most frequently and both very small and very large waves appear less often. This behaviour is quantified further in \autoref{fig:pdf_rayleigh}, where the empirical probability density function aligns closely with the theoretical Rayleigh curve across most of the range. Additional confirmation is provided by the linearity test in \autoref{fig:rayleigh_linearity}. The points follow the theoretical straight line with only small deviations. In several simulations an isolated point appeared near the upper end of the plot. Such occasional large values are consistent with the physics of random waves, since constructive interference of multiple frequency components can generate a much larger wave even when the underlying distribution is Rayleigh.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{eta_total.png}
-\caption{Total surface elevation $\eta(t)$ over 0–300 s from the superposition of 50 components.}
-\label{fig:total_elevation}
-\end{figure}
-
-To examine how the number of overlapping waves influences the simulated sea surface, the analysis was repeated for N=50, N=500 (\autoref{fig:n500}), and N=1000 (\autoref{fig:n1000}). Increasing N directly increases the number of individual wave components that are combined to form the total surface elevation. When only a small number of components are used, the sea surface is shaped by a few dominant frequencies, which produces a somewhat repetitive pattern. As more components are added, a larger range of frequencies interact simultaneously, and the resulting interference creates a surface that varies more irregularly in both height and period.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{n500.png}
-\caption{Total surface elevation $\eta(t)$ over 0–300 s from the superposition of 500 components.}
-\label{fig:n500}
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/histogram.png}
+    \caption{Histogram of Non-dimensional Wave Heights $H/H_m$}
+    \label{fig:histogram}
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{n1000.png}
-\caption{Total surface elevation $\eta(t)$ over 0–300 s from the superposition of 1000 components.}
-\label{fig:n1000}
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Rayleigh.png}
+    \caption{Empirical PDF vs Rayleigh Distribution}
+    \label{fig:pdf_rayleigh}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Rayleigh linear.png}
+    \caption{Rayleigh Distribution Linearity Test}
+    \label{fig:rayleigh_linearity}
+\end{figure}
+
+The relationship between non-dimensional wave heights and wave periods was examined through the joint probability distribution shown in \autoref{fig:contour}. The contours illustrate how the majority of waves cluster around moderate values of both height and period. The highest probability densities appear near the mean period and mean height, while both longer and shorter period waves occur less frequently.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/contour.png}
+    \caption{Contour Plot of Joint Distribution $p(x,\tau)$}
+    \label{fig:contour}
+\end{figure}
+
+The variance density spectrum $S(f)$ presented in \autoref{fig:spectrum} describes how the total energy of the wave field is distributed across frequencies. The spectrum exhibits a clear peak at the dominant frequency, after which the spectral energy decays smoothly toward both higher and lower frequencies. This shape reflects the characteristics of the Pierson–Moskowitz-type formulation used implicitly in the construction of the random sea state. From the spectrum, the zeroth spectral moment was computed and used to obtain the spectral significant wave height $H_{m0}$. The value of $H_{m0}$ closely matched the time-domain significant wave height $H_{1/3}$, and the comparison in \autoref{fig:difference} demonstrates the consistency between the two independent methods.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/Var Den.png}
+    \caption{Variance Density Spectrum $S(f)$}
+    \label{fig:spectrum}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figures/difference.png}
+    \caption{Comparison of $H_{1/3}$ and $H_{m0}$}
+    \label{fig:difference}
+\end{figure}
+
+The characteristic wave parameters derived from the reconstructed time series were compared with those obtained from the original simulated sea surface. As presented in Table \ref{tab:wave_parameters}, the values of $H_{1/3}$, $H_{m}$, $H_{rms}$, $T_{m}$, and $T_{1/3}$ agree well, with only very small differences due to random phases. These results show that the essential properties of the wave field are preserved when the surface elevation is regenerated from the variance density spectrum.
+
+\begin{table}[H]
+    \centering
+    \caption{Characteristic Wave Parameters from Original and Recreated Time Series}
+    \begin{tabular}{lcc}
+        \hline
+        Parameter & Original Series & Recreated Series \\
+        \hline
+        $H_{1/3}$ (m) & 0.151 & 0.149 \\
+        $H_m$ (m) & 0.097 & 0.095 \\
+        $H_{rms}$ (m) & 0.108 & 0.106 \\
+        $T_m$ (s) & 1.373 & 1.335 \\
+        $T_{1/3}$ (s) & 1.600 & 1.589 \\
+        \hline
+    \end{tabular}
+    \label{tab:wave_parameters}
+\end{table}
+
+A low-pass filter with a cut-off frequency of 1 Hz was applied to the original time series in order to isolate the lower-frequency components of the sea surface elevation. The comparison between the filtered and unfiltered signals shown in \autoref{fig:filter} demonstrates how high-frequency oscillations are effectively removed, leaving a smoother and more slowly varying profile. The filtered series retains the general character of the original elevation because the dominant energy of the spectrum lies below the cut-off frequency. Physically, this process represents the separation of longer-period motions associated with swell from the shorter-period irregular components characteristic of local wind waves. The close resemblance between the two series confirms that the high-frequency portion carries relatively little energy for this particular sea state.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/Low Filter.png}
+    \caption{Original vs Filtered Surface Elevation}
+    \label{fig:filter}
+\end{figure}
+
+The Monte-Carlo simulations for different numbers of waves are shown in \autoref{fig:monte_carlo}. As N increases, the pdf curves rise and the peak becomes sharper. This happens because a longer record gives more chances to sample the tail of the Rayleigh distribution. The more waves included in the sea state, the higher the expected maximum becomes. The narrowing of the distribution is also expected. With many waves, the maximum height becomes statistically more consistent across simulations, which reduces the spread in the results. The mean, median, and mode values calculated from the distributions confirm these trends, with all three metrics increasing as N grows larger. This behaviour aligns with theoretical expectations for extreme value statistics in random wave fields.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/Monte-Carlo.png}
+    \caption{Monte-Carlo PDFs of $H_{max}/H_s$ for Different $N$}
+    \label{fig:monte_carlo}
+\end{figure}
+
 
 \section{Conclusion and Discussion}
 
-\hspace{0.5cm}In this study, a random sea surface was generated by adding together several sinusoidal wave components with different frequencies, amplitudes, and random phases. The Pierson-Moskowitz spectrum was used to determine the amplitude of each wave component based on its frequency. 
+\hspace{0.5cm}In this assignment, the surface elevation of a random sea state was generated and analyzed through a sequence of statistical and spectral methods. Starting from a finite set of linear wave components defined by the Pierson–Moskowitz spectrum, the time series was constructed in the time domain and evaluated through zero-upcrossing analysis to obtain the characteristic wave parameters. The non-dimensional wave height distribution followed the Rayleigh model closely, and the linearity test verified this behavior with a strong correlation. Minor outliers occasionally appeared in the tail of the distribution, which is expected when rare, unusually large waves occur during the simulation.
 
-Increasing the number of components N directly increased the number of overlapping waves forming the total surface. For smaller N, the resulting time series appeared more repetitive. As N increased, more waves interacted, creating more interference and a surface that varied randomly over time.
+The joint distribution of wave heights and periods captured the dependence structure between the two variables and showed that most waves cluster near their mean values. The variance density spectrum computed through the FFT matched the shape expected from the prescribed sea state, and the significant wave height derived from the spectral moments remained consistent with the time-domain estimate. Reconstructing a new surface elevation from the spectrum produced a time series whose statistical properties were almost identical to those of the original one, demonstrating that the energy distribution fully defines the overall behavior of the sea surface for linear waves.
 
-This approach effectively simulates the complex and irregular nature of real sea surfaces, demonstrating how random wave fields can be constructed from known spectral characteristics. 
+The low-pass filtering step confirmed how spectral manipulation influences the time-domain signal by removing high-frequency fluctuations and producing a smoother elevation profile. Finally, the Monte-Carlo simulations illustrated how the maximum wave height depends on the sample size. Larger simulations naturally produce higher expected maxima and more concentrated distributions, reflecting the statistical properties of extreme values rather than changes in the physical sea state.
+
+Overall, the results show that random wave fields generated from a given spectrum behave consistently across both time-domain and frequency-domain perspectives. The statistical analyses confirm the theoretical expectations for linear wave superposition and provide insights into the characteristics of irregular sea surfaces.
+
 \newpage
 
 \begin{thebibliography}{99}
@@ -178,6 +280,10 @@ This approach effectively simulates the complex and irregular nature of real sea
 
 \bibitem{Baykal2023}
 Baykal, C. (2023). \textit{Lecture notes for CE 593 Statistical analysis in coastal engineering.} Middle East Technical University.
+
+\bibitem{Holthuijsen2007}
+Holthuijsen, L. H. (2007). \textit{Waves in Oceanic and Coastal Waters.} Cambridge University Press.
+
 
 \end{thebibliography}
 \newpage
@@ -515,7 +621,7 @@ end
 xlabel('H_{max} / H_s');
 ylabel('Probability density');
 title('Monte-Carlo PDFs of H_{max} / H_s for Different N');
-legend('Location','northeast');
+legend('Location','northwest');
 grid on;
 \end{lstlisting}
 
