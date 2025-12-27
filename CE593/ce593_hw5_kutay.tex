@@ -1,0 +1,411 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{matlab-prettifier}
+\usepackage{float}
+\usepackage[small,bf,hypcap=true]{caption}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\graphicspath{{./Figures}}
+
+% Configure the header
+\pagestyle{fancy} % Enable fancy headers
+\fancyhead[L]{CE 593} % Left-aligned header
+\fancyhead[C]{Statistical Analysis in Coastal Engineering} % Centered header
+\fancyhead[R]{26/12/2025} % Right-aligned header
+
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}      % space between floats
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}  % space between floats and text
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}     % space above and below in-text floats
+
+\onehalfspacing
+
+\begin{document}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12}{10}\selectfont}
+  {\large\thesection.} 
+  {0.3em}
+  {}
+
+\thispagestyle{empty}
+
+\begin{figure}[H]
+    \vspace{0.6cm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{logo.png}
+\end{figure}
+\vspace{0.8cm}
+
+\begin{center}
+    \textbf{\LARGE Middle East Technical University}
+    \vspace{0.3cm}
+
+    \textbf{\LARGE Department of Civil Engineering}
+    \vspace{0.5cm}
+
+    \textbf{\Large 2025-2026 Fall Semester}
+    \vspace{1.5cm}
+
+    \textbf{\Large CE593 Statistical Analysis in Coastal Engineering}
+    \vspace{0.9cm}
+
+    \textbf{\LARGE Homework \#5}
+    \vspace{1.5cm}
+
+    \large Instructor:
+
+    \large Assoc.Prof.Dr. Cüneyt Baykal
+    \vspace{1.2cm}
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+
+    \large 2511798
+
+\end{center}
+
+\newpage
+\renewcommand{\contentsname}{Table of Contents} 
+\begin{center}
+    \tableofcontents
+\end{center}
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+\section{Introduction}
+
+\hspace*{0.5cm}Wave transformation processes such as shoaling, refraction, and depth-induced breaking play a key role in determining nearshore wave conditions. As waves propagate from deep water toward shallow regions, their heights, directions, and energy distributions are modified by changes in water depth and seabed geometry. For irregular sea states, these transformations must be evaluated in a statistical framework, since the wave field consists of a superposition of many components with different frequencies and directions.
+
+In this study, the transformation of a given offshore random sea state is examined at a water depth of 10~m under the assumption of parallel bottom contours and a uniform bottom slope of 1/30. The offshore wave conditions are defined by a significant wave height of $H_{s0}=4$~m, a significant wave period of $T_s=8$~s, and a mean wave direction of $30^\circ$. Linear wave theory is used throughout the analysis.
+
+The problem is addressed in four stages. First, wave shoaling and refraction are evaluated for a regular wave using analytical expressions derived from linear theory. Second, random wave refraction is computed numerically by discretizing a JONSWAP spectrum and applying refraction to individual frequency and direction components. Third, the numerical results are compared with refraction coefficients obtained from the graphical method proposed by Goda. Finally, depth-induced wave breaking is considered using the Goda (1975) model in order to assess whether breaking further limits the significant wave height at the target depth.
+
+The objective of this report is to compare the results obtained from different transformation approaches and to investigate the relative influence of refraction, directional spreading, and depth-induced breaking on the nearshore significant wave height.
+
+
+\section{Methodology}
+
+\subsection{Regular Wave Transformation}
+
+\hspace*{0.5cm}In the first part of the analysis, wave transformation is evaluated for a regular wave with period $T_s = 8$~s going toward a water depth of $h = 10$~m. Linear wave theory is assumed, and wave breaking is neglected at this stage.
+
+The wavelength at the target depth is obtained by solving the linear dispersion relation numerically. Based on the resulting wave number $k$, the shoaling coefficient is computed using an expression derived from the group velocity formulation of linear wave theory,
+\begin{equation}
+K_s =
+\left[
+\tanh(kh) + kh\left(1 - \tanh^2(kh)\right)
+\right]^{-1/2}.
+\end{equation}
+This expression is equivalent to the ratio of deep-water to finite-depth group velocities and provides a representation of linear shoaling.
+
+Wave refraction is evaluated using Snell’s law under the assumption of parallel depth contours. The refracted wave angle at $h = 10$~m is obtained as
+\begin{equation}
+\sin \alpha_{10} = \tanh(kh)\sin \alpha_0,
+\end{equation}
+where $\alpha_0$ is the offshore wave angle. The corresponding refraction coefficient is computed from energy conservation across wave rays as
+\begin{equation}
+K_r = \sqrt{\frac{\cos \alpha_0}{\cos \alpha_{10}}}.
+\end{equation}
+
+The transformed wave height at the target depth is then obtained by combining shoaling and refraction effects,
+\begin{equation}
+H_s(10\,\mathrm{m}) = H_{s0} K_s K_r.
+\end{equation}
+This result serves as a reference case for comparison with random-wave approaches considered in following sections.
+
+
+\subsection{Random Wave Refraction - Spectral Method}
+
+\hspace{0.5cm}In the next part, wave refraction is evaluated for an irregular sea state by  accounting for the frequency and directional spreading of wave energy. The sea state is represented by a JONSWAP spectrum with peak enhancement factor $\gamma = 3$.
+
+The peak period $T_p$ is estimated from the given significant wave period $T_s$ using the relation proposed by Goda. The frequency spectrum is then discretized into $N_f = 10$ representative frequency components. The discretization is performed such that each frequency bin contains an equal portion of the total spectral energy. For each bin, a representative frequency is defined as the energy-weighted mean frequency within that interval, and the corresponding representative wave period is obtained.
+
+Directional spreading is modeled using a cosine-power distribution of the form
+\begin{equation}
+D(\theta) \propto \cos^{2s_{\max}}(\theta),
+\end{equation}
+with $s_{\max} = 10$. The directional range is limited to $\pm 90^\circ$ about the mean wave direction, and the distribution is normalized so that the sum of directional energy fractions equals to 1. A total of $N_d = 16$ directional bins is used.
+
+Each $(T_i,\theta_j)$ component is treated as an individual regular wave and refracted independently. For each frequency component, the deep-water phase speed is computed analytically, while the finite-depth phase speed at $h = 10$~m is obtained from the dispersion relation. Snell’s law is applied to determine the refracted wave angle for each component, and the corresponding regular-wave refraction coefficient is calculated.
+
+The overall random-wave refraction coefficient is then obtained by energy-weighted averaging,
+\begin{equation}
+K_{r,\mathrm{irr}} =
+\left(
+\frac{\sum K_{r,ij}^2 E_{ij}}{\sum E_{ij}}
+\right)^{1/2},
+\end{equation}
+where $E_{ij}$ denotes the energy associated with the $i$-th frequency bin and $j$-th directional bin. The significant wave height at the target depth is finally obtained by combining this refraction coefficient with the shoaling coefficient computed in the first part.
+
+
+\subsection{Random Wave Refraction - Goda Charts}
+
+\hspace{0.5cm}In addition to the numerical spectral approach, random-wave refraction was also evaluated using the graphical method proposed by Goda. This method provides refraction coefficients and predominant wave directions for irregular waves by implicitly accounting for directional spreading effects through precomputed charts. Unlike the numerical approach in the previous part, this method does not require explicit discretization of the frequency or directional spectrum and instead relies on visual interpolation based on offshore wave conditions and relative depth.
+
+For the given offshore wave angle and water depth, the random-wave refraction coefficient $K_{r,\mathrm{irr}}$ was obtained directly from Goda's refraction chart (\autoref{fig:goda_chart_Kr}). The predominant wave direction at the target depth was also estimated from the corresponding directional chart (\autoref{fig:goda_chart_direction}). Since the values are read graphically, the resulting coefficients are approximate and are expected to differ slightly from the numerically integrated results presented in the previous part. Nevertheless, the graphical method provides a useful independent estimate and serves as a benchmark for comparison with the spectral refraction analysis.
+\vspace{1cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{goda_Kr_chart.png}
+    \caption{Chart used to estimate the random-wave refraction coefficient. (Lecture notes, adapted from Goda, 2010)}
+    \label{fig:goda_chart_Kr}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{goda_direction_chart.png}
+    \caption{Chart used to estimate the predominant wave direction at the target depth. (Lecture notes, adapted from Goda, 2010)}
+    \label{fig:goda_chart_direction}
+\end{figure}
+
+
+
+\subsection{Depth-Induced Breaking - Goda (1975)}
+
+\hspace{0.5cm}In the final part of the analysis, depth-induced breaking of random waves is accounted for using the model proposed by Goda (1975) for a uniformly sloping seabed. In this approach, the probability distribution of wave heights is modified to reflect the limitation imposed by shallow-water breaking, resulting in an upper bound on the significant wave height.
+
+For random waves, the breaking-limited significant wave height $H_{1/3}$ is expressed as:
+
+\begin{equation}
+H_{1/3} =
+\begin{cases}
+K_s H_0', & h/L_0 \geq 0.2, \\
+\min\left[ (\beta_0 H_0' + \beta_1 h),\; \beta_{\max} H_0',\; K_s H_0' \right], & h/L_0 < 0.2,
+\end{cases}
+\end{equation}
+where $H_0'$ denotes the incident significant wave height after refraction, $L_0$ is the deep-water wavelength corresponding to the representative wave period, $h$ is the local water depth, and $K_s$ is the linear shoaling coefficient.
+
+The empirical coefficients $\beta_0$, $\beta_1$, and $\beta_{\max}$ are functions of the offshore wave steepness $H_0'/L_0$ and the bottom slope $s$, and are given by:
+
+\begin{align}
+\beta_0 &= 0.028 \left( \frac{H_0'}{L_0} \right)^{-0.38} \exp\!\left(20 s^{1.5}\right), \\
+\beta_1 &= 0.52 \exp\!\left(4.2 s\right), \\
+\beta_{\max} &= \max \left[ 0.92,\; 0.32 \left( \frac{H_0'}{L_0} \right)^{-0.29} \exp\!\left(2.4 s\right) \right].
+\end{align}
+
+In this study, the bottom slope is taken as $s = 1/30$. The incident wave height $H_0'$ is obtained by applying the random-wave refraction coefficient from the second part to the offshore significant wave height. The resulting breaking-limited significant wave height at the target depth of 10~m is then compared with the non-breaking results obtained in previous parts.
+
+
+\section{Results}
+
+\hspace{0.5cm}Results obtained from the four wave transformation approaches described in the previous sections are summarized below. The significant wave height at a water depth of 10~m is reported for each method, together with the corresponding shoaling and refraction coefficients.
+
+\begin{table}[h!]
+\centering
+\caption{Summary of wave transformation results at $h = 10$~m.}
+\label{tab:results}
+\begin{tabular}{lccc}
+\hline
+\textbf{Method} & $K_s$ & $K_r$ / $K_{r,\mathrm{irr}}$ & $H_s$ at 10 m (m) \\
+\hline
+Regular wave theory & 0.933 & 0.962 & 3.591 \\
+Random wave (numerical) & 0.933 & 0.957 & 3.572 \\
+Random wave (Goda charts) & 0.933 & 0.930 & 3.470 \\
+With depth-induced breaking & 0.933 & 0.957 & 3.524 \\
+\hline
+\end{tabular}
+\end{table}
+
+Using regular wave theory, the combined effects of shoaling and refraction reduce the offshore significant wave height of 4~m to 3.591~m at a water depth of 10~m. When directional spreading is accounted for through numerical spectral refraction, the effective refraction coefficient decreases slightly, resulting in a significant wave height of 3.572~m.
+
+An alternative estimate based on the graphical refraction method yields a lower refraction coefficient and a corresponding significant wave height of 3.470~m at the same depth. When depth-induced breaking is considered using the Goda (1975) model, the significant wave height is further reduced to 3.524~m, indicating that breaking has a small but non-negligible effect under the given conditions.
+
+\section{Discussion and Conclusion}
+
+\hspace{0.5cm}The results obtained from the different wave transformation approaches exhibit a clear and physically consistent trend. The regular-wave analysis produces the largest significant wave height, as it represents a single-frequency, single-direction wave and therefore does not account for the effects of frequency and directional spreading. Under this assumption, refraction acts most effectively, leading to a higher transformed wave height at the target depth.
+
+When the sea state is treated as irregular and directional spreading is incorporated through numerical spectral refraction, the effective refraction coefficient is slightly reduced. This reduction reflects the redistribution of wave energy over multiple directions, not all of which refract toward the shore simultaneously. As a result, the significant wave height decreases compared to the regular-wave estimate. The graphical refraction method based on Goda's charts yields the lowest wave height, which is expected given the approximate and smoothed nature of the chart-based approach. Minor differences between the numerical and graphical methods are attributable to methodological simplifications rather than inconsistencies in the physics.
+
+The inclusion of depth-induced breaking using the Goda (1975) model further limits the nearshore significant wave height. At a water depth of 10~m, the relative depth is sufficiently large that breaking does not dominate the transformation process. Nevertheless, the breaking model creates an upper bound on wave height and results in a value that lies between the numerical and graphical refraction estimates. This shows that depth-induced breaking acts as another control mechanism compared to shoaling and refraction under the given wave and depth conditions.
+
+Overall, the analysis highlights the importance of accounting for the statistical nature of irregular waves when predicting nearshore wave conditions. While regular-wave theory provides a useful reference, random-wave approaches offer a more realistic representation of coastal wave transformation by incorporating directional spreading and breaking effects. The consistency of the results across the applied methods confirms the validity of the adopted models.
+
+\newpage
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{References}
+
+\bibitem{Baykal2023}
+Baykal, C. (2023). \textit{Lecture notes for CE 593 Statistical analysis in coastal engineering.} Middle East Technical University.
+
+\bibitem{Goda2010}
+Goda, Y. (2010). \textit{Random Seas and Design of Maritime Structures} (3rd ed.). World Scientific Publishing.
+
+
+\end{thebibliography}
+\newpage
+
+\appendix
+\section{Appendix}
+
+\section*{MATLAB Code:}
+\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
+% Given Parameters
+Hs0 = 4;
+Ts = 8;
+alpha0 = deg2rad(30);
+h = 10;
+g = 9.81;
+
+%% Part (a)
+
+L = dispersion_equation(Ts,h);
+k = 2*pi/L;
+
+Ks = 1/sqrt(tanh(k*h) + k*h*(1 - tanh(k*h)^2));
+
+alpha10 = asin(tanh(k*h)*sin(alpha0));
+Kr = sqrt(cos(alpha0)/cos(alpha10));
+
+Hs_10 = Hs0 * Ks * Kr;
+
+fprintf('\n--- Part (a) Results ---\n');
+fprintf('Ks         = %.3f\n', Ks);
+fprintf('Kr         = %.3f\n', Kr);
+fprintf('Hs at 10 m = %.3f m\n', Hs_10);
+
+%% Part (b)
+
+gamma = 3;
+smax  = 10;
+
+Nf = 10;
+Nd = 16;
+
+Tp = Ts / (1 - 0.132*(gamma + 0.2)^(-0.559));
+fp = 1/Tp;
+
+f = linspace(0.5*fp, 2.5*fp, 2000);
+
+sigma = 0.07*(f <= fp) + 0.09*(f > fp);
+r = exp(-(f - fp).^2 ./ (2*sigma.^2*fp^2));
+
+alpha = 0.0624*(Hs0^2*fp^4)^0.2;
+S = alpha * Hs0^2 * fp^4 .* f.^(-5) .* exp(-1.25*(fp./f).^4) .* gamma.^r;
+
+m0 = trapz(f,S);
+m0_bin = m0 / Nf;
+
+df = f(2)-f(1);
+
+T_rep = zeros(1,Nf);
+idx0 = 1;
+
+for i = 1:Nf
+    E = 0;
+    idx = idx0;
+    while E < m0_bin && idx < length(f)
+        E = E + S(idx)*df;
+        idx = idx + 1;
+    end
+    f_seg = f(idx0:idx);
+    S_seg = S(idx0:idx);
+    f_rep = trapz(f_seg,f_seg.*S_seg)/trapz(f_seg,S_seg);
+    T_rep(i) = 1/f_rep;
+    idx0 = idx;
+end
+
+theta_rel = linspace(-pi/2, pi/2, Nd);
+D = cos(theta_rel).^(2*smax);
+D = D / sum(D); 
+
+Kr2_sum = 0;
+E_sum   = 0;
+
+for i = 1:Nf
+    T = T_rep(i);
+
+    omega = 2*pi/T;
+    C0 = g / omega;
+    Ch = dispersion_equation(T,h)/T;
+
+    for j = 1:Nd
+        theta0 = alpha0 + theta_rel(j);
+
+        % Snell's law
+        sin_theta = (Ch/C0) * sin(theta0);
+        if abs(sin_theta) < 1
+            theta_h = asin(sin_theta);
+            Kr = sqrt(cos(theta0)/cos(theta_h));
+            Kr2_sum = Kr2_sum + Kr^2 * D(j);
+            E_sum   = E_sum   + D(j);
+        end
+    end
+end
+
+Kr_irr = sqrt(Kr2_sum / E_sum);
+
+Hs_10m = Hs0 * Ks * Kr_irr;
+
+fprintf('\n--- Part (b) Results ---\n');
+fprintf('Kr,irr     = %.3f\n',Kr_irr);
+fprintf('Hs at 10 m = %.3f m\n',Hs_10m);
+
+%% Part (c)
+
+% Values read from Goda (2010) plots
+Kr_irr_c  = 0.93;
+Hs_10_c = Hs0 * Ks * Kr_irr_c;
+
+fprintf('\n--- Part (c) Results ---\n');
+fprintf('Kr         = %.3f\n', Kr_irr_c);
+fprintf('Hs at 10 m = %.3f m\n', Hs_10_c);
+
+%% Part (d)
+
+slope = 1/30;
+
+Kr_d = Kr_irr;
+
+L0 = g * Ts^2 / (2*pi);
+hL = h / L0;
+
+H0p = Hs0 * Kr_d;
+
+steepness = H0p / L0;
+
+% Goda (1975) coefficients for H1/3 (Hs)
+beta0   = 0.028 * steepness^(-0.38) * exp(20*slope^1.5);
+beta1   = 0.52  * exp(4.2*slope);
+betaMax = max(0.92, 0.32 * steepness^(-0.29) * exp(2.4*slope));
+
+% Breaking-limited Hs at depth h
+if hL >= 0.2
+    Hs_10_d = Ks * H0p;
+else
+    Hs_10_d = min([ ...
+        beta0*H0p + beta1*h, ...
+        betaMax*H0p, ...
+        Ks*H0p ...
+    ]);
+end
+
+fprintf('\n--- Part (d) Results (Goda 1975 breaking) ---\n');
+fprintf('Kr         = %.3f\n', Kr_d);
+fprintf('Hs at 10 m = %.3f m\n', Hs_10_d);
+\end{lstlisting}
+
+
+\end{document}
