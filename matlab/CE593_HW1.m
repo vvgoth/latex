@@ -69,7 +69,6 @@ legend('Location','northwest');
 % Functions
 function L = dispersion_equation(T, h)
     global g
-    syms f(x)
     tolerance = 0.0001;
     err = tolerance + 1;
     L_guess = 1;

@@ -1,0 +1,384 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{matlab-prettifier}
+\usepackage{float}
+\usepackage[small,bf,hypcap=true]{caption}
+
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\graphicspath{{./Figures}}
+
+% Configure the header
+\pagestyle{fancy} % Enable fancy headers
+\fancyhead[L]{CE 594} % Left-aligned header
+\fancyhead[C]{Modeling of Coastal Engineering Problems} % Centered header
+\fancyhead[R]{17/01/2026} % Right-aligned header
+
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}      % space between floats
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}  % space between floats and text
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}     % space above and below in-text floats
+
+\onehalfspacing
+
+\begin{document}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12}{10}\selectfont}
+  {\large\thesection.} 
+  {0.3em}
+  {}
+
+\thispagestyle{empty}
+
+\begin{figure}[H]
+    \vspace{0.6cm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{logo.png}
+\end{figure}
+\vspace{0.8cm}
+
+\begin{center}
+    \textbf{\LARGE Middle East Technical University}
+    \vspace{0.3cm}
+
+    \textbf{\LARGE Department of Civil Engineering}
+    \vspace{0.5cm}
+
+    \textbf{\Large 2025-2026 Fall Semester}
+    \vspace{1.5cm}
+
+    \textbf{\Large CE594 - Modeling of Coastal Engineering Problems}
+    \vspace{0.9cm}
+
+    \textbf{\LARGE Term Project: Wave Modeling with SWAN}
+    \vspace{1.5cm}
+
+    \large Instructor:
+
+    \large Prof. Dr. Ahmet Cevdet YALÇINER
+    \vspace{1.2cm}
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+
+    \large 2511798
+
+\end{center}
+
+\newpage
+\renewcommand{\contentsname}{Table of Contents} 
+\begin{center}
+    \tableofcontents
+\end{center}
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+\section{Introduction}
+
+\hspace*{0.5cm}Wave modeling is a crucial tool in coastal engineering for estimating nearshore wave conditions when direct measurements are limited or unavailable. Numerical wave models allow offshore wave conditions to be transformed toward the coast by accounting for physical processes such as wave refraction, shoaling, breaking, and diffraction, which are particularly important in the vicinity of ports and harbor structures.
+
+In this study, nearshore wave conditions at the Port of Genova Pra’ are investigated using the SWAN (Simulating WAves Nearshore) model. The objective is to examine wave propagation and directional transformation from offshore toward the harbor area through nested SWAN simulations, with a focus on how different wave heights, wave periods, and wind forcing influence the resulting wave field.
+
+Four wave cases are analyzed in accordance with the project definition, including two cases with identical wave characteristics to isolate the effect of wind forcing, and two cases with increased wave height and varying wave period to assess the influence of wave period on nearshore wave transformation. For each case, spatial distributions of wave height and wave direction are obtained, and wave direction fields are examined using quiver plots.
+
+\section{Study Area and Bathymetry}
+
+\hspace{0.5cm}The study area for this project is the Port of Genova Pra', located on the Ligurian coast in the northwestern Mediterranean Sea. The port is an important container terminal within the Port of Genoa system and is exposed to offshore wave conditions approaching from the open sea. Due to its orientation and surrounding bathymetry, wave transformation processes become significant as waves propagate toward the harbor entrance.
+
+Bathymetric data for the offshore region were obtained from publicly available global databases and used to represent the large-scale seabed characteristics. These data were gridded to form the basis of the coarse SWAN model domain, which captures the incoming wave conditions and offshore wave transformation. To better resolve nearshore processes, a nested finer grid was defined around the Port of Genova Pra’ area. This nested grid allows for higher spatial resolution and improved representation of wave transformation as waves approach the harbor entrance and interact with local bathymetric features.
+
+Detailed bathymetric information inside the harbor basin was not available at sufficient resolution. Based on publicly available port information, the water depth inside the port was assumed to be 15 m, which is representative of the reported depth along the container terminal quays (Ports of Genoa, n.d.). This depth was applied uniformly within the harbor basin in the bathymetry file. While this is a simplification, it provides a reasonable and consistent representation of the inner port conditions for comparative analysis across different wave cases. Hard coastal structures such as breakwaters were included in the bathymetry by modifying depth values to represent their presence.
+
+\section{SWAN Model Setup}
+
+\hspace{0.5cm}The numerical simulations in this study were carried out using the SWAN (Simulating WAves Nearshore) model. SWAN is a spectral wave model widely used to simulate wave propagation from deep water to the nearshore by accounting for physical processes relevant to coastal environments.
+
+A three-level nested modeling approach was adopted to capture wave transformation at different spatial scales. The outermost model domain was defined with a grid spacing of 100 m, covering a broad offshore area to allow proper application of incoming wave boundary conditions. A second nested grid with 30 m resolution was introduced to better resolve nearshore bathymetric effects. Finally, a high-resolution inner grid with 10 m spacing was defined around the Port of Genova Pra', enabling detailed analysis of wave behavior near the harbor entrance and inside the port basin.
+
+The model was run in stationary mode, assuming steady conditions for each wave case. Offshore wave conditions were applied at the boundaries of the outer grid in parametric form, defined by significant wave height (Hs), wave period (Ts), and wave direction. For the second wave case, a uniform wind field with a speed of 20 m/s, aligned with the wave propagation direction, was included to examine the influence of wind forcing on the wave field.
+
+The activated physical processes include wave refraction due to depth variations, wave shoaling, and depth-induced wave breaking. Wave diffraction was not included in the simulations.
+
+Spatial distributions of significant wave height and wave direction from the 10 m grid were analyzed for each wave case. Wave direction fields were visualized using quiver plots to examine changes in wave propagation as waves approach and enter the port area.
+
+The defined wave cases are selected to isolate the effects of wind forcing and wave period on nearshore wave propagation. Cases 1 and 2 differ only by the inclusion of wind forcing, allowing a direct comparison of wind effects. Cases 3 and 4 represent higher wave conditions with different wave periods, enabling assessment of the influence of wave period on wave transformation near the harbor.
+
+\begin{table}[h!]
+\centering
+\caption{Definition of wave cases used in the SWAN simulations}
+\label{tab:wave_cases}
+\begin{tabular}{c c c c}
+\hline
+\textbf{Case} & \textbf{Hs (m)} & \textbf{Ts (s)} & \textbf{Wind Forcing} \\
+\hline
+1 & 5.0 & 8.0  & None \\
+2 & 5.0 & 8.0  & 20 m/s (West) \\
+3 & 7.0 & 8.5  & None \\
+4 & 7.0 & 13.5 & None \\
+\hline
+\end{tabular}
+\end{table}
+
+The wave periods provided in the project description correspond to the significant wave period, \(T_s\). Since SWAN requires the peak wave period, \(T_p\), as input for parametric wave conditions, the peak period was estimated using a constant conversion factor. In this study, the peak wave period was calculated as
+\begin{equation}
+T_p = 1.1\, T_s
+\end{equation}
+This approximation was applied consistently for all wave cases, and the resulting \(T_p\) values were used as input in the SWAN simulations.
+
+The offshore wave direction for all simulations was selected to represent the most vulnerable approach direction for the Port of Genova Pra'. Based on the orientation of the coastline and the harbor entrance, waves approaching from the \textbf{west} are expected to have the strongest impact on the study area. Therefore, a westward offshore wave direction was applied consistently for all wave cases to ensure a conservative and comparable assessment of nearshore wave conditions.
+
+\section{Results: Wave Direction and Significant Wave Height}
+
+\hspace{0.5cm}This section presents the results of the SWAN simulations for the four defined wave cases.
+All results correspond to the \textbf{innermost nested grid with 10 m resolution}. Wave direction is illustrated using quiver plots, while the background color shading represents the spatial distribution of significant wave height, \(H_s\), as indicated by the colorbars
+shown in each figure.
+
+\subsection{Case 1: $H_s = 5\,\mathrm{m},\; T_s = 8\,\mathrm{s}$ (No Wind)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{quiver_case01.pdf}
+\caption{Wave direction and significant wave height distribution for Case~1: $H_s = 5$ m, $T_s = 8$ s.}
+\label{fig:case1}
+\end{figure}
+
+Figure~\ref{fig:case1} presents the wave direction and significant wave height distribution for the baseline wave conditions without wind forcing. Offshore wave directions are uniform and aligned with the imposed westward boundary conditions. As waves propagate toward shallower depths, gradual turning of wave directions is observed due to bathymetry-induced refraction.
+
+The spatial distribution of significant wave height shows a reduction in $H_s$ toward the nearshore and inside the harbor basin. Lower wave heights are observed behind the breakwaters, indicating effective sheltering within the port. Wave penetration into the inner basin remains
+limited under these conditions. Overall, Case~1 provides a reference scenario for evaluating the effects of wind forcing and changes in wave height and wave period in the subsequent cases.
+
+\subsection{Case 2: $H_s = 5\,\mathrm{m},\; T_s = 8\,\mathrm{s}$ with Wind Forcing}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{quiver_case02.pdf}
+\caption{Wave direction and significant wave height distribution for Case~2: $H_s = 5$ m, $T_s = 8$ s with wind forcing.}
+\label{fig:case2}
+\end{figure}
+
+Figure~\ref{fig:case2} presents the wave field for Case~2, in which a uniform wind field with a speed of 20~m/s, aligned with the wave propagation direction, was applied. Compared to the baseline case, offshore wave directions appear more persistent and uniform, reflecting the influence of wind forcing on the wave field.
+
+The significant wave height distribution shows a clear increase in wave penetration into the harbor basin compared to Case~1. While wave heights inside the port remain lower than offshore values, the interior of the harbor is characterized by higher $H_s$ levels than in the no-wind case, indicating that wind forcing enhances wave energy transmission past the harbor entrance.
+Nearshore refraction patterns remain controlled primarily by bathymetry.
+
+\subsection{Case 3: $H_s = 7\,\mathrm{m},\; T_s = 8.5\,\mathrm{s}$}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{quiver_case03.pdf}
+\caption{Wave direction shown by arrows and significant wave height distribution shown by color shading
+for Case~3 with $H_s = 7$ m and $T_s = 8.5$ s.}
+\label{fig:case3}
+\end{figure}
+
+Figure~\ref{fig:case3} shows the wave field for increased wave height conditions. Compared to the lower wave height cases, the overall wave direction pattern remains similar, indicating that wave directions in the study area are primarily controlled by the imposed offshore wave direction and the local bathymetry.
+
+The significant wave height distribution shows higher offshore $H_s$ values, followed by a gradual reduction toward the nearshore and inside the harbor basin. Compared to Case~1, wave heights outside the harbor are higher, indicating increased wave energy under higher offshore wave conditions. Despite this increase, the breakwaters continue to provide effective sheltering, and wave heights within the inner harbor remain substantially lower than offshore values.
+
+\subsection{Case 4: $H_s = 7\,\mathrm{m},\; T_s = 13.5\,\mathrm{s}$}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{quiver_case04.pdf}
+\caption{Wave direction shown by arrows and significant wave height distribution shown by color shading
+for Case~4 with $H_s = 7$ m and $T_s = 13.5$ s.}
+\label{fig:case4}
+\end{figure}
+
+Figure~\ref{fig:case4} presents the wave field for the longest wave period considered in this study. Similar to Case~3, the overall wave direction pattern does not change significantly, suggesting that wave direction is largely insensitive to changes in wave period for the selected approach direction and bathymetric configuration.
+
+In contrast, differences are observed in the significant wave height distribution. Although Case~4 represents longer-period waves, the wave heights inside the harbor are lower than those observed in Case~3. This indicates that, under the present modeling setup, wave energy penetration into the harbor is more strongly influenced by wave alignment and harbor geometry than by wave period alone. The absence of diffraction limits the ability of long-period waves to bend into the sheltered harbor basin, leading
+to reduced wave heights inside the port compared to the shorter-period case.
+
+\section{Discussion and Limitations}
+
+\hspace{0.5cm}The results obtained from the SWAN simulations highlight the relative influence of wind forcing, wave height, and wave period on nearshore wave conditions at the Port of Genova Pra'. Across all cases, the overall wave direction patterns remain largely similar, indicating that wave direction in the study area is primarily controlled by the imposed
+offshore wave direction and the local bathymetry rather than by changes in wave height or wave period alone.
+
+A clear difference is observed between Cases~1 and~2, where the inclusion of wind forcing leads to increased wave penetration into the harbor basin. The significant wave height distribution shows higher wave heights throughout the interior of the port in the wind-forced case, demonstrating that wind can significantly enhance wave energy transmission past the harbor entrance even when offshore wave characteristics remain unchanged. Among all simulated cases, Case~2 produces the highest significant wave heights inside the harbor.
+
+Comparisons between Cases~3 and~4 indicate that increasing wave period does not necessarily result in higher wave heights inside the harbor. Although long-period waves interact with the seabed at greater depths and undergo stronger offshore transformation, wave heights within the harbor basin are lower in Case~4 than in Case~3. This suggests that wave energy penetration into the port is more strongly influenced by harbor geometry and wave alignment than by wave period alone.
+
+Based on these results, Case~2 is considered the governing design wave condition for the Port of Genova Pra', as it leads to the most severe wave conditions inside the harbor basin from an operational and harbor agitation perspective.
+ 
+It should be noted that wave diffraction was not included in the present simulations. Diffraction can be particularly important for long-period waves entering sheltered harbor basins, and its absence may contribute to the reduced wave heights observed inside the port for Case~4. In addition, the bathymetry inside the harbor was represented using a simplified constant depth due to limited data availability. While these assumptions are considered
+reasonable for comparative analysis, they may affect the detailed distribution of wave conditions within the inner basin.
+
+Despite these limitations, the adopted modeling approach is sufficient to capture the main trends in wave transformation and to assess the relative effects of wind forcing and wave characteristics on nearshore wave conditions at the Port of Genova Pra'.
+
+\section{Conclusion}
+
+\hspace{0.5cm}In this study, nearshore wave conditions at the Port of Genova Pra' were investigated using nested SWAN simulations under four different wave scenarios. The results show that wave direction patterns are largely controlled by the offshore wave approach direction and local
+bathymetry, while changes in wave height, wave period, and wind forcing primarily affect the magnitude of wave energy penetrating into the harbor.
+
+Wind forcing was found to play a dominant role in increasing significant wave heights inside the port. Among the considered cases, the wind-forced scenario (Case~2) produced the most severe wave conditions within the harbor basin and was therefore identified as the governing design wave condition for the study area. Despite certain modeling simplifications, the results provide useful insight into wave transformation processes relevant to coastal engineering applications at the Port of Genova Pra'.
+
+\newpage
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{References}
+
+\bibitem{SWAN}
+Booij, N., Ris, R. C., \& Holthuijsen, L. H. (1999). A third-generation wave model for coastal regions: 1. Model description and validation. \textit{Journal of Geophysical Research: Oceans}, \textit{104}(C4), 7649--7666.
+https://doi.org/10.1029/98JC02622
+
+\bibitem{GEBCO}
+GEBCO Compilation Group. (2023). \textit{GEBCO 2023 grid}. GEBCO. https://www.gebco.net
+
+
+\bibitem{Genoa}
+Ports of Genoa. (n.d.). \textit{Port of Pra'}. https://www.portsofgenoa.com/en/port-basins-logistics/ports-of-genoa/pra.html
+
+\bibitem{SWANmanual}
+SWAN Team (2023). \textit{SWAN User Manual}.
+Delft University of Technology.
+
+
+\end{thebibliography}
+\newpage
+
+\appendix
+\section{SWAN Input Files}
+\lstdefinestyle{swnstyle}{
+    basicstyle=\ttfamily\small,
+    frame=single,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    keywordstyle=\bfseries,
+    commentstyle=\itshape\color{gray},
+    showstringspaces=false,
+    tabsize=2
+}
+
+\begin{lstlisting}[style=swnstyle, caption={SWAN input file for Case 2 (100m Grid Size)}, label={lst:swn_case2}]
+$*******************CE594_TERM_PROJECT*******************
+
+PROJECT 'Ddomaincoarse' 'Dc01'
+COORD SPHE
+MODE STAT TWOD
+
+$*******************MODEL INPUT*******************
+
+CGRID 8.7479166666665 44.368750000001 0. 0.079166666673 0.066666666672 88 74 CIRCLE 36 0.05 1. 40
+
+INPGRID BOTTOM REGULAR 8.7479166666665 44.368750000001 0. 88 74 0.000900 0.000901
+READINP BOTTOM 1. '100m.bot' 3 0
+
+WIND 20.0 0.
+
+BOUN SHAPE PM PEAK DSPR POWER
+BOUN SIDE W CON PAR 5 8.8 0 5.5
+$BOUN SEGM IJ 26 249 133 249 CON PAR 5.0 9.0 30 5.5
+
+$OFF QUAD
+$OFF WCAP
+BRE CONSTANT 1.0 0.78
+
+$*******************OUTPUT REQUESTS*******************
+
+NGRID 'D30' 8.7604 44.3854 0. 0.058333333338 0.045833333337 217 171
+NEST 'D30' 'd30.dat'
+
+GROUP 'coarse' SUBG 0 88 0 74
+BLOCK 'coarse' NOHEAD 'D_domain_coarse_HS.mat' LAY 4 HS
+BLOCK 'coarse' NOHEAD 'D_domain_coarse_DIR.mat' LAY 4 DIR
+
+COMPUTE
+STOP
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[style=swnstyle, caption={SWAN input file for Case 2 (30m Grid Size)}, label={lst:swn_case2}]
+$*******************CE594_TERM_PROJECT*******************
+
+PROJECT 'Ddomaincoarse' 'Dc01'
+COORD SPHE
+MODE STAT TWOD
+
+$*******************MODEL INPUT*******************
+
+CGRID 8.7604166666665 44.385416666667 0. 0.058333333338 0.045833333337 216 170 CIRCLE 36 0.05 1. 40
+
+INPGRID BOTTOM REGULAR 8.7604166666665 44.385416666667 0. 216 170 0.000270061728 0.000269607843
+READINP BOTTOM 1. '30m.bot' 3 0
+
+WIND 20.0 0.
+
+BOUN NEST 'd30.dat' CLOS
+
+$OFF QUAD
+$OFF WCAP
+BRE CONSTANT 1.0 0.78
+
+$*******************OUTPUT REQUESTS*******************
+
+NGRID 'D10' 8.7687549892241 44.402084964158 0. 0.0416600215518 0.025000071684 464 279
+NEST 'D10' 'd10.dat'
+
+GROUP 'coarse' SUBG 0 216 0 170
+BLOCK 'coarse' NOHEAD 'D_domain_mid_HS.mat' LAY 4 HS
+BLOCK 'coarse' NOHEAD 'D_domain_mid_DIR.mat' LAY 4 DIR
+
+COMPUTE
+STOP
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[style=swnstyle, caption={SWAN input file for Case 2 (10m Grid Size)}, label={lst:swn_case2}]
+$*******************CE594_TERM_PROJECT*******************
+
+PROJECT 'Ddomainnested' 'Dn01'
+COORD SPHE
+MODE STAT TWOD
+
+$*******************MODEL INPUT*******************
+
+CGRID 8.7687549892241 44.402084964158 0. 0.0416600215518 0.025000071684 463 278 CIRCLE 36 0.05 1. 40
+
+INPGRID BOTTOM REGULAR 8.7687549892241 44.402084964158 0. 463 278 0.000089978448276 0.00008992831541
+READINP BOTTOM 1. '10m.bot' 3 0
+
+WIND 20.0 0.
+
+BOUN NEST 'd10.dat' CLOS
+
+$OFF QUAD
+$OFF WCAP
+$DIFFRAC 1 0 0 1
+BRE CONSTANT 1.0 0.78
+
+$*******************OUTPUT REQUESTS*******************
+
+GROUP 'nested' SUBG 0 463 0 278
+BLOCK 'nested' NOHEAD 'D_domain_small_HS.mat' LAY 4 HS
+BLOCK 'nested' NOHEAD 'D_domain_small_DIR.mat' LAY 4 DIR
+BLOCK 'nested' NOHEAD 'MC_PER.mat' LAY 4 TM01
+BLOCK 'nested' NOHEAD 'MC_DEPTH.mat' LAY 4 DEPTH
+
+COMPUTE
+STOP
+\end{lstlisting}
+
+
+\end{document}
