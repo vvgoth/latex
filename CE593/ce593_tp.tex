@@ -1,0 +1,219 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc} % Allows UTF-8 characters (e.g., Turkish letters)
+\usepackage{graphicx,float} % For inserting images and controlling figure positions
+\usepackage{amsmath,amssymb,amsthm} % For mathematical symbols, equations, and theorems
+\usepackage[hidelinks]{hyperref} % For clickable references, links, and URLs in PDF
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=28pt, footskip=35pt]{geometry} % Page layout settings
+\usepackage{listings} % For including MATLAB or code listings
+\usepackage{xcolor} % Enables colored text and syntax highlighting
+\usepackage{fancyhdr} % For custom headers and footers
+\usepackage{apacite} % For proper APA-style citations and bibliography
+\usepackage{hanging} % Used for hanging indents in reference lists
+\usepackage{rotating} % Used for rotating pics
+\usepackage[small,bf,hypcap=true]{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\graphicspath{{./Figures}}
+
+%-----------------------------------------------------
+% MATLAB LISTING STYLE
+%-----------------------------------------------------
+\lstset{
+    language=Matlab,                % Syntax highlighting for MATLAB
+    basicstyle=\ttfamily\footnotesize, % Font style and size for code
+    keywordstyle=\color{blue},      % Keywords in blue
+    commentstyle=\color{green!50!black}, % Comments in dark green
+    stringstyle=\color{purple!100},     % Strings in orange
+    numbers=left,                   % Line numbers on the left
+    numberstyle=\tiny,              % Small line numbers
+    stepnumber=1,                   % Every line numbered
+    numbersep=10pt,                 % Space between line numbers and code
+    backgroundcolor=\color{gray!3},% Light gray background for code blocks
+    frame=single,                   % Box frame around the code
+    rulecolor=\color{black!30},     % Frame border color
+    breaklines=true,                % Allow line breaks in long lines
+    captionpos=b,                   % Caption position: bottom
+    tabsize=4                       % Tab spacing
+}
+
+
+%-----------------------------------------------------
+% HEADER & FOOTER CONFIGURATION
+%-----------------------------------------------------
+\pagestyle{fancy}
+
+\fancyhead[L]{%
+  \includegraphics[height=0.8cm]{Metu_Logo.png}%
+  \hspace{0.1cm}\raisebox{0.25cm}{METU}%
+}
+\fancyhead[R]{Graduate School of Natural and Applied Sci. \\ Department of Civil Engineering}
+
+\fancyfoot[L]{CE 593}
+\fancyfoot[R]{Fall 2025 - 2026}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+
+%-----------------------------------------------------
+% DOCUMENT STARTS
+%-----------------------------------------------------
+\begin{document}
+
+%------------- TITLE PAGE -------------
+\title{
+    \includegraphics[width=0.4\textwidth]{Metu_Logo.png} \\[1cm]
+    \textbf{\LARGE Middle East Technical University}
+    \vspace{0.3cm}
+
+    \textbf{\LARGE Department of Civil Engineering}
+    \vspace{0.5cm}
+
+    \textbf{\Large 2025-2026 Fall Semester}
+    \vspace{1.5cm}
+
+    \textbf{\Large CE593 Statistical Analysis in Coastal Engineering}
+    \vspace{0.9cm}
+
+    \textbf{\Large Term Project:} \Large Wind-Driven Wave Growth
+Modeling Using JONSWAP
+    \vspace{1.5cm}
+
+    \large Instructor:
+
+    \large Assoc.Prof.Dr. Cüneyt Baykal
+    \vspace{1.2cm}
+
+}
+\author{Cansel KELEŞ \\ Bilge KUTAY \\ İzzet TAŞ  \\ [1.5cm]}
+\date{\today}
+\maketitle
+\thispagestyle{empty}
+
+%------------- TABLE OF CONTENTS AND LISTS -------------
+\newpage
+\renewcommand{\contentsname}{Table of Contents} 
+\begin{center}
+    \thispagestyle{empty}
+    \tableofcontents
+\end{center}
+\newpage
+
+\listoffigures
+\thispagestyle{empty}
+\newpage
+
+\listoftables
+\thispagestyle{empty}
+\newpage
+
+%------------- INTRODUCTİON SECTION -------------
+
+\section{Introduction}
+
+\hspace{0.5cm}Wave hindcasting is a fundamental methodology in coastal and ocean engineering, serving as a "bridge" to the past when long-term, high-quality measured data is unavailable.By utilizing historical atmospheric records—specifically wind speed, duration, and fetch, engineers can reconstruct past sea states with precision. This process is indispensable for developing a comprehensive understanding of a specific site's wave climate over several decades.The process typically involves feeding historical wind fields into numerical wave models to generate time-series data for primary parameters, such as: 
+
+\begin{itemize}
+  \item Significant Wave Height ($H_s$): The average height of the highest one-third of waves.
+  \item Peak Wave Period ($T_p$): The wave period associated with the most energetic waves in the total spectrum.
+  \item Wave Direction: Essential for understanding sediment transport and shoreline morphology.
+\end{itemize}
+
+The main goal of this study is to recreate continuous wave conditions over time using numerical hindcasting based on wind data. This approach has two purposes: to describe the wave climate of the study area and to provide a reliable basis for validating future models.In contemporary coastal engineering literature, wave hindcasting is generally approached through two primary methodologies:
+
+\begin{itemize}
+  \item Physics-Based Spectral Models: These models (such as SWAN or WAVEWATCH III) solve the action balance equation to simulate wave energy propagation. While highly accurate, they are computationally intensive.
+  \item Parametric Wind-Wave Formulations: These empirical methods relate wave parameters—specifically Significant Wave Height ($H_s$) and Peak Period ($T_p$)—directly to wind speed ($U$), fetch ($F$), and duration ($t$).
+
+\end{itemize}
+
+For long-term engineering applications and large-scale time-series analysis, parametric methods are often preferred. They offer a highly efficient and practical solution, allowing for the processing of decades of data without the prohibitive computational costs associated with full spectral modeling.
+
+%------------- METHODOLOGY SECTION -------------
+
+\newpage
+
+\section{Methodology}
+
+\hspace{0.5cm}
+
+Based on an extensive literature review and the specific operational scope of this research, the framework established by \citeA{Kamphuis2000WaveHindcasting} has been adopted. This methodology is renowned for its reliability in predicting wave growth in fetch-limited and duration-limited environments.\\
+
+The implementation details of this study include:\\
+
+Model Core: A continuous JONSWAP (Joint North Sea Wave Project) hindcast algorithm, which accounts for the non-linear transfer of energy and the peakedness of the wave spectrum.\\
+
+Atmospheric Forcing: The model is driven by ERA5 wind reanalysis data, providing high-resolution global atmospheric parameters.\\
+
+Validation Protocol: To ensure the accuracy of the hindcast, the output is rigorously validated against two independent benchmarks: the ERA5 wave reanalysis and the Copernicus Marine Service (CMEMS) datasets. This multi-source validation ensures the model's reliability across varying sea states and seasonal cycles.\\
+
+Through this approach, the study transforms historical wind fields into a continuous, high-fidelity record of the wave environment, essential for coastal design and risk management.\\
+
+ The procedure for determining significant wave height ($H_{mo}$) and peak wave period ($T_p$) for a single set of input conditions.\\
+
+\begin{itemize}
+  \item Inputs: The process begins by entering the wind speed ($U$), fetch length ($F$), and duration ($t$)
+  \item Initial Computation: These values are used to calculate the dimensionless fetch ($F^*$) and dimensionless duration ($t^*$) using Eq. 5.3
+  \item Parallel Paths: The methodology evaluates two possible sea states simultaneously:Fully Developed Sea (Path A): This assumes infinite fetch and duration, setting upper limits for non-dimensional height and period at $H_{mo}^* = 0.243$ and $T_p^* = 8.13$5555.Limited Sea State (Path B): This calculates an effective non-dimensional fetch ($F_{eff}^*$) based on the duration using Eq. 5.7
+  \item Limiting Factor Determination: Within Path B, the model compares $F_{eff}^*$ and $F^*$.If $F_{eff}^* < F^*$, the waves are duration limited, and $F_{eff}^*$ is used in the growth equations.If $F_{eff}^* \ge F^*$, the waves are fetch limited, and the actual $F^*$ is used.
+  \item Final Output: The dimensional wave parameters $H_{mo}$ and $T_p$ are calculated for both paths, and the final result is the minimum value between the fully developed and limited scenarios.
+\end{itemize}
+
+Jonswap Hindcasting for a Series of Input Conditions  extends the basic procedure into a loop to handle changing wind conditions over a series of time steps ($j$), such as hourly storm segments.
+
+\begin{itemize}
+  \item Inputs: Sequential Processing: For the initial time step ($j=1$), the model enters $U_1, t_1,$ and $F$ to run the basic hindcasting procedure
+  \item Energy Carry-over: If the storm continues ($j < j_{max}$), the model accounts for the wave energy already generated.
+  \item Virtual Duration Calculation: To transition between different wind speeds, the model calculates how long the new wind speed ($U_{j+1}$) would have needed to blow to create the existing wave height ($H_{mo,j}$)
+  \begin{itemize}
+    \item It first finds a new non-dimensional height: $H_{mo, j+1}^* = \frac{gH_{mo,j}}{U_{j+1}^2}$.
+    \item It then computes a non-dimensional "virtual duration" $(t_{j+1}^{\prime})^{*}$ using the formula $(t_{j+1}^{\prime})^{*}=368000(H_{mo,j+1}^{*})^{4/3}$
+
+  \end{itemize}
+  \item Effective Duration: The physical virtual duration $t_{j+1}^{\prime}$ is determined and added to the actual duration of the next segment $(t_{j+1})$ to establish an effective duration $(t_{j+1,eff})$
+  \item Looping: This effective duration and the new wind speed are used to compute the next state  ($F^*_{j+1}$ and $t^*_{j+1,eff}$), and the cycle repeats until the maximum number of segments is reached.
+\end{itemize}
+
+ 
+%------------- RESULTS SECTION -------------
+\newpage
+
+\section{Results}
+\subsection{Full-Year Analysis}
+
+
+\subsection{Storm-Based Analysis}
+
+%------------- DISCUSSIONS SECTION -------------
+\newpage
+
+\section{Discussion}
+\subsection{Full-Year Analysis}
+
+
+\subsection{Storm-Based Analysis}
+
+%------------- REFERENCES SECTION (APA STYLE) -------------
+\newpage
+\phantomsection
+\bibliographystyle{apacite}
+\bibliography{references}
+
+%------------- APPENDIX SECTION -------------
+\newpage
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+
+\lstinputlisting[caption={Wind-Driven Wave Growth Modeling Using JONSWAP}, label={lst:func}]{./matlab_scripts/era_cop_model_all_mean.m}
+
+\end{document}
