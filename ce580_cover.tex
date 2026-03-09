@@ -24,7 +24,7 @@
     keywordstyle=\color{codepurple}\bfseries,
     numberstyle=\tiny\color{codebrown},
     stringstyle=\color{codemagenta}\bfseries,
-    basicstyle=\ttfamily\footnotesize\color{black},
+    basicstyle=\ttfamily\small\color{black},
     emph={True,False,None,self,def,class,return,import,from,as,if,else,elif,for,while,in},
     emphstyle=\color{codepurple}\bfseries,
     emph={[2]np,plt,import,from},
@@ -83,7 +83,7 @@
 
     \textbf{\Large CE580 Computational Techniques for Fluid Dynamics}\\[0.9cm]
 
-    \textbf{\LARGE Homework \#1}\\[1.5cm]
+    \textbf{\LARGE Homework \#2}\\[1.5cm]
 
     \large Instructor:
 
@@ -95,7 +95,7 @@
     
     \large 2511798\\[1.5cm]
 
-    \large March 4, 2026
+    \large March 9, 2026
 
 \end{titlepage}
 
@@ -103,76 +103,232 @@
 
 \section*{A.1 Python Code:}
 \pagestyle{empty}
-\begin{lstlisting}[frame=single, numbers=left, language=Python, basicstyle=\ttfamily\scriptsize\color{black}]
-import matplotlib.pyplot as plt
+\begin{lstlisting}[frame=single, numbers=left, language=Python, basicstyle=\ttfamily\scriptsize\small\color{black}]
 import numpy as np
+import matplotlib.pyplot as plt
 
-# -- Parameters ------------------------------------------------------------------
-g = 9.81
-H = 8
-D = 0.3
-ks = 0.0001
-mu = 0.001
-rho = 1000
-delta_t = 0.02
-T = 60
-eps = 0.01
-L_cases = [50, 100, 200, 500]
-time_array = np.arange(0, T + delta_t, delta_t)
+# Parameters
+H = 0.1          # m
+dpdx = -1.0      # Pa/m
+mu = 0.001       # N*s/m^2
+Cp = dpdx        # pressure gradient term
 
-# -- Functions -------------------------------------------------------------------
-def Swamee_jain(Re, ks, D):
-    f = 0.25 / (np.log10(ks/(3.7*D) + 5.74/Re**0.9))**2
-    return f
+# Analytical solution 
+def analytical(y):
+    return (Cp / mu) * (y**2 / 2 - H * y)
 
-def steady_state_velocity(H, D, L, ks, rho, mu, g=9.81):
-    f = 0.014
+y = np.linspace(0, H, 100)
+u_a = analytical(y)
 
-    for i in range(100):
-        Vs = np.sqrt(2*g*H / (1 + f*L/D))
-        Re = rho * Vs * D / mu
-        f_new = Swamee_jain(Re, ks, D)
+Umax = analytical(H)
+print(f"Umax = u(H) = {Umax:.4f} m/s")
 
-        if abs(f_new - f) < 10**-6:
-            break
-        f = f_new
-    return Vs
+# Solve using Dirichlet BCs at both boundaries (u=0 at wall, u=Umax at centerline)
+def dirichlet(N):
+    dy = H / (N - 1)
+    y = np.linspace(0, H, N)
 
-def velocity_time_series(H, D, L, ks, rho, mu, delta_t):
-    f = 0.014
-    Vs_i = 0
-    velocity_series = [0]
+    A = np.ones(N)
+    B = 2 * np.ones(N)
+    C = np.ones(N)
+    D = -(Cp / mu) * dy**2 * np.ones(N)
 
-    for t in time_array[1:]:
-        Vs = Vs_i + delta_t * (H - (1 + f*L/D) * Vs_i**2 / (2*g)) * g / L
-        velocity_series.append(Vs)
-        Re = rho * Vs * D / mu
-        f = Swamee_jain(Re, ks, D)
-        Vs_i = Vs
+    E = np.zeros(N)
+    F = np.zeros(N)
+    u = np.zeros(N)
 
-    return velocity_series
+    # Wall BC: u[0]=0
+    E[0] = 0.0
+    F[0] = 0.0
 
-# -- Main Execution --------------------------------------------------------------
-for L in L_cases:
-    Vs = steady_state_velocity(H, D, L, ks, rho, mu)
-    velocity_series = velocity_time_series(H, D, L, ks, rho, mu, delta_t)
+    # Forward sweep of Thomas algorithm
+    for i in range(1, N):
+        denom = B[i] - C[i] * E[i-1]
+        E[i] = A[i] / denom
+        F[i] = (D[i] + C[i] * F[i-1]) / denom
 
-    for i, V in enumerate(velocity_series):
-        if abs(V - Vs) / Vs < eps and i > 0:
-            Ts = time_array[i]
-            VTs = V
-            print(f"L={L}m | Ts={Ts:.2f} s | V(Ts)={VTs:.4f} m/s | Vs={Vs:.4f} m/s")
-            break
+    # Centerline BC: u=Umax at y=H
+    Umax = analytical(H)
+    u[-1] = Umax
 
-    plt.plot(time_array, velocity_series, label=f'L={L} m')
+    # Backward substitution
+    for i in range(N-2, -1, -1):
+        u[i] = E[i] * u[i+1] + F[i]
+    
+    return y, u
 
-# -- Plot Options ----------------------------------------------------------------
-plt.axhline(y=Vs, color='C9', linestyle='--', linewidth=1, label='Steady-State Velocity')
-plt.title('Velocity Time Series for Different Pipe Lengths')
-plt.xlabel('Time (s)')
-plt.ylabel('Velocity (m/s)')
+# Solve using Dirichlet at wall and Neumann (du/dy=0) at centerline
+def neumann(N):
+    dy = H / (N - 1)
+    y = np.linspace(0, H, N)
+    
+    A = np.ones(N)
+    B = 2 * np.ones(N)
+    C = np.ones(N)
+    D = -(Cp / mu) * dy**2 * np.ones(N)
+    
+    E = np.zeros(N)
+    F = np.zeros(N)
+    u = np.zeros(N)
+    
+    # Wall BC: u[0]=0
+    E[0] = 0.0
+    F[0] = 0.0
+    
+    # Forward sweep
+    for i in range(1, N):
+        denom = B[i] - C[i] * E[i-1]
+        E[i] = A[i] / denom
+        F[i] = (D[i] + C[i] * F[i-1]) / denom
+    
+    # Centerline BC: du/dy=0 (symmetry condition)
+    BCN = 0.0
+    u[-1] = (F[-2] + dy * BCN) / (1 - E[-2])
+    
+    # Backward substitution
+    for i in range(N-2, -1, -1):
+        u[i] = E[i] * u[i+1] + F[i]
+    
+    return y, u
+
+# Compute normalized absolute errors for both boundary conditions
+def compute_errors(N):
+    y, u_b = dirichlet(N)
+    y, u_c = neumann(N)
+    u_a = analytical(y)
+    Umax = analytical(H)
+    
+    # Calculate mean absolute error (normalized by Umax)
+    E_dirichlet = (1 / (N-1)) * np.sum(np.abs(u_b[1:] - u_a[1:])) / Umax
+    E_neumann   = (1 / (N-1)) * np.sum(np.abs(u_c[1:] - u_a[1:])) / Umax
+    
+    return E_dirichlet, E_neumann
+
+# Calculate errors for varying grid sizes
+N_values = np.arange(10, 5001, 10)
+E_dir = []
+E_neu = []
+
+for N in N_values:
+    ed, en = compute_errors(N)
+    E_dir.append(ed)
+    E_neu.append(en)
+
+# Errors vs N
+plt.figure(1)
+plt.semilogy(N_values, E_dir, label='Dirichlet')
+plt.semilogy(N_values, E_neu, label='Neumann')
+plt.xlabel('N')
+plt.ylabel('Error')
+plt.title('Errors vs N')
 plt.legend()
-plt.grid()
+plt.grid(True)
+
+
+# Centerline velocity u(H) vs N for Neumann case
+u_centerline = []
+
+for N in N_values:
+    y, u_c = neumann(N)
+    u_centerline.append(u_c[-1])  # u at y=H
+
+plt.figure(2)
+plt.plot(N_values, u_centerline)
+plt.axhline(y=analytical(H), color='r', linestyle='--', label='Analytical')
+plt.xlabel('N')
+plt.ylabel('u(H)')
+plt.title('Centerline Velocity vs N (Neumann)')
+plt.legend()
+plt.grid(True)
+
+
+# Dirichlet solver with single precision (float32) for precision comparison
+def dirichlet_single(N):
+    dy = np.float32(H) / np.float32(N - 1)
+    y = np.linspace(0, H, N, dtype=np.float32)
+    
+    A = np.ones(N, dtype=np.float32)
+    B = np.float32(2) * np.ones(N, dtype=np.float32)
+    C = np.ones(N, dtype=np.float32)
+    D = np.float32(-(Cp / mu)) * dy**2 * np.ones(N, dtype=np.float32)
+    
+    E = np.zeros(N, dtype=np.float32)
+    F = np.zeros(N, dtype=np.float32)
+    u = np.zeros(N, dtype=np.float32)
+    
+    E[0] = np.float32(0.0)
+    F[0] = np.float32(0.0)
+    
+    for i in range(1, N):
+        denom = B[i] - C[i] * E[i-1]
+        E[i] = A[i] / denom
+        F[i] = (D[i] + C[i] * F[i-1]) / denom
+    
+    u[-1] = np.float32(analytical(H))
+    
+    for i in range(N-2, -1, -1):
+        u[i] = E[i] * u[i+1] + F[i]
+    
+    return y, u
+
+# Neumann solver with single precision (float32) for precision comparison
+def neumann_single(N):
+    dy = np.float32(H) / np.float32(N - 1)
+    y = np.linspace(0, H, N, dtype=np.float32)
+    
+    A = np.ones(N, dtype=np.float32)
+    B = np.float32(2) * np.ones(N, dtype=np.float32)
+    C = np.ones(N, dtype=np.float32)
+    D = np.float32(-(Cp / mu)) * dy**2 * np.ones(N, dtype=np.float32)
+    
+    E = np.zeros(N, dtype=np.float32)
+    F = np.zeros(N, dtype=np.float32)
+    u = np.zeros(N, dtype=np.float32)
+    
+    # Wall BC: u[0]=0
+    E[0] = np.float32(0.0)
+    F[0] = np.float32(0.0)
+    
+    # Forward sweep
+    for i in range(1, N):
+        denom = B[i] - C[i] * E[i-1]
+        E[i] = A[i] / denom
+        F[i] = (D[i] + C[i] * F[i-1]) / denom
+    
+    # Centerline BC: du/dy=0
+    BCN = np.float32(0.0)
+    u[-1] = (F[-2] + dy * BCN) / (1 - E[-2])
+    
+    # Backward substitution
+    for i in range(N-2, -1, -1):
+        u[i] = E[i] * u[i+1] + F[i]
+    
+    return y, u
+
+
+N_vals = np.arange(10, 5001, 10)
+diff_d = []
+diff_n = []
+
+for N in N_vals:
+    y_d_d, u_d_double = dirichlet(N)
+    y_d_s, u_d_single = dirichlet_single(N)
+    diff_d.append(np.max(np.abs(u_d_double - u_d_single.astype(np.float64))))
+
+    y_n_d, u_n_double = neumann(N)
+    y_n_s, u_n_single = neumann_single(N)
+    diff_n.append(np.max(np.abs(u_n_double - u_n_single.astype(np.float64))))
+
+# Precision loss due to single precision arithmetic
+plt.figure(3)
+plt.semilogy(N_vals, diff_d, label='Dirichlet')
+plt.semilogy(N_vals, diff_n, label='Neumann')
+plt.xlabel('N')
+plt.ylabel('Max difference')
+plt.title('Double vs Single Precision Difference (Dirichlet & Neumann)')
+plt.legend()
+plt.grid(True)
+
 plt.show()
 \end{lstlisting}
 
