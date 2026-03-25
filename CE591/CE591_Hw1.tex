@@ -33,62 +33,58 @@
 
 \thispagestyle{empty}
 
-\begin{figure}[H]
-    \vspace{1.2cm}
-    \centering
-    \includegraphics[width=0.5\textwidth]{logo.png}
-\end{figure}
-\vspace{1cm}
-
-\begin{center}
-    \textbf{\LARGE Middle East Technical University}
-    \vspace{0.3cm}
-
-    \textbf{\LARGE Department of Civil Engineering}
-    \vspace{0.5cm}
-
-    \textbf{\Large 2024-2025 Spring Semester}
-    \vspace{1.5cm}
-
-    \textbf{\Large CE 591 Wave Hydrodynamics}
-    \vspace{0.3cm}
-
-    \textbf{\Large Homework 1}
-    \vspace{2.8cm}
-
-    \textbf{\large Student Name: }\large Bilge Kutay
-    
-    \textbf{\large Student ID: }\large 2511798
+\begin{titlepage}
+    \begin{figure}[H]
+        \vspace{0.6cm}
+        \centering
+        \includegraphics[width=0.45\textwidth]{logo.png}
+    \end{figure}
     \vspace{0.8cm}
 
-    \textbf{\large Date: }\large 10/04/2025
-\end{center}
+    \centering
+    \textbf{\LARGE Middle East Technical University}\\[0.3cm]
+
+    \textbf{\LARGE Department of Civil Engineering}\\[0.5cm]
+
+    \textbf{\Large 2025-2026 Spring Semester}\\[1.5cm]
+
+    \textbf{\Large CE591 Wave Hydrodynamics}\\[0.9cm]
+
+    \textbf{\LARGE Homework \#1}\\[1.5cm]
+
+    \large Instructor:
+
+    \large Asst. Prof. Hasan Gökhan Güler\\[1.2cm]
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+    
+    \large 2511798\\[1.5cm]
+
+    \large March 25, 2026
+\end{titlepage}
 
 \newpage
 \tableofcontents
 \newpage
 
-\section{Question 1} Select a coastal engineering problem (in regional scale), and discuss which
-governing equations can be used to model the waves for your selected problem. Explain the reason
-why you have selected these equations with a few paragraphs.
-\vspace{0.3cm}
+\section{Question 1} Select a coastal engineering problem (in regional scale), and discuss which governing equations can be used to model the waves for your selected problem. Explain the reason why you have selected these equations with a few paragraphs.
 
-A key problem in coastal engineering involves modeling non-linear wave transformation as waves propagate from deep to shallow water. This process includes shoaling, refraction, and breaking, which are governed by the Boussinesq equations and the Korteweg-de Vries (KdV) equation. These equations are selected for their ability to balance nonlinear and dispersive effects, critical for simulating wave behavior in shallow coastal zones.
+\vspace{0.3cm}A classic coastal engineering problem is wave transformation from offshore toward the coastline. In this type of problem, waves travel over a large area and change due to depth variation, coastal shape, and energy losses. The main processes include shoaling, refraction, and wave breaking near the shore.
 
-The Boussinesq equations simplify the Navier-Stokes equations by retaining nonlinear and dispersive terms while reducing complexity. Unlike linear wave theory, which assumes small wave amplitudes and ignores non-linear interactions, the Boussinesq captures wave steepening, energy transfer, and frequency dispersion. This makes it effective for predicting wave asymmetry and breaking in shallow water.
+Several governing equations can be used depending on the scale and purpose of the study. Linear wave theory can be used for basic wave properties such as wave speed, wavelength, and particle motion. Shallow water equations can be used when water depth is small compared to wavelength and when wave-driven water level changes or currents are important. Spectral wave models are also commonly used for regional problems because they are suitable for irregular sea states and large coastal areas. On the other hand, the Navier-Stokes equations give a much more detailed description of fluid motion, but they are generally used for small-scale problems because solving them over a large coastal region would require very high computational effort.
 
-The KdV equation supports this approach by focusing on weakly non-linear and weakly dispersive waves, such as solitary waves or long waves in shallow water. It provides a simplified model for unidirectional wave propagation, ideal for scenarios like tsunami evolution or wave deformation over gentle slopes. While higher-order Stokes theories are accurate for deep-water waves, they become impractical in shallow environments due to their reliance on perturbation methods.
-
-In summary, the Boussinesq and KdV equations provide a practical mathematical foundation for modeling wave transformation, addressing the limitations of linear theory and higher-order Stokes models. 
+For regional wave transformation problems, simplified wave equations or spectral wave models are usually preferred over the full Navier-Stokes equations. This is because they can represent the main coastal wave processes with much lower computational cost while still giving results that are suitable for engineering applications.
 
 \vspace{0.5cm}
-\section{Question 2} Considering Stokes’ second-order wave theory for monochromatic waves, do the following computations and compare your results with the solutions from linear theory. Take wave height H = 3 m, wave period T = 8 s and water depth h = 25 m.
+\section{Question 2} Considering Stokes' second-order wave theory for monochromatic waves, do the following computations and compare your results with the solutions from linear theory. Take wave height H = 3 m, wave period T = 8 s and water depth h = 25 m.
 \vspace{0.3cm}
 
 \noindent\textbf{(a)} Plot the surface elevation for at least one wave period.
 \vspace{0.2cm}
 
-The plot in Figure 1 shows the surface elevation of a Stokes' second-order wave at x = 0 and t = 0-8. The surface elevation is calculated using the following equations:
+The plot in Figure 1 shows the surface elevation of a Stokes' second-order wave at x = 0 and t = 0-8s. The surface elevation is calculated using the following equations:
 
 \[\eta_1 = \frac{H}{2} \cos(\theta)\]
 \[\eta_2 = \frac{1}{16} k H^2 \left(3 \coth^3(kh) - \coth(kh)\right) \cos(2\theta)\]
@@ -108,14 +104,26 @@ The surface elevation plot illustrates Stokes’ second-order wave theory, combi
 \noindent\textbf{(b)} Make a plot of the vertical variation of horizontal (\(u\)) and vertical (\(w\)) particle velocities
 \vspace{0.2cm}
 
-Figures 2 and 3 show the vertical variation of horizontal (\(u\)) and vertical (\(w\)) particle velocities at \(t = 4\) and \(x = 0\) for Stokes' second-order wave theory. The velocities are calculated using the following equations:
+The vertical distributions of horizontal and vertical particle velocities were obtained using both linear theory and Stokes' second-order theory. Since the velocity values depend on phase, the horizontal velocity was plotted at $\theta = 0$, where its magnitude is maximum, while the vertical velocity was plotted at $\theta = \pi/4$ so that both first- and second-order contributions are visible.
 
-\[u_1 = \frac{H \omega}{2} \cdot \frac{\cosh(k(h+z))}{\sinh(kh)} \cos(\omega t - kx)\]
-\[u_2 = \frac{3}{16} c (kH)^2 \cdot \frac{\cosh(2k(z+h))}{\sinh^4(kh)} \cos(2\theta)\]
+\[
+u_1(z,t)=\frac{H\omega}{2}\frac{\cosh[k(h+z)]}{\sinh(kh)}\cos\theta
+\]
+\[
+u_2(z,t)=\frac{3}{16}c(kH)^2
+\frac{\cosh[2k(h+z)]}{\sinh^4(kh)}
+\cos(2\theta)
+\]
 \[u = u_1 + u_2\]
 
-\[w_1 = -\frac{H \omega}{2} \cdot \frac{\sinh(k(h+z))}{\sinh(kh)} \sin(\omega t - kx)\]
-\[w_2 = -\frac{3}{16} \cdot \frac{\sinh(2k(z+h))}{\sinh^4(kh)} \sin(2\theta)\]
+\[
+w_1(z,t)=-\frac{H\omega}{2}\frac{\sinh[k(h+z)]}{\sinh(kh)}\sin\theta
+\]
+\[
+w_2(z,t)=-\frac{3}{16}c(kH)^2
+\frac{\sinh[2k(h+z)]}{\sinh^4(kh)}
+\sin(2\theta)
+\]
 \[w = w_1 + w_2\]
 
 \begin{figure}[H]
@@ -132,9 +140,10 @@ Figures 2 and 3 show the vertical variation of horizontal (\(u\)) and vertical (
     \caption{\small Vertical velocity profiles for Stokes' second-order wave theory.}
     \label{fig:plot2.2b}
 \end{figure}
-\vspace{0.3cm}
 
-The velocity profiles illustrate the variation of horizontal (\(u\)) and vertical (\(w\)) particle velocities with depth. At \(t = 4\) and \(x = 0\), the particles are positioned at the wave trough, where both \(u\) and \(w\) attain their maximum negative values, signifying motion in the direction opposite to wave propagation. The velocities exhibit a gradual reduction with depth, with \(u\) decreasing at a slower rate compared to \(w\). This behavior aligns with Stokes' second-order wave theory, which accounts for the contributions of both linear and non-linear terms to \(u\), while \(w\) mainly reflects the oscillatory nature of the wave motion. Near the seabed, \(w\) approaches zero, while \(u\) remains non-zero, indicating the continued presence of horizontal motion even near the seabed.
+The results show that the horizontal velocity is largest near the free surface and decreases with depth, while the vertical velocity also becomes stronger toward the surface and approaches zero near the seabed. This behavior is consistent with wave kinematics, since orbital motion weakens with depth. Compared with linear theory, the second-order Stokes solution predicts slightly different velocity magnitudes, especially close to the free surface where nonlinear effects are stronger.
+
+Overall, the two theories give similar trends, but the second-order solution provides a more realistic description by including nonlinear corrections. These corrections do not completely change the shape of the velocity profiles, but they slightly modify the near-surface values and therefore improve the physical representation of the wave motion.
 \vspace{0.3cm}
 
 \noindent\textbf{(c)} Repeat the calculations in Part (b), changing the water depth as \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \). Compare your results with your results from Part (b).
@@ -143,7 +152,7 @@ The velocity profiles illustrate the variation of horizontal (\(u\)) and vertica
 Changing the water depth to \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \) alters the velocity profiles:  
 
 \begin{itemize}  
-    \item {Shallower depth (\( h = 20 \, \text{m} \))}: Increased bottom influence causes the horizontal velocity to intensify near the surface due to energy concentration, while vertical velocity exhibits more rapid decrease with depth as bottom boundary effects become more dominant. 
+    \item {Shallower depth (\( h = 20 \, \text{m} \))}: The difference between linear theory and Stokes second-order theory becomes more noticeable. In the horizontal velocity plot, the Stokes second-order values are lower than the linear values near the surface. A similar trend appears in the vertical velocity plot, where the second-order profile also departs more clearly from the linear one. This indicates that nonlinear effects become relatively stronger as the depth decreases.
     \begin{figure}[H]
         \centering
         \begin{minipage}{0.49\textwidth}
@@ -180,7 +189,7 @@ Changing the water depth to \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \
     \end{figure}
 
 \end{itemize}  
-\vspace{0.5cm}
+\vspace{1.2cm}
 
 \noindent\textbf{(d)} Non-dimensional dynamic pressure can be calculated by dividing the dynamic pressure with $\rho$g$\eta$. Plot the vertical variation of the non-dimensional dynamic pressure as a function of z/h at \( h = 20 \, \text{m} \), \( h = 25 \, \text{m} \) and \( h = 30 \, \text{m} \).
 \vspace{0.3cm}
@@ -198,7 +207,7 @@ P_d = \frac{\cosh(k(z+h))}{\cosh(kh)}
     \label{fig:plot2d}
 \end{figure} 
 
-The plots reveal how wave energy interacts with the water column differently depending on depth. In shallow water (20 m), dynamic pressure persists significantly toward the seabed, reflecting how wave energy is squeezed into a smaller volume—this means waves in coastal zones exert influence all the way to the bottom, stirring sediment and impacting seafloor structures. For deeper water (30 m), pressure drops off sharply below the surface, showing that wave energy barely reaches the seabed; here, wave effects are surface-dominated, critical for offshore platforms but negligible for benthic ecosystems. The intermediate depth (25 m) exhibits transitional behavior, where energy gradually fades with depth.
+The results show that the pressure decays more rapidly with depth in deeper water. Therefore, for h=30 m, the non-dimensional dynamic pressure becomes smaller at a given relative depth than in the h=20 m case. In shallower water, the decay is weaker, so a larger portion of the surface pressure signal reaches the lower part of the water column. This behavior is physically consistent, since wave-induced pressure fluctuations penetrate more effectively through shallow water than through deeper water.
 
 \section{Question 3} Write a program that calculates the water surface elevation of a solitary wave for a given solitary wave height H and water depth h. Plot the water surface elevation for H = 0.074 m and h = 30 cm. Compare your theoretical calculation and experimental measurements. Discuss potential discrepancies.
 \vspace{0.3cm}
@@ -216,7 +225,7 @@ The surface elecation of the solitary wave is calculated using the following equ
 \[c = \sqrt{g \cdot (h+H)}\]. 
 \[\eta = H \cdot \text{sech}^2\left(X \cdot \sqrt{\frac{3H}{4h^3}}\right)\]
 
-The comparison between theoretical and experimental solitary wave profiles shows a good match, with some expected discrepancies. The theoretical model assumes ideal conditions, while experimental data may be influenced by factors like wave reflection, bottom friction, and measurement errors. The experimental data also shows some oscillations, likely caused by wave interactions or reflections. Overall, the theoretical model provides a solid foundation for solitary waves, but real-world conditions can introduce variations that need to be considered in practical applications.
+The theoretical solution produces a single symmetric crest with amplitude equal to the wave height. When plotted against time at a fixed location, the curve rises to a maximum and then drops smoothly on both sides. In general, some difference between the two curves is expected because of laboratory effects such as measurement noise, viscous dissipation, and imperfect wave generation. However, since the overall crest shape and peak elevation are similar, the analytical solution can be considered a reasonable representation of the measured wave.
 
 \section{Question 4} Write a program utilizing cnoidal wave theory summarized in your lecture notes for a given wave height H, wave period T and water depth h. Plot the water surface elevations for at least three selected waves on the same figure for two wave periods. Describe the procedure you have used and discuss your results.
 
