@@ -130,7 +130,7 @@ The objective of this study is to perform a complete breakwater design for two c
 % -------------------- Methodology --------------------
 \section{Methodology}
 \subsection{Extreme Wave Statistics}
-\hspace{0.5cm} he extreme wave statistics were obtained using hourly ERA5 
+\hspace{0.5cm} The extreme wave statistics were obtained using hourly ERA5 
 reanalysis wind data extracted for a single grid point at 41.00°N, 40.25°E, 
 covering the period 1986--2025. The wind speed magnitude and propagation 
 direction were computed from the $u_{10}$ and $v_{10}$ components as:
@@ -543,7 +543,7 @@ Finally, the rear slope was represented symmetrically to the front slope as a co
 % -------------------- Results and Discussion --------------------
 \section{Results and Discussion}
 \subsection{Extreme Wave Statistics}
-\hspace{0.5cm}The extreme wave analysis was performed using 40 years of hourly ERA5 wind data spanning 1986 to 2025, from which 1662 individual storm events were identified. The annual maximum significant wave heights extracted from the storm catalogue are presented in Table~\ref{tab:annmax}. The data exhibits a pronounced outlier in 1990, where an exceptionally strong northerly storm with a peak wind speed of 46.82 m/s over the full 312 km fetch produced an annual maximum of $H_{s} = 6.225$ m, which is substantially higher than all other years in the record. The ten candidate distributions were evaluated using the scoring system described in Section 2.1, and the results are presented in Table~\ref{tab:rank}. The Weibull distribution with $k = 0.75$ achieved the highest total score of 46, satisfying all five goodness-of-fit criteria. The governing 100-year return period design wave parameters are given in Table~\ref{tab:extws}.
+\hspace{0.5cm}The extreme wave analysis was performed using 40 years of hourly ERA5 wind data spanning 1986 to 2025, from which 1662 individual storm events were identified. The annual maximum significant wave heights extracted from the storm catalogue are presented in Table~\ref{tab:wind}. The data exhibits a pronounced outlier in 1990, where an exceptionally strong northerly storm with a peak wind speed of 46.82 m/s over the full 312 km fetch produced an annual maximum of $H_{s} = 6.225$ m, which is substantially higher than all other years in the record. The ten candidate distributions were evaluated using the scoring system described in Section 2.1, and the results are presented in Table~\ref{tab:rank}. The Weibull distribution with $k = 0.75$ achieved the highest total score of 46, satisfying all five goodness-of-fit criteria. The governing 100-year return period design wave parameters are given in Table~\ref{tab:extws}.
 
 \begin{table}[H]
 \centering
@@ -789,12 +789,12 @@ where $D_{y}$ is the upslope placement distance and $D$ is the unit height. The 
 \label{tab:rowcheck}
 \begin{tabular}{ccccccc}
 \hline
-Section & Case & $h + \Delta_{HWL}$ (m) & $L_{slope}$ (m) & $L_{max}$ (m) & Rows & Pass \\
+Section & Case & $h$ (m) & $L_{slope}$ (m) & $L_{max}$ (m) & Rows & Pass \\
 \hline
 A-A & NWL & 23.00 & 38.33 & 34.24 & 22.4 & NO \\
 A-A & HWL & 24.34 & 40.56 & 34.24 & 23.8 & NO \\
 D-D & NWL & 22.00 & 36.67 & 33.11 & 21.4 & NO \\
-D-D & HWL & 23.34 & 38.90 & 33.11 & 22.8 & NO \\
+D-D & HWL & 23.34 & 38.89 & 33.11 & 22.8 & NO \\
 \hline
 \end{tabular}
 \end{table}
@@ -920,9 +920,9 @@ Crest width $B$ (m) & 10.534 & 10.535 & 7.091 & 7.934 \\
 Rear side berm (m) & 0.798 & 0.798 & -- & -- \\
 $R_{c}$ (m) & 7.969 & 7.978 & 8.766 & 8.776 \\
 $z_{crest}$ (m) & 30.969 & 32.314 & 31.766 & 33.112 \\
-Toe $D_{n50}$ (m) & 0.614 & 0.606 & 0.614 & 0.606 \\
-Toe $W$ (t) & 0.625 & 0.600 & 0.625 & 0.600 \\
-Toe thickness (m) & 7.022 & 7.024 & 2.457 & 2.423 \\
+Toe $D_{n50}$ (m) & 1.756 & 1.756 & 0.614 & 0.606 \\
+Toe $W$ (t) & 14.612 & 14.617 & 0.625 & 0.600 \\
+Toe thickness (m) & 7.023 & 7.024 & 2.457 & 2.423 \\
 Toe length (m) & 10.534 & 10.535 & 3.685 & 3.634 \\
 $R_{min,head}$ (m) & -- & -- & 18.660 & 20.880 \\
 \hline
@@ -980,8 +980,8 @@ Crest width $B$ (m) & 9.203 & 9.202 & 6.840 & 7.524 \\
 Rear side berm (m) & 0.697 & 0.697 & -- & -- \\
 $R_{c}$ (m) & 7.963 & 7.971 & 8.760 & 8.768 \\
 $z_{crest}$ (m) & 29.963 & 31.306 & 30.760 & 32.103 \\
-Toe $D_{n50}$ (m) & 0.625 & 0.613 & 0.625 & 0.613 \\
-Toe $W$ (t) & 0.658 & 0.623 & 0.658 & 0.623 \\
+Toe $D_{n50}$ (m) & 1.534 & 1.534 & 0.625 & 0.613 \\
+Toe $W$ (t) & 9.743 & 9.741 & 0.658 & 0.623 \\
 Toe thickness (m) & 6.135 & 6.134 & 2.498 & 2.454 \\
 Toe length (m) & 9.203 & 9.202 & 3.747 & 3.681 \\
 \hline
