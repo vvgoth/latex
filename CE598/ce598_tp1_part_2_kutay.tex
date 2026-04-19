@@ -365,235 +365,670 @@ is never lower than the trunk crest.
 
 \subsection{Armor Unit Selection and Design}
 \subsubsection{Natural Rock}
-\hspace{0.5cm}The Hudson formula gives the armor unit weight as:
+\hspace{0.5cm}Natural rock armour was evaluated using the Hudson formula, the Van der Meer (1988) formula, the Van der Meer (2021) formula, and the Van Gent et al. (2004) formula. Hudson was used as a comparison method, while the governing rock size was selected between Van der Meer (2021) and Van Gent by using the decision flowchart of G\"uler et al. (2014).
+
+The Hudson formula was written as
 
 \begin{equation}
-    W = \frac{\gamma_s\,H_{design}^3\,\tan\alpha}{(S_r-1)^3\,K_D}
+    W=\frac{\gamma_s H_{design}^3 \tan\alpha}{(S_r-1)^3 K_D}
 \end{equation}
 
-where $\gamma_s$ is the unit weight of the armor stone, $S_r$ is 
-the relative density, $\tan\alpha$ is the slope, and $K_D$ is the 
-stability coefficient which depends on the unit type, breaking 
-condition, and whether the section is a trunk or head. The design 
-wave height $H_{design}$ is taken as $H_{1/10}$ from the SWANONE 
-output. For the trunk section, $K_D = 4.0$ for non-breaking and 
-$K_D = 2.0$ for breaking waves. For the head section, $K_D = 2.8$ 
-for non-breaking and $K_D = 1.6$ for breaking waves. The breaking condition was assessed by comparing $H_{s,toe}/h$ against a threshold of 0.6, following Ergin (2019).
+where $\gamma_s$ is the armour stone unit weight, $S_r$ is the relative density, $\tan\alpha$ is the slope, and $K_D$ is the stability coefficient. The design wave height in the Hudson calculation was taken as $H_{1/10}$ from the SWANONE output. The breaking condition was checked by comparing $H_{1/10}/h$ with the limit value 0.6. For the trunk section, $K_D=4.0$ was used for non-breaking waves and $K_D=2.0$ for breaking waves. For the head section, $K_D=2.8$ was used for non-breaking waves and $K_D=1.6$ for breaking waves.
 
-The Van der Meer (1988) formula distinguishes between plunging and 
-surging wave conditions based on the surf similarity parameter 
-$\xi_m$ computed with the mean wave period $T_m = 0.81\,T_s$:
+The Van der Meer (1988) formulation was applied using the mean wave period $T_m$, taken as
 
 \begin{equation}
-    \xi_m = \frac{\tan\alpha}{\sqrt{2\pi H_{s,toe}/(g\,T_m^2)}}
+    T_m = 0.81\left(\frac{T_p}{1.08}\right)
 \end{equation}
 
+and the surf similarity parameter
+
 \begin{equation}
-    \xi_{cr} = \left(6.2\,P^{0.31}\sqrt{\tan\alpha}
-    \right)^{1/(P+0.5)}
+    \xi_m=\frac{\tan\alpha}{\sqrt{2\pi H_{s,toe}/(gT_m^2)}}
 \end{equation}
 
-For plunging waves ($\xi_m < \xi_{cr}$):
+with the critical value
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 6.2\,P^{0.18}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}\xi_m^{-0.5}
+    \xi_{cr}=\left(6.2\,P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
 \end{equation}
 
-For surging waves ($\xi_m \geq \xi_{cr}$):
+For plunging waves $(\xi_m<\xi_{cr})$,
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 1.0\,P^{-0.13}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    6.2\,P^{0.18}\left(\frac{S}{\sqrt{N}}\right)^{0.2}\xi_m^{-0.5}
+\end{equation}
+
+and for surging waves $(\xi_m\geq\xi_{cr})$,
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    1.0\,P^{-0.13}\left(\frac{S}{\sqrt{N}}\right)^{0.2}
     \sqrt{\cot\alpha}\,\xi_m^{P}
 \end{equation}
 
-where $P = 0.4$ is the notional permeability, $S = 2$ is the 
-damage level corresponding to start of damage, $N = 3000$ is 
-the number of waves, and $\Delta = \gamma_s/\gamma_w - 1$ is 
-the relative buoyant density.
-
-The Van der Meer (2021) formula follows the same structure but 
-uses the spectral period $T_{m-1,0}$ directly, replacing $\xi_m$ 
-with $\xi_{m-1,0}$, and uses updated coefficients:
+The Van der Meer (2021) formulation was then applied using the spectral period $T_{m-1,0}$ directly:
 
 \begin{equation}
-    \xi_{cr} = \left(\frac{6.49}{0.97}\,P^{0.31}
-    \sqrt{\tan\alpha}\right)^{1/(P+0.5)}
+    \xi_{m-1,0}=\frac{\tan\alpha}{\sqrt{2\pi H_{s,toe}/(gT_{m-1,0}^2)}}
 \end{equation}
 
-For plunging waves ($\xi_{m-1,0} < \xi_{cr}$):
+with
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 6.49\,P^{0.18}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}\xi_{m-1,0}^{-0.5}
+    \xi_{cr}=\left(\frac{6.49}{0.97}P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
 \end{equation}
 
-For surging waves ($\xi_{m-1,0} \geq \xi_{cr}$):
+For plunging waves $(\xi_{m-1,0}<\xi_{cr})$,
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 0.97\,P^{-0.13}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    6.49\,P^{0.18}\left(\frac{S}{\sqrt{N}}\right)^{0.2}\xi_{m-1,0}^{-0.5}
+\end{equation}
+
+and for surging waves $(\xi_{m-1,0}\geq\xi_{cr})$,
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    0.97\,P^{-0.13}\left(\frac{S}{\sqrt{N}}\right)^{0.2}
     \sqrt{\cot\alpha}\,\xi_{m-1,0}^{P}
 \end{equation}
 
-The Van Gent et al. (2004) formula is similar to Van der Meer 
-(2021) but incorporates the $H_{2\%}$ wave height to account 
-for shallow water wave height distributions, using updated 
-coefficients of 8.4 and 1.3:
+The Van Gent et al. (2004) formulation was also checked, since it is intended for shallower-water conditions and includes the effect of $H_{2\%}$. Its critical surf similarity parameter was taken as
 
 \begin{equation}
-    \xi_{cr} = \left(\frac{8.4}{1.3}\,P^{0.31}
-    \sqrt{\tan\alpha}\right)^{1/(P+0.5)}
+    \xi_{cr}=\left(\frac{8.4}{1.3}P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
 \end{equation}
 
-For plunging waves ($\xi_{m-1,0} < \xi_{cr}$):
+For plunging waves $(\xi_{m-1,0}<\xi_{cr})$,
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 8.4\,P^{0.18}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    8.4\,P^{0.18}\left(\frac{S}{\sqrt{N}}\right)^{0.2}
     \frac{H_{s,toe}}{H_{2\%}}\,\xi_{m-1,0}^{-0.5}
 \end{equation}
 
-For surging waves ($\xi_{m-1,0} \geq \xi_{cr}$):
+and for surging waves $(\xi_{m-1,0}\geq\xi_{cr})$,
 
 \begin{equation}
-    \frac{H_{s,toe}}{\Delta\,D_{n50}} = 1.3\,P^{-0.13}
-    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
-    \frac{H_{s,toe}}{H_{2\%}}\,\sqrt{\cot\alpha}\,
-    \xi_{m-1,0}^{P}
+    \frac{H_{s,toe}}{\Delta D_{n50}}=
+    1.3\,P^{-0.13}\left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{H_{2\%}}\sqrt{\cot\alpha}\,\xi_{m-1,0}^{P}
 \end{equation}
 
-The governing design method was selected using the flowchart of 
-Guler et al. (2014), which checks three constraints:
+In these formulations, $P=0.4$ was used for the notional permeability, $S=2$ for the damage level, $N=3000$ for the number of waves, and
 
 \begin{equation}
-    C_1: \frac{h}{H_{s,toe}} < 3 \qquad
-    C_2: \frac{H_{2\%}}{H_{s,toe}} < 1.4 \qquad
-    C_3: \frac{H_{s,toe}}{H_{s0}} < 0.9
+    \Delta=\frac{\gamma_s}{\gamma_w}-1
 \end{equation}
 
-If all three constraints are satisfied, Van Gent et al. (2004) 
-is used. If any constraint fails, Van der Meer (2021) is used 
-instead. For the head section (A-A), the governing unit weight 
-was multiplied by a factor of 1.5 to account for the increased 
-wave exposure at the breakwater head \cite{CE598}.
+for the relative buoyant density.
 
-The armor layer thickness, underlayer size, and crest width were 
-computed from the nominal diameter $D_{n50} = (W/\gamma_s)^{1/3}$ 
-as:
+The governing rock design method was selected using the flowchart of G\"uler et al. (2014), based on the three checks
 
 \begin{equation}
-    r_{armor} = n\,k_\Delta\,D_{n50} \qquad
-    D_{n50,ul} = \frac{D_{n50}}{2.2} \qquad
-    B = n_{crest}\,k_\Delta\,D_{n50}
+    \frac{h}{H_{s,toe}}<3, \qquad
+    \frac{H_{2\%}}{H_{s,toe}}<1.4, \qquad
+    \frac{H_{s,toe}}{H_{s0}}<0.9
 \end{equation}
 
-where $n = 2$ armor layers, $k_\Delta = 1.0$, and $n_{crest} = 3$ 
-stones across the crest.
+If all three conditions were satisfied, Van Gent et al. (2004) was adopted. If any one of them failed, Van der Meer (2021) was adopted. In the final calculations, the criteria were not all satisfied, so Van der Meer (2021) governed the natural rock design. For the head section (A-A), the selected rock weight was multiplied by a factor of 1.5 to account for the more severe loading at the breakwater head.
+
+After the governing armour weight was obtained, the nominal diameter was computed from
+
+\begin{equation}
+    D_{n50}=\left(\frac{W}{\gamma_s}\right)^{1/3}
+\end{equation}
+
+The armour layer thickness and underlayer size were then determined as
+
+\begin{equation}
+    r_{armor}=n\,k_{\Delta}\,D_{n50}
+\end{equation}
+
+\begin{equation}
+    D_{n50,ul}=\frac{D_{n50}}{2.2}
+\end{equation}
+
+where $n=2$ armour layers and $k_{\Delta}=1.0$. The crest width was taken from the relation used in Ergin (2019),
+
+\begin{equation}
+    B=n_{crest}\,k_{\Delta}\,D_{n50}
+\end{equation}
+
+with $n_{crest}=6$ stones across the crest in the final design.
+
+Initially, the required natural rock weight exceeded the practical limit of 15~t. To reduce the armour demand, the seaward slope was flattened from 1:2 to 1:3, and the design was repeated with the revised slope. This modification reduced the required armour weight to an acceptable level while keeping the governing design method unchanged.
 
 \subsubsection{X-Bloc}
-\hspace{0.5cm}The required X-Bloc unit volume was determined 
-using the formula given in the DMC X-Bloc Design Guidelines 
-(2023):
+\hspace{0.5cm}The required X-Bloc unit volume was determined using the design equation given in the DMC X-Bloc Design Guidelines (2023):
 
 \begin{equation}
-    V_{Xbloc} = \left(\frac{H_s}{2.77\,\Delta}\right)^3
+    V_{Xbloc}=\left(\frac{H_s}{2.77\,\Delta}\right)^3
 \end{equation}
 
-where $\Delta = (\rho_c - \rho_w)/\rho_w$ is the relative 
-buoyant density of the concrete unit, with $\rho_c = 2400$~kg/m$^3$ 
-and $\rho_w = 1030$~kg/m$^3$.
+where $\Delta=(\rho_c-\rho_w)/\rho_w$ is the relative buoyant density of the concrete unit, with $\rho_c=2400$~kg/m$^3$ and $\rho_w=1030$~kg/m$^3$.
 
-The base volume was then corrected for local phenomena following 
-Table 5-3 of the DMC guidelines, shown in Figure~\ref{fig:table53}. 
-For this design, the governing correction factor was the deep water 
-criterion, which applies when the water depth exceeds $3.5\,H_s$. 
-Since both sections satisfy this condition, a correction factor 
-of $CF = 2.0$ was applied to both. For the head section (A-A), 
-an additional head correction factor of $CF_{head} = 1.25$ would 
-normally apply, however, since the deep water factor is larger, 
-only the governing factor of 2.0 was used in accordance with the 
-DMC guideline recommendation to apply the largest single factor:
+After the base unit volume was obtained, local correction factors from Table 5-3 of the DMC guideline were checked. In this study, the governing condition was the deep water criterion, since the water depth exceeded $3.5H_s$ for both sections. Therefore, a single correction factor of $CF=2.0$ was applied to both the trunk and the head. In accordance with the guideline recommendation, only the governing correction factor was used rather than combining multiple factors. The corrected unit volume was then calculated as
 
 \begin{equation}
-    V_{CF} = V_{Xbloc} \times CF
+    V_{CF}=V_{Xbloc}\times CF
 \end{equation}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{table53.png}
-    \caption{Correction factors for local phenomena affecting 
-    required X-Bloc unit size (DMC, 2023)}
-    \label{fig:table53}
-\end{figure}
+and rounded up to the nearest standard X-Bloc size given in Table 5-1 of the guideline.
 
-The corrected volume was rounded up to the nearest standard unit 
-size from Table 5-1 of the DMC guidelines to obtain the design 
-volume $V_{design}$.
+A row check was then carried out, since the maximum allowable number of rows on the slope is 20 for X-Bloc armour. The maximum allowable slope length is defined as $19D_y+0.5D$, where $D_y$ is the upslope placement distance and $D$ is the unit height. The actual slope length was computed from the design water depth and the adopted seaward slope geometry, and if the initial X-Bloc size did not satisfy the 20-row criterion, the unit size was increased until the requirement was met. Thus, the final adopted X-Bloc size was selected after both the hydraulic stability requirement and the row-limit requirement were satisfied.
 
-The maximum allowable number of rows on the slope is 20 for 
-X-Bloc units, corresponding to a maximum slope length of 
-$19\,D_y + 0.5\,D$, where $D_y$ is the upslope placement 
-distance and $D$ is the unit height \cite{DMC2023}. If the 
-slope length at the design water depth exceeds this limit, 
-the unit size is increased until the constraint is satisfied. 
-The slope length was computed as:
+The crest freeboard was calculated using the EurOtop overtopping expression with the X-Bloc roughness factor, and since no crown wall was adopted, the crest width was taken conservatively as
 
 \begin{equation}
-    L_{slope} = (h + \Delta_{HWL}) \times \frac{5}{3}
+    B = 2.28D
 \end{equation}
 
-for a 1:2 slope (cot$\alpha$ = 2) at the trunk and 1:3 slope 
-(cot$\alpha$ = 3) at the head. The toe rock size was determined 
-iteratively using the Van der Meer et al. (1995) formula 
-\cite{DMC2023}:
+where $D$ is the characteristic X-Bloc unit height.
+
+The underlayer was selected according to the DMC guideline requirement that the underlayer rock mass should lie between $W/15$ and $W/6$ of the X-Bloc unit mass. A representative value slightly above the midpoint of this allowable range was chosen, then converted into diameter and thickness ($t_u = 2D_{n50}$) for the section geometry.
+
+The toe design was based on the Van der Meer et al. (1995) toe stability expression recommended in the DMC guideline:
 
 \begin{equation}
-    D_{n50} = \frac{H_s}{\left(2 + 6.2\left(\dfrac{h_t}{h}
-    \right)^{2.7}\right) N_{od}^{0.15}\,\Delta}
+    D_{n50}=\frac{H_s}
+    {\left(2+6.2\left(\frac{h_t}{h}\right)^{2.7}\right)N_{od}^{0.15}\Delta}
 \end{equation}
 
-where $h_t = h - 3D_{n50}$ is the depth above the toe, and 
-$N_{od} = 0.5$ corresponds to start of damage. The underlayer 
-rock mass was checked to fall within the range of $W/6$ to 
-$W/15$ of the unit mass as required by the DMC guidelines.
+with $N_{od}=0.5$ corresponding to start of damage. The toe rock size was obtained iteratively, because the depth above the toe, $h_t$, depends on the adopted toe geometry. In the final design, $h_t$ was evaluated by considering the actual toe configuration used in the section, including the granular filter layer, the foundation layer, and the toe thickness itself. A granular filter thickness of 0.6~m was adopted, while the foundation layer rock size was taken as $W/30$ of the X-Bloc unit mass, following the guideline recommendation.
 
-The rear face was designed symmetrically with the front armor 
-as a conservative approach, since the relative freeboard 
-$RFB = R_c/H_s > 1.5$ falls outside the standard guidance 
-range of the DMC guidelines.
+Finally, the rear slope was represented symmetrically to the front slope as a conservative conceptual cross-section for the report drawings.
 % -------------------- Results and Discussion --------------------
 \section{Results and Discussion}
 \subsection{Extreme Wave Statistics}
-\hspace{0.5cm}
+\hspace{0.5cm}The extreme wave analysis was performed using 40 years of hourly ERA5 wind data spanning 1986 to 2025, from which 1662 individual storm events were identified. The annual maximum significant wave heights extracted from the storm catalogue are presented in Table~\ref{tab:annmax}. The data exhibits a pronounced outlier in 1990, where an exceptionally strong northerly storm with a peak wind speed of 46.82 m/s over the full 312 km fetch produced an annual maximum of $H_{s} = 6.225$ m, which is substantially higher than all other years in the record. The ten candidate distributions were evaluated using the scoring system described in Section 2.1, and the results are presented in Table~\ref{tab:rank}. The Weibull distribution with $k = 0.75$ achieved the highest total score of 46, satisfying all five goodness-of-fit criteria. The governing 100-year return period design wave parameters are given in Table~\ref{tab:extws}.
+
+\begin{table}[H]
+\centering
+\caption{Annual maximum significant wave heights and corresponding peak periods and directions}
+\label{tab:wind}
+\begin{tabular}{cccc}
+\hline
+Year & $H_{s,max}$ (m) & $T_{p}$ (s) & Direction \\
+\hline
+1986 & 0.776 & 4.434 & WNW \\
+1987 & 1.138 & 4.620 & NNE \\
+1988 & 0.857 & 4.614 & W \\
+1989 & 1.150 & 5.189 & WNW \\
+1990 & 6.225 & 9.533 & N \\
+1991 & 0.768 & 4.415 & WNW \\
+1992 & 1.730 & 4.756 & NNE \\
+1993 & 1.077 & 4.902 & W \\
+1994 & 0.924 & 4.754 & W \\
+1995 & 3.347 & 6.192 & N \\
+1996 & 0.590 & 3.714 & W \\
+1997 & 1.218 & 5.310 & W \\
+1998 & 0.865 & 4.489 & WNW \\
+1999 & 2.685 & 6.513 & N \\
+2000 & 0.773 & 4.427 & WNW \\
+2001 & 2.783 & 5.058 & SSW \\
+2002 & 0.911 & 4.727 & WNW \\
+2003 & 1.350 & 4.670 & N \\
+2004 & 0.848 & 4.594 & W \\
+2005 & 3.360 & 7.125 & N \\
+2006 & 1.725 & 4.597 & SW \\
+2007 & 1.859 & 4.421 & SSW \\
+2008 & 1.355 & 5.542 & W \\
+2009 & 0.956 & 4.819 & W \\
+2010 & 2.704 & 4.950 & N \\
+2011 & 1.095 & 5.088 & WNW \\
+2012 & 1.146 & 5.182 & WNW \\
+2013 & 1.785 & 5.532 & N \\
+2014 & 0.903 & 4.711 & WNW \\
+2015 & 1.658 & 4.070 & N \\
+2016 & 0.799 & 4.487 & WNW \\
+2017 & 1.048 & 4.848 & WNW \\
+2018 & 0.745 & 4.362 & NW \\
+2019 & 1.211 & 4.472 & NNE \\
+2020 & 0.744 & 4.360 & W \\
+2021 & 1.128 & 5.149 & WNW \\
+2022 & 0.839 & 4.575 & WNW \\
+2023 & 0.820 & 4.533 & W \\
+2024 & 1.325 & 3.949 & SSW \\
+2025 & 1.266 & 5.392 & W \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Goodness-of-fit scoring results for the ten candidate distributions}
+\label{tab:rank}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|c||c|c|c|c|c|c|}
+\hline
+\multicolumn{6}{|c||}{} & \multicolumn{6}{c|}{\textbf{Score}} \\ \hline
+Distribution & $R^{2}$ & MIR & REC & DOL & KS & $R^{2}$ & MIR & REC & DOL & KS & Total \\ \hline
+Weibull ($k=0.75$) & 0.9692 & 0.5771 & ACCEPTED & ACCEPTED & ACCEPTED & 8 & 8 & 10 & 10 & 10 & 46 \\ \hline
+FT-II ($k=2.5$) & 0.9776 & 0.2350 & ACCEPTED & ACCEPTED & NOT ACCEPTED & 10 & 10 & 10 & 10 & 0 & 40 \\ \hline
+FT-II ($k=3.33$) & 0.9726 & 0.3715 & ACCEPTED & ACCEPTED & NOT ACCEPTED & 9 & 9 & 10 & 10 & 0 & 38 \\ \hline
+FT-II ($k=5.0$) & 0.9410 & 1.0417 & ACCEPTED & ACCEPTED & NOT ACCEPTED & 7 & 7 & 10 & 10 & 0 & 34 \\ \hline
+Weibull ($k=1.0$) & 0.9221 & 1.9699 & ACCEPTED & ACCEPTED & NOT ACCEPTED & 6 & 6 & 10 & 10 & 0 & 32 \\ \hline
+FT-II ($k=10.0$) & 0.8903 & 2.5488 & NOT ACCEPTED & ACCEPTED & NOT ACCEPTED & 5 & 5 & 0 & 10 & 0 & 20 \\ \hline
+Gumbel FT-Ib & 0.8281 & 3.2117 & NOT ACCEPTED & NOT ACCEPTED & ACCEPTED & 3 & 4 & 0 & 0 & 10 & 17 \\ \hline
+Weibull ($k=1.4$) & 0.8428 & 5.3175 & NOT ACCEPTED & NOT ACCEPTED & ACCEPTED & 4 & 2 & 0 & 0 & 10 & 16 \\ \hline
+Gumbel FT-Ia & 0.7963 & 3.8411 & NOT ACCEPTED & NOT ACCEPTED & ACCEPTED & 2 & 3 & 0 & 0 & 10 & 15 \\ \hline
+Weibull ($k=2.0$) & 0.7568 & 10.215 & NOT ACCEPTED & NOT ACCEPTED & ACCEPTED & 1 & 1 & 0 & 0 & 10 & 12 \\ \hline
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{100-year return period design wave parameters}
+\label{tab:extws}
+\begin{tabular}{ccc}
+\hline
+$H_{s,100}$ (m) & $L_{0,100}$ (m) & $T_{p,100}$ (s) \\
+\hline
+5.879 & 190.642 & 11.050 \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Transformation of the Design Wave}
-\hspace{0.5cm} 
+\hspace{0.5cm}The 100-year deep-water design wave with $H_{s,100} = 5.879$ m and $T_{p,100} = 11.050$ s was propagated to the toe of each section using SWANONE. The resulting wave parameters at the structure toe for both the NWL and HWL cases are presented in Table~\ref{tab:swanone}.
+
+\begin{table}[H]
+\centering
+\caption{Wave parameters at the structure toe from SWANONE}
+\label{tab:swanone}
+\begin{tabular}{ccccccc}
+\hline
+Section & Case & $h$ (m) & $H_{s,toe}$ (m) & $T_{p}$ (s) & $T_{m-1,0}$ (s) & $H_{2\%}$ (m) \\
+\hline
+A-A & NWL & 23.00 & 5.2903 & 11.157 & 10.360 & 6.105 \\
+A-A & HWL & 24.34 & 5.2960 & 11.157 & 10.360 & 6.115 \\
+D-D & NWL & 22.00 & 5.2871 & 11.157 & 10.346 & 6.091 \\
+D-D & HWL & 23.34 & 5.2914 & 11.157 & 10.346 & 6.098 \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Design Water Level}
-\hspace{0.5cm} 
+\hspace{0.5cm}Two water level cases were considered in this study. The Normal Water Level (NWL) was taken as mean sea level, giving $\Delta_{NWL} = 0.0$ m. The High Water Level (HWL) was assembled by summing all relevant water level rise components above MSL. The individual contributions and the resulting $\Delta_{HWL}$ are presented in Table~\ref{tab:dwl}.
+
+\begin{table}[H]
+\centering
+\caption{Design water level components}
+\label{tab:dwl}
+\begin{tabular}{lc}
+\hline
+Component & Value (m) \\
+\hline
+Sea level rise $\Delta_{SLR}$ & 0.750 \\
+Highest astronomical tide $\eta_{tide}$ & 0.200 \\
+Seasonal variation $\eta_{seasonal}$ & 0.150 \\
+Wind setup $\eta_{wind}$ & 0.051 \\
+Dynamic wave setup $\eta_{wave,dyn}$ & 0.154 \\
+Static wave setup $\eta_{wave,static}$ & 0.715 \\
+Barometric and Coriolis correction $\eta_{BC}$ & 0.184 \\
+\hline
+$\Delta_{HWL}$ & 1.335 \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Run-up and Free Crest Height}
-\hspace{0.5cm} 
+\hspace{0.5cm}The spectral breaker index $\xi_{m-1,0}$, the governing $R_{u,2\%}$, the required freeboard $R_{c}$, and the resulting crest elevation above MSL were computed for both sections and both water level cases. The results are presented in Table~\ref{tab:runup}. In all cases the surging branch of the EurOtop formula governed the run-up. The no-damage overtopping criterion of $q = 1$ l/s/m was applied for both natural rock and X-Bloc units, with $\gamma_{f} = 0.40$ and $\gamma_{f} = 0.44$ respectively.
 
-\subsection{Armor Unit Selection and Design}
+\begin{table}[H]
+\centering
+\caption{Run-up and crest height results for both sections and water level cases}
+\label{tab:runup}
+\begin{tabular}{cccccccc}
+\hline
+Section & Case & Unit & $\xi_{m-1,0}$ & $R_{u,2\%}$ (m) & $R_{c}$ (m) & $z_{crest}$ (m) \\
+\hline
+A-A & NWL & Rock   & 1.8086 & 6.5418 & 7.9687 & 30.9687 \\
+A-A & NWL & X-Bloc & 1.8086 & 6.5418 & 8.7655 & 31.7655 \\
+A-A & HWL & Rock   & 1.8051 & 6.5422 & 7.9784 & 32.3137 \\
+A-A & HWL & X-Bloc & 1.8051 & 6.5422 & 8.7762 & 33.1116 \\
+D-D & NWL & Rock   & 1.8110 & 6.5423 & 7.9633 & 29.9633 \\
+D-D & NWL & X-Bloc & 1.8110 & 6.5423 & 8.7596 & 30.7596 \\
+D-D & HWL & Rock   & 1.8078 & 6.5416 & 7.9707 & 31.3060 \\
+D-D & HWL & X-Bloc & 1.8078 & 6.5416 & 8.7677 & 32.1030 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm}The run-up results are very similar for both sections and for both water level cases, with $R_{u,2\%}$ remaining close to 6.54 m in all cases. This indicates that the two sections are subjected to nearly the same hydraulic loading at the toe despite the small difference in water depth. The main difference in crest design therefore does not come from run-up itself, but from the selected roughness factor and the adopted water level. Because X-Bloc has a slightly larger roughness factor than natural rock, it requires a larger free crest height for the same overtopping discharge. In addition, the increase from NWL to HWL raises the final crest elevation mainly through the higher design water level rather than through any significant change in run-up.
+
+\subsection{Armor Unit Design}
 \subsubsection{Natural Rock}
-\hspace{0.5cm}
+\hspace{0.5cm} The Hudson formula was evaluated as a reference method. The breaking condition was assessed by comparing $H_{s,toe}/h$ against the threshold of 0.6 following Ergin (2019). For both sections and both water level cases the ratio was well below 0.6, confirming non-breaking conditions. The resulting Hudson weights are given in Table~\ref{tab:hudson}.
+
+\begin{table}[H]
+\centering
+\caption{Hudson armor unit weights for both sections and water level cases}
+\label{tab:hudson}
+\begin{tabular}{cccccc}
+\hline
+Section & Case & $H_{s,toe}/h$ & Condition & $K_{D}$ & $W$ (t) \\
+\hline
+A-A & NWL & 0.2977 & Non-breaking & 2.8 & 23.650 \\
+A-A & HWL & 0.2807 & Non-breaking & 2.8 & 23.477 \\
+D-D & NWL & 0.3119 & Non-breaking & 4.0 & 16.665 \\
+D-D & HWL & 0.2932 & Non-breaking & 4.0 & 16.520 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm} The governing design method was selected using the Guler et al. (2014) flowchart. The three constraints were checked for each section and water level case, and the results are presented in Table~\ref{tab:flowchart}. None of the cases satisfied all three constraints simultaneously, so Van der Meer (2021) was selected as the governing method for all cases.
+
+\begin{table}[H]
+\centering
+\caption{Guler et al. (2014) flowchart constraint check}
+\label{tab:flowchart}
+\begin{tabular}{ccccccccc}
+\hline
+Section & Case & $h/H_{s,toe}$ & $C_{1}$ & $H_{2\%}/H_{s,toe}$ & $C_{2}$ & $H_{s,toe}/H_{s0}$ & $C_{3}$ & Method \\
+\hline
+A-A & NWL & 4.348 & NO & 1.422 & NO & 0.900 & YES & VdM (2021) \\
+A-A & HWL & 4.595 & NO & 1.417 & NO & 0.901 & NO  & VdM (2021) \\
+D-D & NWL & 4.161 & NO & 1.426 & NO & 0.899 & YES & VdM (2021) \\
+D-D & HWL & 4.410 & NO & 1.421 & NO & 0.900 & NO  & VdM (2021) \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm} The Van der Meer (2021) formula was applied with $P = 0.4$, $S = 2$, $N = 3000$, and $\Delta = 1.634$. In all cases plunging wave conditions were identified since $\xi_{m-1,0} < \xi_{cr}$. For Section A-A the resulting trunk weight was multiplied by a head factor of 1.5. The armor unit weights and cross-section dimensions are presented in Tables~\ref{tab:vdm} and \ref{tab:rockcs}.
+
+\begin{table}[H]
+\centering
+\caption{Van der Meer (2021) armor unit weights}
+\label{tab:vdm}
+\begin{tabular}{cccccc}
+\hline
+Section & Case & $\xi_{m-1,0}$ & $\xi_{cr}$ & $W_{trunk}$ (t) & $W_{design}$ (t) \\
+\hline
+A-A & NWL & 1.8086 & 3.2738 & 9.741 & 14.612 \\
+A-A & HWL & 1.8051 & 3.2738 & 9.745 & 14.617 \\
+D-D & NWL & 1.8110 & 3.2738 & 9.743 & 9.743 \\
+D-D & HWL & 1.8078 & 3.2738 & 9.741 & 9.741 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Natural rock cross-section dimensions}
+\label{tab:rockcs}
+\begin{tabular}{ccccccccc}
+\hline
+Section & Case & $W_{design}$ (t) & $D_{n50}$ (m) & $r_{armor}$ (m) & $D_{n50,ul}$ (m) & $r_{ul}$ (m) & $B$ (m) & $z_{crest}$ (m) \\
+\hline
+A-A & NWL & 14.612 & 1.756 & 3.511 & 0.798 & 1.596 & 10.534 & 30.969 \\
+A-A & HWL & 14.617 & 1.756 & 3.512 & 0.798 & 1.596 & 10.535 & 32.314 \\
+D-D & NWL & 9.743  & 1.534 & 3.068 & 0.697 & 1.394 & 9.203  & 29.963 \\
+D-D & HWL & 9.741  & 1.534 & 3.067 & 0.697 & 1.394 & 9.202  & 31.306 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm}The natural rock results show that, after revising the seaward slope to 1:3, the required armour weight was reduced to approximately 14.6 t at the head section and 9.74 t at the trunk section. This brought the natural rock solution below the practical 15 t limit that was adopted in the study. However, this reduction was achieved by flattening the slope, which significantly increased the width of the cross-section and therefore the required quantity of construction material. In other words, the natural rock option became hydraulically feasible, but only at the expense of a wider and heavier structure. This is an important drawback in comparison with the X-Bloc alternative.
 
 \subsubsection{X-Bloc}
-\hspace{0.5cm}
+\hspace{0.5cm}The base X-Bloc unit volume was computed from the design wave height and the relative buoyant density $\Delta = 1.3301$ of the concrete units. A depth-based correction factor of $CF = 2.0$ was applied to both sections since the water depth exceeds $3.5 H_{s}$ in all cases. The corrected volume was then rounded up to the nearest standard size from Table 5-1 of the DMC guidelines. The initial design volumes after applying $CF = 2.0$ were 6.0 m$^{3}$ for both sections and both water level cases. However, the maximum allowable slope length for 20 rows of X-Bloc units was checked as:
+
+\begin{equation}
+L_{max} = 19 D_{y} + 0.5 D
+\end{equation}
+
+where $D_{y}$ is the upslope placement distance and $D$ is the unit height. The required slope length was computed as $L_{slope} = (h + \Delta_{HWL}) \times 5/3$ for a 3V:4H seaward slope. As shown in Table~\ref{tab:rowcheck}, the 6.0 m$^{3}$ unit failed the 20-row constraint for all cases, and the unit size was therefore increased to the minimum size that satisfies the constraint. The final adopted unit sizes after the row check are presented in Table~\ref{tab:xblocsize}.
+
+\begin{table}[H]
+\centering
+\caption{X-Bloc row check results for the initial $CF = 2.0$ design volume of 6.0 m$^{3}$}
+\label{tab:rowcheck}
+\begin{tabular}{ccccccc}
+\hline
+Section & Case & $h + \Delta_{HWL}$ (m) & $L_{slope}$ (m) & $L_{max}$ (m) & Rows & Pass \\
+\hline
+A-A & NWL & 23.00 & 38.33 & 34.24 & 22.4 & NO \\
+A-A & HWL & 24.34 & 40.56 & 34.24 & 23.8 & NO \\
+D-D & NWL & 22.00 & 36.67 & 33.11 & 21.4 & NO \\
+D-D & HWL & 23.34 & 38.90 & 33.11 & 22.8 & NO \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Final adopted X-Bloc unit sizes after row constraint check}
+\label{tab:xblocsize}
+\begin{tabular}{cccccc}
+\hline
+Section & Case & $V_{design}$ (m$^{3}$) & $D$ (m) & $D_{y}$ (m) & $L_{max}$ (m) \\
+\hline
+A-A & NWL & 10.0 & 3.11 & 1.96 & 38.71 \\
+A-A & HWL & 14.0 & 3.48 & 2.19 & 43.26 \\
+D-D & NWL & 9.0  & 3.00 & 1.89 & 37.41 \\
+D-D & HWL & 12.0 & 3.30 & 2.08 & 40.97 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm}Since only four standard X-Bloc unit sizes were adopted in the final design, the relevant properties retrieved from Table 5-1 of the DMC guideline are summarized in Table~\ref{tab:xblocmanual_selected}. These standard properties were then used to define the armour layer thickness, unit height, unit weight, and underlayer bounds for the final section drawings. The overall X-Bloc section geometry adopted in the present study is illustrated in Figure~\ref{fig:xbloc_overall_shape}.
+
+\begin{table}[H]
+\centering
+\caption{Relevant X-Bloc properties from Table 5-1 of the DMC guideline for the adopted unit volumes}
+\label{tab:xblocmanual_selected}
+\begin{tabular}{ccccccccc}
+\hline
+$V$ (m$^3$) & $D$ (m) & $W$ (t) & $h$ (m) & $D_x$ (m) & $D_y$ (m) & $N$ (1/100m$^2$) & $W_{ul,min}$ (t) & $W_{ul,max}$ (t) \\
+\hline
+9  & 3.00 & 21.6 & 2.9 & 3.96 & 1.89 & 13.4 & 1.44 & 3.60 \\
+10 & 3.11 & 24.0 & 3.0 & 4.10 & 1.96 & 12.5 & 1.60 & 4.00 \\
+12 & 3.30 & 28.8 & 3.2 & 4.36 & 2.08 & 11.0 & 1.92 & 4.80 \\
+14 & 3.48 & 33.6 & 3.4 & 4.59 & 2.19 & 10.0 & 2.24 & 5.60 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{xbloc_overall_shape.png}
+\caption{Typical X-Bloc cross-section geometry from the DMC guideline for relative freeboard greater than 1.5}
+\label{fig:xbloc_overall_shape}
+\end{figure}
+
+\hspace{0.5cm}As seen in Figure~\ref{fig:xbloc_overall_shape}, the adopted X-Bloc section consists of a single-layer concrete armour on the seaward face, a rock underlayer, a rock core, and a toe berm at the front. Since the relative freeboard in all X-Bloc cases is greater than 1.5, the guideline sketch corresponding to this range was taken as the reference overall geometry. The rear side was represented symmetrically in the drawings as a conservative assumption, although the actual rear slope could be steeper than the front slope in practice.
+
+\hspace{0.5cm} The underlayer rock mass was selected within the allowable range of $W/15$ to $W/6$ of the X-Bloc unit mass. The toe rock size was determined iteratively using the Van der Meer et al. (1995) formula with $N_{od} = 0.5$. The full X-Bloc cross-section parameters are summarized in Table~\ref{tab:xbloccs} and the toe design parameters are given in Table~\ref{tab:xbloctoe}.
+
+\begin{table}[H]
+\centering
+\caption{X-Bloc cross-section parameters}
+\label{tab:xbloccs}
+\begin{tabular}{cccccccc}
+\hline
+Section & Case & $V_{design}$ (m$^{3}$) & $D$ (m) & $W_{ul}$ (t) & $D_{n50,ul}$ (m) & $r_{ul}$ (m) & $z_{crest}$ (m) \\
+\hline
+A-A & NWL & 10.0 & 3.11 & 3.40 & 1.080 & 2.160 & 31.766 \\
+A-A & HWL & 14.0 & 3.48 & 4.76 & 1.208 & 2.416 & 33.112 \\
+D-D & NWL & 9.0  & 3.00 & 3.06 & 1.043 & 2.085 & 30.760 \\
+D-D & HWL & 12.0 & 3.30 & 4.08 & 1.148 & 2.295 & 32.103 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm}The X-Bloc design was governed not by the initial hydraulic size obtained from the stability equation, but by the 20-row limitation of the DMC guideline. The initial corrected unit volume of 6.0 m$^3$ failed the row check for both sections and both water level cases, so the final unit size had to be increased to satisfy the geometric constraint. As a result, the adopted X-Bloc sizes became 10.0 and 9.0 m$^3$ for A-A and D-D under NWL, and 14.0 and 12.0 m$^3$ under HWL. This shows that the governing factor for X-Bloc sizing in the present case is the large structural height rather than the basic hydraulic stability equation alone.
+
+\hspace{0.5cm}The toe arrangement was designed according to the X-Bloc toe detail recommended in the DMC guideline. In the final section, the toe consists of a granular filter layer, a foundation layer selected as $W/30$ of the X-Bloc unit weight, and a rock toe berm. The toe rock size was determined iteratively using the Van der Meer et al. (1995) expression, while the final toe geometry was checked together with the supporting layers so that the toe berm, foundation layer, and granular filter remained geometrically compatible in the section drawings. The relevant toe detail from the guideline is shown in Figure~\ref{fig:xbloc_toe_guideline}, and the final toe design values are summarized in Table~\ref{tab:xbloctoe}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{xbloc_toe_guideline.png}
+\caption{Toe geometry and supporting layers for X-Bloc sections from the DMC guideline}
+\label{fig:xbloc_toe_guideline}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{X-Bloc toe design parameters}
+\label{tab:xbloctoe}
+\begin{tabular}{ccccccc}
+\hline
+Section & Case & $h_{t}$ (m) & $D_{n50,toe}$ (m) & $W_{toe}$ (t) & Thickness (m) & Length (m) \\
+\hline
+A-A & NWL & 19.28 & 0.614 & 0.625 & 2.457 & 3.685 \\
+A-A & HWL & 20.57 & 0.606 & 0.600 & 2.423 & 3.634 \\
+D-D & NWL & 18.26 & 0.625 & 0.658 & 2.498 & 3.747 \\
+D-D & HWL & 19.57 & 0.613 & 0.623 & 2.454 & 3.681 \\
+\hline
+\end{tabular}
+\end{table}
+
+\hspace{0.5cm}The toe design required additional attention because the first trial geometry led to incompatibility between the toe layer and the supporting layers in the section drawing. For this reason, the final toe geometry was defined together with the granular filter and foundation layers, and the toe depth $h_t$ was evaluated from the adopted stacked geometry rather than from an isolated simplified assumption. The final toe design therefore consists of a 0.60 m granular filter layer, a foundation layer based on $W/30$ of the X-Bloc unit mass, and a rock toe sized iteratively using the Van der Meer et al. (1995) expression. This produced toe rock sizes of about 0.60--0.63 m nominal diameter and toe thicknesses of about 2.42--2.50 m for the final sections.
 
 \subsection{Cross-Section Design}
 \subsubsection{Section A-A}
-\hspace{0.5cm}
+\hspace{0.5cm} Section A-A is the breakwater head section located at a water depth of $h = 23$ m. The cross-section geometry follows the typical rubble mound layout shown in Figure~\ref{fig:rockmanual613}, with a seaward armor layer, underlayer, rock core, toe berm on the seaward side, and a rear side berm. The governing cross-section dimensions for both the natural rock and X-Bloc designs under NWL and HWL conditions are summarized in Table~\ref{tab:csAA}. The designed cross-sections are shown in Figures~\ref{fig:AA_NWL_NR}, \ref{fig:AA_HWL_NR}, \ref{fig:AA_NWL_XB}, and \ref{fig:AA_HWL_XB}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{rock_manual_613.png}
+\caption{Typical rubble mound breakwater cross-section geometry (CIRIA, 2007)}
+\label{fig:rockmanual613}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Section A-A cross-section design summary}
+\label{tab:csAA}
+\begin{tabular}{lcccc}
+\hline
+Parameter & Rock NWL & Rock HWL & X-Bloc NWL & X-Bloc HWL \\
+\hline
+$h$ (m) & 23.00 & 24.34 & 23.00 & 24.34 \\
+$\Delta_{HWL}$ (m) & 0.00 & 1.34 & 0.00 & 1.34 \\
+$W_{design}$ (t) & 14.612 & 14.617 & 24.0 & 33.6 \\
+$V_{design}$ (m$^{3}$) & -- & -- & 10.0 & 14.0 \\
+$D_{n50}$ (m) & 1.756 & 1.756 & 3.11 & 3.48 \\
+Armor layer $r$ (m) & 3.511 & 3.512 & 3.0 & 3.4 \\
+$D_{n50,ul}$ (m) & 0.798 & 0.798 & 1.080 & 1.208 \\
+Underlayer $r_{ul}$ (m) & 1.596 & 1.596 & 2.160 & 2.416 \\
+Crest width $B$ (m) & 10.534 & 10.535 & 7.091 & 7.934 \\
+Rear side berm (m) & 0.798 & 0.798 & -- & -- \\
+$R_{c}$ (m) & 7.969 & 7.978 & 8.766 & 8.776 \\
+$z_{crest}$ (m) & 30.969 & 32.314 & 31.766 & 33.112 \\
+Toe $D_{n50}$ (m) & 0.614 & 0.606 & 0.614 & 0.606 \\
+Toe $W$ (t) & 0.625 & 0.600 & 0.625 & 0.600 \\
+Toe thickness (m) & 7.022 & 7.024 & 2.457 & 2.423 \\
+Toe length (m) & 10.534 & 10.535 & 3.685 & 3.634 \\
+$R_{min,head}$ (m) & -- & -- & 18.660 & 20.880 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{AA_NWL_NR-1.png}
+\caption{Section A-A natural rock cross-section under NWL}
+\label{fig:AA_NWL_NR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{AA_HWL_NR-1.png}
+\caption{Section A-A natural rock cross-section under HWL}
+\label{fig:AA_HWL_NR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{AA_NWL_XB-1.png}
+\caption{Section A-A X-Bloc cross-section under NWL}
+\label{fig:AA_NWL_XB}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{AA_HWL_XB-1.png}
+\caption{Section A-A X-Bloc cross-section under HWL}
+\label{fig:AA_HWL_XB}
+\end{figure}
 
 \subsubsection{Section D-D}
-\hspace{0.5cm}
+\hspace{0.5cm} Section D-D is the breakwater trunk section located at a water depth of $h = 22$ m. The cross-section geometry follows the same typical rubble mound layout shown in Figure~\ref{fig:rockmanual613}. The governing cross-section dimensions for both the natural rock and X-Bloc designs under NWL and HWL conditions are summarized in Table~\ref{tab:csDD}. The designed cross-sections are shown in Figures~\ref{fig:DD_NWL_NR}, \ref{fig:DD_HWL_NR}, \ref{fig:DD_NWL_XB}, and \ref{fig:DD_HWL_XB}.
+
+\begin{table}[H]
+\centering
+\caption{Section D-D cross-section design summary}
+\label{tab:csDD}
+\begin{tabular}{lcccc}
+\hline
+Parameter & Rock NWL & Rock HWL & X-Bloc NWL & X-Bloc HWL \\
+\hline
+$h$ (m) & 22.00 & 23.34 & 22.00 & 23.34 \\
+$\Delta_{HWL}$ (m) & 0.00 & 1.34 & 0.00 & 1.34 \\
+$W_{design}$ (t) & 9.743 & 9.741 & 21.6 & 28.8 \\
+$V_{design}$ (m$^{3}$) & -- & -- & 9.0 & 12.0 \\
+$D_{n50}$ (m) & 1.534 & 1.534 & 3.00 & 3.30 \\
+Armor layer $r$ (m) & 3.068 & 3.067 & 3.0 & 3.4 \\
+$D_{n50,ul}$ (m) & 0.697 & 0.697 & 1.043 & 1.148 \\
+Underlayer $r_{ul}$ (m) & 1.394 & 1.394 & 2.085 & 2.295 \\
+Crest width $B$ (m) & 9.203 & 9.202 & 6.840 & 7.524 \\
+Rear side berm (m) & 0.697 & 0.697 & -- & -- \\
+$R_{c}$ (m) & 7.963 & 7.971 & 8.760 & 8.768 \\
+$z_{crest}$ (m) & 29.963 & 31.306 & 30.760 & 32.103 \\
+Toe $D_{n50}$ (m) & 0.625 & 0.613 & 0.625 & 0.613 \\
+Toe $W$ (t) & 0.658 & 0.623 & 0.658 & 0.623 \\
+Toe thickness (m) & 6.135 & 6.134 & 2.498 & 2.454 \\
+Toe length (m) & 9.203 & 9.202 & 3.747 & 3.681 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{DD_NWL_NR-1.png}
+\caption{Section D-D natural rock cross-section under NWL}
+\label{fig:DD_NWL_NR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{DD_HWL_NR-1.png}
+\caption{Section D-D natural rock cross-section under HWL}
+\label{fig:DD_HWL_NR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{DD_NWL_XB-1.png}
+\caption{Section D-D X-Bloc cross-section under NWL}
+\label{fig:DD_NWL_XB}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{DD_HWL_XB-1.png}
+\caption{Section D-D X-Bloc cross-section under HWL}
+\label{fig:DD_HWL_XB}
+\end{figure}
+
+\hspace{0.5cm}When the natural rock and X-Bloc alternatives are compared, X-Bloc is the more efficient final solution for this project. Although the natural rock option could be brought below the 15 t limit by flattening the slope to 1:3, this resulted in a considerably wider cross-section and therefore a larger material volume. The X-Bloc alternative, on the other hand, satisfies the hydraulic and geometric requirements with a narrower section and a more compact layout. For this reason, X-Bloc is considered the main and more practical solution for both the head and trunk sections in the final design.
+\newpage
 % -------------------- Conclusion --------------------
 \section{Conclusion}
+\hspace{0.5cm}In this study, the rubble mound breakwater design was carried out for two representative sections, namely the head section A-A and the trunk section D-D, by considering both normal water level and high water level conditions. The design process began with the estimation of the 100-year deep-water wave parameters from the long-term wind record, followed by transformation of the design wave to the structure toe using SWANONE. The transformed wave conditions were then used for run-up, freeboard, armour stability, and cross-section design calculations.
 
-\hspace{0.5cm}
+The hydraulic response of the two sections was found to be very similar. The computed run-up values remained close for both sections and both water levels, while the main increase in crest elevation occurred due to the rise from NWL to HWL rather than from a major change in toe wave conditions. For natural rock, the Hudson equation was evaluated as a reference method, but the final governing design method was selected by the flowchart of Güler et al. (2014). Since the required criteria were not all satisfied, Van der Meer (2021) governed the armour sizing for all cases.
+
+The natural rock alternative initially exceeded the practical upper limit of 15 t for armour stone. In order to reduce the required armour weight, the seaward slope was flattened to 1:3, which brought the design rock weights down to acceptable values. However, the flatter slope significantly increased the overall width of the breakwater section and therefore the required amount of fill and armour material. As a result, although the natural rock option became feasible, it led to a wider and heavier section.
+
+For the X-Bloc alternative, the initial unit sizes obtained from the hydraulic stability equation were not sufficient because the 20-row geometric limitation of the DMC guideline controlled the design. After the row check, larger standard unit sizes had to be adopted. The underlayer and toe were then designed according to the guideline requirements, and the toe geometry was finalized together with the filter and foundation layers so that the section remained geometrically consistent. Compared with the natural rock alternative, the X-Bloc option provided a more compact cross-section with smaller overall width while still satisfying the hydraulic and geometric requirements.
+
+Based on the final comparison, X-Bloc was found to be the more suitable solution for both A-A and D-D sections. Although natural rock could be used after flattening the slope, the resulting cross-section became too wide and material-intensive. The X-Bloc alternative, on the other hand, achieved the required stability with a narrower and more efficient layout. Therefore, X-Bloc was selected as the preferred breakwater armour system in the final design.
 
 \newpage
 
@@ -601,6 +1036,9 @@ range of the DMC guidelines.
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{section}{References}
+
+\bibitem{RockManual}
+CIRIA, CUR, CETMEF. (2007). \textit{The Rock Manual: The use of rock in hydraulic engineering} (2nd ed.). CIRIA.
 
 \bibitem{}
 Ergin, A. (2019). \textit{Coastal engineering}. Middle East 
@@ -657,19 +1095,592 @@ overtopping at coastal structures. \textit{Coastal Engineering,
 \appendix
 \section{Appendix}
 
-\subsection{Main MATLAB Code:}
+\subsection{MATLAB Code:}
 \begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
+    % =========================================================
+    %  IYIDERE RUBBLE MOUND BREAKWATER -- DESIGN
+    %  Refs: Van der Meer (2021), EurOtop (2018),
+    %        Hanslow & Nielsen (1993), Wu (1980), CIRIA (2007)
+    % =========================================================
+    clear; clc;
 
+    %% ---- CONSTANTS ------------------------------------------
+    g       = 9.81;
+    rho_air = 1.21;
+    rho_w   = 1020;
+
+    %% ---- SECTION IDENTIFIERS --------------------------------
+    sections = {'A-A', 'D-D'};
+    is_head  = [true, false];
+    h_NWL    = [23, 22];             % toe depths at NWL [m], A-A and D-D
+    Hs0      = 5.879;
+
+    % Seawater / material densities
+    gs = 2.7;     % t/m3, quarrystone
+    gw = 1.025;   % t/m3, seawater
+
+    % Slope: cot alpha = 2 (1:2)
+    cot_a = 3;
+    tana  = 1/cot_a;
+
+    % EurOtop (2018) influence factors
+    a0       = 0;
+    gam_b    = 1.0;
+    gam_f    = 0.40;
+    gam_beta = 1 - 0.0063*a0;
+    gam_f_xbloc = 0.44;
+
+    % Hudson parameters
+    KD_nb_trunk = 4.0;
+    KD_b_trunk  = 2.0;
+
+    KD_nb_head  = 2.8;
+    KD_b_head   = 1.6;
+
+    % Van der Meer stability parameters
+    P = 0.4;
+    S = 2;
+    N = 3000;
+
+    % Cross-section geometry
+    n_armor     = 2;
+    k_delta     = 1.00;
+    ratio_ul    = 2.2;
+    n_crest     = 6;
+    head_factor = 1.5;
+
+    % X-Bloc properties (DMC 2023)
+    rho_c_x = 2.400;
+    rho_w_x = 1.030;
+    Delta_x  = (rho_c_x - rho_w_x) / rho_w_x;
+
+    %% ---- SWANONE FILE PATHS ---------------------------------
+    file_curve = 'tp1_p2.TAB';
+    file_table = 'tp1_p2_Table.TAB';
+
+    %% ---- READ SWANONE FILES (once) --------------------------
+    sw_c = read_swan_curve(file_curve);
+    sw_t = read_swan_table(file_table);
+
+    %% ---- HWL COMPONENTS -------------------------------------
+
+    % Wind setup (Wu 1980 drag, SPM gradient formula)
+    U10_100  = 25.7078;
+    F        = 312e3;
+    d_fetch  = 1200;
+    CD       = (0.8 + 0.065 * U10_100) * 1e-3;
+    tau_w    = rho_air * CD * U10_100^2;
+    eta_wind = tau_w * F / (rho_w * g * d_fetch);
+
+    % Scalar water level components
+    tide_high    = 0.2;
+    SLR          = 0.0075 * 100;
+    seasonal_var = 0.15;
+
+    % Wave setup inputs
+    Tp_100 = 11.050;     % deep water peak period [s]
+    s_fs   = 0.042;      % foreshore slope from Google Earth [-]
+
+    L0_100 = g * Tp_100^2 / (2*pi);
+
+    % static wave setup
+    eta_wave_static = Hs0 * ( ...
+        (0.0063 + 0.768*s_fs) ...
+    - (0.0083 + 0.011*s_fs)*log(Hs0/L0_100) ...
+    + (0.00372 + 0.0148*s_fs)*(log(Hs0/L0_100))^2 );
+
+    % dynamic wave setup-
+    eta_dyn_AA = (0.01 * Hs0) / sqrt((Hs0/L0_100) * (1 + h_NWL(1)/Hs0));
+    eta_dyn_DD = (0.01 * Hs0) / sqrt((Hs0/L0_100) * (1 + h_NWL(2)/Hs0));
+
+    eta_wave_dyn = max(eta_dyn_AA, eta_dyn_DD);
+
+    % Barometric + Coriolis
+    eta_BC = 0.20 * (eta_wind + eta_wave_static + eta_wave_dyn);
+
+    % Total DWL above MSL
+    DWL_NWL = 0;
+    DWL_HWL = tide_high + SLR + seasonal_var + eta_wind + eta_BC;
+
+    %% ---- EXTRACT WAVE PARAMS BY DEPTH -----------------------
+    for i = 1:2
+        c = find_by_depth(sw_c, h_NWL(i));
+        t = find_by_depth(sw_t, h_NWL(i));
+        Hs_toe_NWL(i) = c.Hsig;   %#ok<SAGROW>
+        Tp_NWL(i)     = c.RTpeak; %#ok<SAGROW>
+        Tm10_NWL(i)   = c.Tm10;   %#ok<SAGROW>
+        H2pct_NWL(i)  = t.H2pct;  %#ok<SAGROW>
+        H1_10_NWL(i)  = t.H1_10;  %#ok<SAGROW>
+
+        c = find_by_depth(sw_c, h_NWL(i) + DWL_HWL);
+        t = find_by_depth(sw_t, h_NWL(i) + DWL_HWL);
+        Hs_toe_HWL(i) = c.Hsig;   %#ok<SAGROW>
+        Tp_HWL(i)     = c.RTpeak; %#ok<SAGROW>
+        Tm10_HWL(i)   = c.Tm10;   %#ok<SAGROW>
+        H2pct_HWL(i)  = t.H2pct;  %#ok<SAGROW>
+        H1_10_HWL(i)  = t.H1_10;  %#ok<SAGROW>
+    end
+
+    %% ---- DESIGN LOOP: 2 cases x 2 sections ------------------
+    case_labels = {'NWL', 'HWL'};
+    DWL_vals    = [DWL_NWL, DWL_HWL];
+
+    for case_idx = 1:2
+
+        if case_idx == 1
+            Hs_toe = Hs_toe_NWL;  Tp = Tp_NWL;  Tm10 = Tm10_NWL;
+            H2pct  = H2pct_NWL;   H1_10 = H1_10_NWL;
+            h      = h_NWL;
+        else
+            Hs_toe = Hs_toe_HWL;  Tp = Tp_HWL;  Tm10 = Tm10_HWL;
+            H2pct  = H2pct_HWL;   H1_10 = H1_10_HWL;
+            h      = h_NWL + DWL_HWL;
+        end
+
+        DWL = DWL_vals(case_idx);
+
+        fprintf('\n========== CASE: %s  |  DWL = %.4f m ==========\n', ...
+            case_labels{case_idx}, DWL);
+
+        if case_idx == 2
+            fprintf('  SLR                = %.4f m\n', SLR);
+            fprintf('  Tide (high)        = %.4f m\n', tide_high);
+            fprintf('  Seasonal var.      = %.4f m\n', seasonal_var);
+            fprintf('  Wind setup         = %.4f m\n', eta_wind);
+            fprintf('  Dynamic wave setup = %.4f m\n', eta_wave_dyn);
+            fprintf('  Static wave setup  = %.4f m  (B&C term only)\n', eta_wave_static);
+            fprintf('  B&C                = %.4f m\n', eta_BC);
+        end
+
+        %% ---- RUN-UP (EurOtop 2018) --------------------------
+        fprintf('\n========== RUN-UP ==========\n');
+        xi_m10_vals = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs     = Hs_toe(i);
+            Tm10_i = Tm10(i);
+
+            xi_m10         = tana / sqrt(2*pi*Hs / (g*Tm10_i^2));
+            xi_m10_vals(i) = xi_m10;
+
+            Ru_1       = 1.75 * gam_b * gam_f * gam_beta * xi_m10 * Hs;
+            gam_f_surg = gam_f + (xi_m10 - 1.8)*(1 - gam_f)/8.2;
+            Ru_2       = 1.07 * gam_f_surg * gam_beta * (4.0 - 1.5/sqrt(gam_b*xi_m10)) * Hs;
+            Ru_2pct    = min(Ru_1, Ru_2);
+
+            fprintf('xi_m-1,0  = %.4f\n', xi_m10);
+            fprintf('Ru,2%%     = %.4f m  (Eq. 5.1)\n', Ru_1);
+            fprintf('Ru,2%% max = %.4f m  (Eq. 5.2)\n', Ru_2);
+            fprintf('Governing = %.4f m\n', Ru_2pct);
+        end
+
+        %% ---- CREST HEIGHT (EurOtop 2018, q = 1 l/s/m) ------
+        fprintf('\n========== CREST HEIGHT ==========\n');
+
+        q_design    = 1e-3;
+        Rc          = zeros(1,2);
+        Rc_xbloc    = zeros(1,2);
+        crest_elev  = zeros(1,2);
+        crest_xbloc = zeros(1,2);
+        RFB         = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs    = Hs_toe(i);
+            inner = q_design / (0.1035 * sqrt(g * Hs^3));
+
+            Rc(i)          = Hs * gam_f * gam_beta / 1.35 * (-log(inner))^(1/1.3);
+            crest_elev(i)  = DWL + Rc(i);
+
+            Rc_xbloc(i)    = Hs * gam_f_xbloc * gam_beta / 1.35 * (-log(inner))^(1/1.3);
+            crest_xbloc(i) = DWL + Rc_xbloc(i);
+            RFB(i)         = Rc_xbloc(i) / Hs;
+
+            fprintf('Rock:  Rc = %.4f m  ->  crest = %.4f m MSL\n', Rc(i), crest_elev(i));
+            fprintf('XBloc: Rc = %.4f m  ->  crest = %.4f m MSL  (RFB = %.4f)\n', ...
+                    Rc_xbloc(i), crest_xbloc(i), RFB(i));
+        end
+
+        %% ---- HUDSON (1974) --------------------------------------
+        fprintf('\n========== HUDSON (1974) ==========\n');
+        Sr = gs/gw;
+        
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs    = H1_10(i);
+            ratio = Hs / h(i);
+        
+            if is_head(i)
+                if ratio < 0.6
+                    KD = KD_nb_head;
+                    tag = 'non-breaking';
+                else
+                    KD = KD_b_head;
+                    tag = 'BREAKING';
+                end
+            else
+                if ratio < 0.6
+                    KD = KD_nb_trunk;
+                    tag = 'non-breaking';
+                else
+                    KD = KD_b_trunk;
+                    tag = 'BREAKING';
+                end
+            end
+        
+            W_Hudson = gs * Hs^3 * tana / ((Sr-1)^3 * KD);
+        
+            fprintf('Hs/h = %.4f -> %s (KD=%.1f) -> W = %.4f t\n', ...
+                ratio, tag, KD, W_Hudson);
+        end
+
+        %% ---- VAN DER MEER (1988) ----------------------------
+        fprintf('\n========== VAN DER MEER (1988) ==========\n');
+        Delta   = gs/gw - 1;
+        W_VdM88 = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs    = Hs_toe(i);
+            Tm_i  = 0.81 * (Tp(i)/1.08);
+            xi_m  = tana / sqrt(2*pi*Hs / (g*Tm_i^2));
+            xi_cr = (6.2 * P^0.31 * sqrt(tana))^(1/(P+0.5));
+            if xi_m < xi_cr
+                RHS = 6.2 * P^0.18 * (S/sqrt(N))^0.2 * xi_m^(-0.5); type = 'Plunging';
+            else
+                RHS = 1.0 * P^(-0.13) * (S/sqrt(N))^0.2 * sqrt(cot_a) * xi_m^P; type = 'Surging';
+            end
+            Dn50       = Hs / (Delta * RHS);
+            W_VdM88(i) = gs * Dn50^3;
+            fprintf('Tm=%.4fs, xi=%.4f, xi_cr=%.4f (%s) -> W=%.4f t\n', Tm_i,xi_m,xi_cr,type,W_VdM88(i));
+        end
+
+        %% ---- VAN DER MEER (2021) ----------------------------
+        fprintf('\n========== VAN DER MEER (2021) ==========\n');
+        W_VdM21 = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs       = Hs_toe(i);
+            Tm10_i   = Tm10(i);
+            xi_m10_i = tana / sqrt(2*pi*Hs / (g*Tm10_i^2));
+            xi_cr    = (6.49/0.97 * P^0.31 * sqrt(tana))^(1/(P+0.5));
+            if xi_m10_i < xi_cr
+                RHS = 6.49 * P^0.18 * (S/sqrt(N))^0.2 * xi_m10_i^(-0.5); type = 'Plunging';
+            else
+                RHS = 0.97 * P^(-0.13) * (S/sqrt(N))^0.2 * sqrt(cot_a) * xi_m10_i^P; type = 'Surging';
+            end
+            Dn50       = Hs / (Delta * RHS);
+            W_VdM21(i) = gs * Dn50^3;
+            fprintf('Tm-1,0=%.4fs, xi=%.4f, xi_cr=%.4f (%s) -> W=%.4f t\n', ...
+                    Tm10_i,xi_m10_i,xi_cr,type,W_VdM21(i));
+        end
+
+        fprintf('\n--- VdM comparison ---\n');
+        for i = 1:2
+            fprintf('Section %s: VdM88=%.4ft, VdM21=%.4ft (D=%+.2f%%)\n', ...
+                sections{i},W_VdM88(i),W_VdM21(i),(W_VdM21(i)-W_VdM88(i))/W_VdM88(i)*100);
+        end
+
+        %% ---- VAN GENT (2004) --------------------------------
+        fprintf('\n========== VAN GENT (2004) ==========\n');
+        W_VG = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Hs       = Hs_toe(i);
+            xi_m10   = xi_m10_vals(i);
+            xi_cr_VG = (8.4/1.3 * P^0.31 * sqrt(tana))^(1/(P+0.5));
+            if xi_m10 < xi_cr_VG
+                RHS = 8.4 * P^0.18 * (S/sqrt(N))^0.2 * (Hs/H2pct(i)) * xi_m10^(-0.5); type='Plunging';
+            else
+                RHS = 1.3 * P^(-0.13) * (S/sqrt(N))^0.2 * (Hs/H2pct(i)) * sqrt(cot_a) * xi_m10^P; type='Surging';
+            end
+            Dn50    = Hs / (Delta * RHS);
+            W_VG(i) = gs * Dn50^3;
+            fprintf('xi=%.4f, xi_cr=%.4f (%s) -> W=%.4f t\n', xi_m10,xi_cr_VG,type,W_VG(i));
+        end
+
+        %% ---- DESIGN FLOWCHART (Guler et al. 2014) -----------
+        fprintf('\n========== DESIGN FLOWCHART ==========\n');
+        W_design = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            C1 = h(i) / Hs_toe(i);
+            C2 = H2pct(i) / Hs_toe(i);
+            C3 = Hs_toe(i) / Hs0;
+            fprintf('C1: h/Hs,toe   = %.4f < 3   ? %s\n', C1, yesno(C1<3));
+            fprintf('C2: H2%%/Hs,toe = %.4f < 1.4 ? %s\n', C2, yesno(C2<1.4));
+            fprintf('C3: Hs/Hs0     = %.4f < 0.9 ? %s\n', C3, yesno(C3<0.9));
+            if C1<3 && C2<1.4 && C3<0.9
+                W_base = W_VG(i);   method = 'Van Gent (2004)';
+            else
+                W_base = W_VdM21(i); method = 'Van der Meer (2021)';
+            end
+            if is_head(i)
+                W_design(i) = W_base * head_factor;
+                fprintf('-> %s -> HEAD (x%.1f) -> W_design = %.4f t\n', method, head_factor, W_design(i));
+            else
+                W_design(i) = W_base;
+                fprintf('-> %s -> W_design = %.4f t\n', method, W_design(i));
+            end
+        end
+
+        %% ---- NATURAL ROCK CROSS-SECTION ---------------------
+        fprintf('\n========== NATURAL ROCK CROSS-SECTION ==========\n');
+        Dn50_r  = zeros(1,2);
+        r_arm   = zeros(1,2);
+        Dn50_ul = zeros(1,2);
+        W_ul    = zeros(1,2);
+        r_ul    = zeros(1,2);
+        B       = zeros(1,2);
+
+        for i = 1:2
+            fprintf('\n--- Section %s ---\n', sections{i});
+            Dn50_r(i)  = (W_design(i)/gs)^(1/3);
+            r_arm(i)   = n_armor * k_delta * Dn50_r(i);
+            Dn50_ul(i) = Dn50_r(i) / ratio_ul;
+            W_ul(i)    = gs * Dn50_ul(i)^3;
+            r_ul(i)    = n_armor * k_delta * Dn50_ul(i);
+            B(i)       = n_crest * k_delta * Dn50_r(i);
+            fprintf('W_design        = %.4f t\n',  W_design(i));
+            fprintf('Dn50            = %.4f m\n',  Dn50_r(i));
+            fprintf('Armor r         = %.4f m\n',  r_arm(i));
+            fprintf('Underlayer Dn50 = %.4f m\n',  Dn50_ul(i));
+            fprintf('Underlayer W    = %.4f t\n',  W_ul(i));
+            fprintf('Underlayer r    = %.4f m\n',  r_ul(i));
+            fprintf('Crest width B   = %.4f m\n',  B(i));
+            fprintf('Core W range    = %.4f - %.4f t\n', W_design(i)/4000, W_design(i)/200);
+            fprintf('Toe width (2r)  = %.4f m\n',  2*r_arm(i));
+            fprintf('Toe ext.  (3r)  = %.4f m\n',  3*r_arm(i));
+            fprintf('Crest elev      = %.4f m MSL\n', crest_elev(i));
+        end
+
+        %% ---- X-BLOC DESIGN (DMC 2023) -----------------------
+        fprintf('\n========== X-BLOC DESIGN ==========\n');
+        fprintf('Delta_x = %.4f\n\n', Delta_x);
+        
+        V_table  = [0.75,1,1.5,2,2.5,3,4,5,6,7,8,9,10,12,14,16,18,20];
+        D_table  = [1.31,1.44,1.65,1.82,1.96,2.08,2.29,2.47,2.62,2.76,...
+                    2.88,3.00,3.11,3.30,3.48,3.63,3.78,3.91];
+        Dy_table = [0.83,0.91,1.04,1.14,1.23,1.31,1.44,1.55,1.65,1.74,...
+                    1.82,1.89,1.96,2.08,2.19,2.29,2.38,2.47];
+        
+        CF_depth   = 2.0;
+        V_design_x = zeros(1,2);
+        V_final_x  = zeros(1,2);
+        CF_total   = zeros(1,2);
+        
+        for i = 1:2
+            fprintf('--- Section %s ---\n', sections{i});
+            Hs     = Hs_toe(i);
+            V_base = (Hs / (2.77 * Delta_x))^3;
+
+            CF_total(i) = CF_depth;
+        
+            V_CF          = V_base * CF_total(i);
+            V_design_x(i) = V_table(find(V_table >= V_CF, 1));
+        
+            fprintf('V_base   = %.4f m3\n', V_base);
+            
+            fprintf('CF_total = %.2f  (CF_depth=%.1f)\n', CF_total(i), CF_depth);
+
+            fprintf('V_CF     = %.4f m3  ->  V_design = %.1f m3  (Table 5-1)\n\n', ...
+                    V_CF, V_design_x(i));
+
+        end
+        
+        fprintf('\n--- Row Check (max 20 rows) ---\n');
+        for i = 1:2
+            idx_i  = find(V_table == V_design_x(i));
+            D_i    = D_table(idx_i);
+            Dy_i   = Dy_table(idx_i);
+        
+            vert  = h(i);
+            Lslp  = vert * (5/3);
+            nrows = (Lslp - 0.5*D_i) / Dy_i;
+        
+            fprintf('Section %s: vert=%.2fm, L_slope=%.2fm, rows=%.1f -> %s\n', ...
+                sections{i}, vert, Lslp, nrows, yesno(nrows<=20));
+        end
+        
+        fprintf('\n--- Minimum V satisfying 20-row constraint ---\n');
+        for i = 1:2
+            vert = h(i) + DWL;
+            Lslp = vert * (5/3);
+        
+            V_final_x(i) = V_design_x(i);
+        
+            for jj = 1:length(V_table)
+                if 19*Dy_table(jj) + 0.5*D_table(jj) >= Lslp
+                    V_final_x(i) = max(V_design_x(i), V_table(jj));
+                    fprintf('Section %s: V_min = %.2f m3\n', sections{i}, V_final_x(i));
+                    break
+                end
+            end
+
+            % Underlayer mass range (DMC Section 5.2: M50 between W/15 and W/6)
+            W_unit = V_final_x(i) * rho_c_x;   % t
+            W_ul_min = W_unit / 15;
+            W_ul_max = W_unit / 6;
+
+            % Select a value slightly above midpoint = 75% of the allowed range
+            W_ul_sel(i) = W_ul_min + 0.75 * (W_ul_max - W_ul_min);
+
+            % Convert selected underlayer weight to nominal diameter
+            Dn50_ul_x(i) = (W_ul_sel(i) / gs)^(1/3);
+
+            % Underlayer thickness
+            t_ul_x(i) = 2 * Dn50_ul_x(i);
+
+            fprintf('Underlayer M50 range        : %.2f - %.2f t\n', W_ul_min, W_ul_max);
+            fprintf('Selected underlayer W50     : %.2f t\n', W_ul_sel(i));
+            fprintf('Selected underlayer Dn50    : %.3f m\n', Dn50_ul_x(i));
+            fprintf('Selected underlayer thickness: %.3f m\n', t_ul_x(i));
+        end
+        
+        idx_AA = find(V_table == V_final_x(1));
+        idx_DD = find(V_table == V_final_x(2));
+        D_AA   = D_table(idx_AA);    Dy_AA = Dy_table(idx_AA);
+        D_DD   = D_table(idx_DD);    Dy_DD = Dy_table(idx_DD);
+        
+        fprintf('\nA-A: V=%.1fm3, D=%.2fm, Dy=%.2fm\n', V_final_x(1), D_AA, Dy_AA);
+        fprintf('D-D: V=%.1fm3, D=%.2fm, Dy=%.2fm\n', V_final_x(2), D_DD, Dy_DD);
+        
+            fprintf('\n--- X-Bloc Toe Design (Section 6.4) ---\n');
+        Nod_toe = 0.5;
+        Delta_r = gs/gw - 1;
+
+        W_toe_x          = zeros(1,2);
+        ht_arr           = zeros(1,2);
+        Dn50_toe_arr     = zeros(1,2);
+        toe_thickness    = zeros(1,2);
+        toe_length       = zeros(1,2);
+
+        filter_thickness = zeros(1,2);
+        W_found          = zeros(1,2);
+        Dn50_found       = zeros(1,2);
+        found_length     = zeros(1,2);
+        found_thickness  = zeros(1,2);
+
+        for i = 1:2
+            Hs = Hs_toe(i);
+            hi = h(i);   % already includes HWL when case_idx == 2
+
+            % --- Granular filter layer ---
+            filter_thickness(i) = 0.6;   % fixed by your choice
+
+            % --- Foundation layer ---
+            % W/30 of final Xbloc unit weight
+            W_found(i) = (V_final_x(i) * rho_c_x) / 30;   % t
+            Dn50_found(i) = (W_found(i) / gs)^(1/3);      % m
+            found_length(i) = Hs;                         % min Hs
+            found_thickness(i) = Dn50_found(i);           % same logic as your table
+
+            % --- Toe rock iteration ---
+            Dn50_toe = 1.0;   % initial guess
+
+            for iter = 1:200
+                toe_thk = 4 * Dn50_toe;  % toe thickness = min 2Dn
+
+                % toe depth above top of toe, with toe sitting on foundation+filter
+                ht = hi - (filter_thickness(i) + found_thickness(i) + toe_thk);
+
+                Dn50_new = Hs / ((2 + 6.2*(ht/hi)^2.7) * Nod_toe^0.15 * Delta_r);
+
+                if abs(Dn50_new - Dn50_toe) < 1e-9
+                    break
+                end
+                Dn50_toe = Dn50_new;
+            end
+
+            Dn50_toe_arr(i)  = Dn50_toe;
+            toe_thickness(i) = 4 * Dn50_toe;   % min 2Dn
+            toe_length(i)    = 6 * Dn50_toe;   % min 3Dn
+            ht_arr(i)        = hi - (filter_thickness(i) + found_thickness(i) + toe_thickness(i));
+
+            W_toe_x(i) = gs * Dn50_toe^3;
+
+            fprintf('Section %s:\n', sections{i});
+            fprintf('  Granular filter thickness   = %.3f m\n', filter_thickness(i));
+            fprintf('  ht                          = %.2f m\n', ht_arr(i));
+            fprintf('  Foundation layer rock grade = W/30 = %.3f t\n', W_found(i));
+            fprintf('  Foundation layer Dn50       = %.3f m\n', Dn50_found(i));
+            fprintf('  Foundation layer length     = %.3f m  (min Hs)\n', found_length(i));
+            fprintf('  Foundation layer thickness  = %.3f m\n', found_thickness(i));
+            fprintf('  Rock toe Dn50              = %.3f m\n', Dn50_toe_arr(i));
+            fprintf('  Rock toe W                 = %.3f t\n', W_toe_x(i));
+            fprintf('  Rock toe thickness         = %.3f m  (min 2Dn)\n', toe_thickness(i));
+            fprintf('  Rock toe length            = %.3f m  (min 3Dn)\n', toe_length(i));
+        end
+        
+        fprintf('\n--- X-Bloc Crest Elevation ---\n');
+        for i = 1:2
+            fprintf('Section %s: Rc=%.4fm -> crest=%.4fm MSL\n', ...
+                sections{i}, Rc_xbloc(i), crest_xbloc(i));
+        end
+
+        fprintf('\n========== DESIGN SUMMARY ==========\n');
+        fprintf('%-32s %10s %10s\n', 'Parameter', 'A-A (Head)', 'D-D (Trunk)');
+        fprintf('%s\n', repmat('-',1,54));
+        fprintf('%-32s %10.4f %10.4f\n', 'DWL (m MSL)', DWL, DWL);
+        fprintf('%-32s %10.4f %10.4f\n', 'Hs,toe (m)', Hs_toe(1), Hs_toe(2));
+        fprintf('%s\n', repmat('-',1,54));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock W_design (t)', W_design(1), W_design(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock Dn50 (m)', Dn50_r(1), Dn50_r(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock armor layer r (m)', r_arm(1), r_arm(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock underlayer Dn50 (m)', Dn50_ul(1), Dn50_ul(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock crest width B (m)', B(1), B(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock Rc (m)', Rc(1), Rc(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'Rock crest elev (m MSL)', crest_elev(1), crest_elev(2));
+        fprintf('%s\n', repmat('-',1,54));
+        fprintf('%-32s %10.2f %10.2f\n', 'XBloc CF total', CF_total(1), CF_total(2));
+        fprintf('%-32s %10.1f %10.1f\n', 'XBloc V_final (m3)', V_final_x(1), V_final_x(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'XBloc D (m)', D_AA, D_DD);
+        fprintf('%-32s %10.3f %10.3f\n', 'XBloc Rc (m)', Rc_xbloc(1), Rc_xbloc(2));
+        fprintf('%-32s %10.3f %10.3f\n', 'XBloc crest elev (m MSL)', crest_xbloc(1), crest_xbloc(2));
+        fprintf('%-32s %10.3f %10s\n',   'XBloc R_min head (m)', 6*D_AA, 'N/A');
+
+    end % case_idx loop
+    %% ---- LOCAL FUNCTIONS ------------------------------------
+
+    function sw = read_swan_curve(fname)
+        % tp1_p2.TAB: Xp Yp Hsig RTpeak Tm01 Tm_10 Dir Dspr Depth Setup
+        fid = fopen(fname, 'r');
+        if fid == -1; error('Cannot open: %s', fname); end
+        raw = textscan(fid, '%f%f%f%f%f%f%f%f%f%f', 'CommentStyle', '%');
+        fclose(fid);
+        sw.depth  = raw{9};
+        sw.Hsig   = raw{3};
+        sw.RTpeak = raw{4};
+        sw.Tm10   = raw{6};
+    end
+
+    function sw = read_swan_table(fname)
+        % tp1_p2_Table.TAB: XP Hm0 RTP TM01 TMM10 DIR DSPR DEPTH SETUP H1/3 H2% H1/10
+        fid = fopen(fname, 'r');
+        if fid == -1; error('Cannot open: %s', fname); end
+        raw = textscan(fid, '%f%f%f%f%f%f%f%f%f%f%f%f', 'CommentStyle', '%');
+        fclose(fid);
+        sw.depth = raw{8};
+        sw.H2pct = raw{11};
+        sw.H1_10 = raw{12};
+    end
+
+    function pt = find_by_depth(sw, d_target)
+        [~, idx] = min(abs(sw.depth - d_target));
+        fields = fieldnames(sw);
+        for jj = 1:numel(fields)
+            pt.(fields{jj}) = sw.(fields{jj})(idx);
+        end
+    end
+
+    function s = yesno(val)
+        if val; s = 'YES'; else; s = 'NO'; end
+    end
 
 \end{lstlisting}
 
-\subsection{Distribution Constants Helper Function:}
-\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-
-\end{lstlisting}
-
-\subsection{Fetch Calculation Python Code:}
-\begin{lstlisting}[frame=single, numbers=left, language=Python, basicstyle=\ttfamily\scriptsize\small\color{black}]
-
-\end{lstlisting}
 \end{document}
