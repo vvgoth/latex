@@ -1,0 +1,70 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[none]{hyphenat}
+
+\pagestyle{empty}
+\definecolor{linkcolor}{HTML}{0B5394}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=linkcolor,
+}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{Furkan Evran}} \\[2pt]
+Ankara, Turkey \textbar{} +90 543 664 1849 \textbar{} 
+\href{mailto:furkan@evran.me}{furkan@evran.me} \\
+\href{https://linkedin.com/in/furkan-evran}{LinkedIn} \textbar{} 
+\href{https://github.com/furkanevran}{GitHub}
+\end{center}
+
+\section*{Professional Profile}
+\noindent Senior Software Developer with 6+ years of experience in the .NET ecosystem, specializing in End-to-End Feature Architecture, full-stack development, and high-performance systems engineering. Proven track record of delivering complex infrastructure for global financial providers, including custom DSLs, dynamic runtime scaffolding, and performance optimizations driven by deep profiling and execution plan analysis.
+
+\section*{Technical Skills}
+\noindent\textbf{Architecture \& Performance:} Feature Architecture, DSL Design, LL(1) Parsers, .NET Performance Profiling (dotTrace, dotMemory, BenchmarkDotNet), Git. \\[4pt]
+\textbf{Backend:} Expertise in C\# / ASP.NET Core, T-SQL (Execution Plan Analysis). \\[4pt]
+\textbf{Frontend:} TypeScript, React, Next.js, AST Mapping, Client-side Lexing, Parsing, Syntax/Error Highlighting, Autocomplete. \\[4pt]
+\textbf{Security \& Ops:} WebAuthn/FIDO2, JWT, NixOS (Flakes), Docker, WireGuard, CrowdSec. \\[4pt]
+\textbf{Languages:} Turkish (Native), English (Full Professional Proficiency / C1).
+
+\section*{Professional Experience}
+\noindent
+\textbf{Senior Software Developer} \hfill July 2021 -- Present \\
+\textit{serenity.is (Remote)} \\[4pt]
+    \noindent \textbf{Dedicated Feature Architecture – Rimes (Financial Data Provider):}
+    \begin{itemize}[nosep]
+        \item \textbf{Performance Engineering:} Identified T-SQL view latency via profiling; reduced execution time from 200s to 500ms (99.7\% improvement) using execution plan analysis and LAG optimization.
+        \item \textbf{DSL-Based Query Engine:} Designed a custom DSL for financial filtering; built a frontend lexer and LL(1) parser with syntax highlighting, error highlighting, and autocomplete, translating user input to an AST mapped to Serenity Criteria; implemented panic-mode error recovery for multi-error diagnostic reporting to boost analyst productivity.
+        \item \textbf{Zero-Downtime Scaffolding:} Architected runtime dependency reloading for dynamically generated Endpoints, Services, and Grids; implemented assembly injection for instant schema updates.
+    \end{itemize}
+    \noindent \textbf{Core Framework \& Security Engineering:}
+    \begin{itemize}[nosep]
+        \item \textbf{Hardware Security:} Engineered WebAuthn/FIDO2 (Yubikey) support; refactored authentication for TOTP/MFA and global session invalidation.
+        \item \textbf{Diagnostic Tooling:} Built a Chromium DevTools extension for real-time framework state inspection.
+        \item \textbf{Environment Orchestration:} Maintained declarative dev toolchains and secure remote-access labs using NixOS.
+    \end{itemize}
+\vspace{6pt}
+\noindent \textbf{Junior Software Developer} \hfill Feb 2020 -- July 2021 \\
+\textit{Netürk Bilişim (İstanbul)} \\[4pt]
+• Designed and developed extensible CMS infrastructure with multi-layer caching, reducing database load and improving application throughput.\\
+• Designed, developed, and delivered websites for businesses using modern web technologies and custom CMS solutions.\\
+• Contributed to backend and frontend development, focusing on maintainability and usability.
+
+\section*{Education}
+\noindent\textbf{Ege University}, AS in Computer Programming – Istanbul / Turkey \\
+\textit{Honors: cum laude (GPA: 3.69/4.00)}
+
+\end{document}

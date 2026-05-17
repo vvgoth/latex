@@ -19,7 +19,7 @@
 \pagestyle{fancy} % Enable fancy headers
 \fancyhead[L]{CE 591} % Left-aligned header
 \fancyhead[C]{Wave Hydrodynamics} % Centered header
-\fancyhead[R]{10/04/2025} % Right-aligned header
+\fancyhead[R]{03/05/2026} % Right-aligned header
 
 \onehalfspacing
 
@@ -50,7 +50,7 @@
 
     \textbf{\Large CE591 Wave Hydrodynamics}\\[0.9cm]
 
-    \textbf{\LARGE Homework \#1}\\[1.5cm]
+    \textbf{\LARGE Homework \#2}\\[1.5cm]
 
     \large Instructor:
 
@@ -62,328 +62,288 @@
     
     \large 2511798\\[1.5cm]
 
-    \large March 25, 2026
+    \large May 3, 2026
 \end{titlepage}
 
 \newpage
 \tableofcontents
 \newpage
 
-\section{Question 1} Select a coastal engineering problem (in regional scale), and discuss which governing equations can be used to model the waves for your selected problem. Explain the reason why you have selected these equations with a few paragraphs.
+\section{Question 1}
 
-\vspace{0.3cm}A classic coastal engineering problem is wave transformation from offshore toward the coastline. In this type of problem, waves travel over a large area and change due to depth variation, coastal shape, and energy losses. The main processes include shoaling, refraction, and wave breaking near the shore.
+The dataset has 23 velocity measurements from a steady boundary layer flow in the DTU tilting flume. The boundary conditions $u(0) = 0$ and $u(h) = U_0 = 0.3$ m/s are added to get 25 points total.
 
-Several governing equations can be used depending on the scale and purpose of the study. Linear wave theory can be used for basic wave properties such as wave speed, wavelength, and particle motion. Shallow water equations can be used when water depth is small compared to wavelength and when wave-driven water level changes or currents are important. Spectral wave models are also commonly used for regional problems because they are suitable for irregular sea states and large coastal areas. On the other hand, the Navier-Stokes equations give a much more detailed description of fluid motion, but they are generally used for small-scale problems because solving them over a large coastal region would require very high computational effort.
+\noindent\textbf{(a)} Plot the mean velocity as a function of y using linearly scaled axes.
 
-For regional wave transformation problems, simplified wave equations or spectral wave models are usually preferred over the full Navier-Stokes equations. This is because they can represent the main coastal wave processes with much lower computational cost while still giving results that are suitable for engineering applications.
+Figure~\ref{fig:q1a} shows that the velocity increases rapidly near the bed and then approaches the free-surface velocity more gradually. This shape is expected for a boundary layer flow because the bed creates strong shear near the wall, while the velocity gradient becomes smaller away from the bed.
 
-\vspace{0.5cm}
-\section{Question 2} Considering Stokes' second-order wave theory for monochromatic waves, do the following computations and compare your results with the solutions from linear theory. Take wave height H = 3 m, wave period T = 8 s and water depth h = 25 m.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.78\textwidth]{Q1a.png}
+    \caption{\small Mean velocity profile on linearly scaled axes.}
+    \label{fig:q1a}
+\end{figure}
+ 
 \vspace{0.3cm}
+\noindent\textbf{(b)} From the velocity profile in the previous item, calculate the depth averaged velocity.
 
-\noindent\textbf{(a)} Plot the surface elevation for at least one wave period.
+The depth-averaged velocity was calculated from
+
+\[
+V = \frac{1}{h}\int_0^h u(y)\,dy
+\]
+
+Since the velocity measurements are not equally spaced in the vertical direction, the velocity profile was first interpolated using a spline function. Then the interpolated profile was integrated numerically in MATLAB. The calculated depth-averaged velocity is
+
+\[
+V = 0.2643~\text{m/s}
+\]
+
+This value is lower than the free-surface velocity of $0.3$ m/s, which is expected because the velocity decreases toward the bed due to the no-slip condition and bed shear.
+
+\vspace{0.4cm}
+\noindent\textbf{(c)} Estimate the friction velocity Uf from Darcy-Weisbach equation.
+
+The friction velocity was first estimated using the Darcy-Weisbach equation. The cross-sectional area, wetted perimeter and hydraulic radius are calculated as
+
+\[
+A = hb = 0.021~\text{m}^2
+\qquad
+P = 2h+b = 0.44~\text{m}
+\qquad
+r_h = \frac{A}{P} = 0.0477~\text{m}
+\]
+
+
+
+Then, the Reynolds number and friction coefficient are
+
+\[
+Re = \frac{r_h V}{\nu} = 1.26 \times 10^4
+\qquad
+f = \frac{0.0557}{Re^{0.25}} = 0.0053
+\]
+
+Finally, the friction velocity is obtained as
+
+\[
+U_f = \sqrt{\frac{f}{2}}V
+= \sqrt{\frac{0.0053}{2}}(0.2643)
+= 0.0135~\text{m/s}
+\]
+
+\vspace{0.4cm}
+\noindent\textbf{(d)} Plot u versus y on a semi-log scale. Identify
+the approximate lower and upper bounds of the logarithmic region. Compare Uf with the estimation made in part (c).
+
+For the semi-logarithmic velocity profile, the vertical coordinate was converted to wall units as
+
+\[
+y^+ = \frac{U_f y}{\nu}
+\]
+
+using the friction velocity found in part (c). The lower limit of the logarithmic region was taken as $y^+ = 30$. The upper limit was taken as the top of the constant stress region, $y = 0.1h$. Therefore,
+
+\[
+y^+_{\text{upper}}
+=
+\frac{U_f(0.1h)}{\nu}
+=
+\frac{0.0135(0.1)(0.07)}{10^{-6}}
+\approx 95
+\]
+
+Thus, the logarithmic region is approximately between
+
+\[
+30 \leq y^+ \leq 95
+\]
+
+A straight line was fitted to the velocity data in this range in the form
+
+\[
+u = m\ln(y^+) + B
+\]
+
+The fitted equation was obtained as
+
+\[
+u = 0.03298\ln(y^+) + 0.0670
+\]
+
+For the logarithmic law of the wall, the slope is related to the friction velocity by
+
+\[
+m = \frac{U_f}{\kappa}
+\]
+
+where $\kappa = 0.41$. Therefore, the friction velocity obtained directly from the fitted data is
+
+\[
+U_f = m\kappa = 0.03298(0.41) = 0.0135~\text{m/s}
+\]
+
+The friction velocity from part (c) was
+
+\[
+U_{f,c} = 0.01355~\text{m/s}
+\]
+
+while the value obtained from the logarithmic fit was
+
+\[
+U_{f,d} = 0.01352~\text{m/s}
+\]
+
+The percent difference is
+
+\[
+\frac{|U_{f,c}-U_{f,d}|}{U_{f,c}}\times100
+=
+\frac{|0.01355-0.01352|}{0.01355}\times100
+=
+0.20\%
+\]
+
+The two values are almost the same. This means that the Darcy-Weisbach estimate is consistent with the friction velocity obtained directly from the measured logarithmic velocity profile. The small difference is expected because the Darcy-Weisbach method uses an empirical friction coefficient, while the second method depends on the selected data points in the logarithmic layer.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Q1d.png}
+    \caption{\small Semi-logarithmic velocity profile and fitted logarithmic region.}
+    \label{fig:q1d}
+\end{figure}
+
+\vspace{0.4cm}
+\noindent\textbf{(e)} Using the $U_f$ from part (d) above re-plot the velocity profile in a dimensionless fashion. Identify the various regions of the flow.
+
+The velocity profile was re-plotted in dimensionless form using the friction velocity obtained from part (d). The vertical coordinate and velocity were non-dimensionalized as
+
+\[
+y^+ = \frac{U_f y}{\nu}
+\qquad
+\frac{u}{U_f}
+\]
+
+The main flow regions were identified using approximate wall-unit limits. The viscous sublayer is taken as $y^+<5$, the buffer layer is taken as $5<y^+<30$, and the logarithmic layer starts after $y^+=30$. The upper limit of the logarithmic layer is taken as the top of the constant stress region, which is again around $y^+ \approx 95$.
+
+In Figure~\ref{fig:q1e}, the first data points are close to the viscous sublayer and buffer layer. The measured velocity increases rapidly near the bed, showing the strong velocity gradient in this region. Between $y^+=30$ and $y^+\approx95$, the profile follows the logarithmic region. Above this range, the data belongs to the outer region, where the velocity continues to approach the free-surface value.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Q1e.png}
+    \caption{\small Dimensionless velocity profile with approximate flow regions.}
+    \label{fig:q1e}
+\end{figure}
+
+\vspace{0.4cm}
+\noindent\textbf{(f)} Plot the van Driest velocity distribution the same diagram and compare the experimentally determined velocity profile with van Driest profile. 
+
+The van Driest velocity distribution was plotted on the same graph as the dimensionless experimental velocity profile. The distribution was calculated from
+
+\[
+\frac{u}{U_f}
+=
+2\int_0^{y^+}
+\frac{dy^+}
+{1+\left[1+4\kappa^2(y^+)^2\left(1-\exp(-y^+/25)\right)^2\right]^{1/2}}
+\]
+
+The integral was evaluated numerically in MATLAB using \texttt{cumtrapz}. As shown in Figure~\ref{fig:q1e}, the van Driest distribution follows the experimental data reasonably well, especially through the buffer and logarithmic regions. Near the wall, the experimental points are slightly above the van Driest curve. This may be caused by the limited number of data points very close to the bed and by the sensitivity of the velocity gradient in the near-wall region.
+
+Overall, the comparison shows that the measured profile is consistent with the expected turbulent boundary-layer behavior.
+
+\vspace{0.4cm}
+\noindent\textbf{(g)} Calculate the Reynolds stress. Plot the non-dimensional Reynolds stress as a function of y/h.
+
+The Reynolds stress was calculated from the difference between the total shear stress and the viscous shear stress:
+
+\[
+-\rho \overline{u'v'} = \tau - \mu \frac{\partial u}{\partial y}
+\]
+
+where the total shear stress was taken as
+
+\[
+\tau = \rho U_f^2 \left(1-\frac{y}{h}\right)
+\]
+
+The velocity gradient was calculated using finite differences between consecutive velocity measurements. Therefore, the Reynolds stress values were obtained at the midpoints between the original $y$ locations. The final result was non-dimensionalized by $\rho U_f^2$ and plotted against $y/h$.
+
+Figure~\ref{fig:q1g} shows that the Reynolds stress is small near the free surface because the total shear stress approaches zero as $y/h$ approaches 1. In the lower part of the flow, the Reynolds stress becomes larger because turbulent momentum exchange is stronger closer to the bed. The first near-bed point shows a sharp deviation because the velocity gradient is very large in the first interval, so the viscous shear term becomes dominant there. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Q1g.png}
+    \caption{\small Non-dimensional Reynolds stress as a function of relative depth.}
+    \label{fig:q1g}
+\end{figure}
+
+\section{Question 2} Write a code that calculates the wave friction coefficients on both smooth and rough beds. Your code should also give estimations for the maximum friction velocity and boundary layer thickness for the given parameters based on the different flow regimes. 
+
+\vspace{0.4cm}
+A MATLAB function was written to calculate the wave friction coefficient $f_w$, maximum friction velocity $U_{fm}$, and boundary layer thickness $\delta$ for the given wave and bed conditions.
+
+First, the wavelength $L$ was calculated from the linear wave dispersion relation. Then, the wave number and angular frequency were calculated as
+
+\[
+k = \frac{2\pi}{L}
+\qquad
+\omega = \frac{2\pi}{T}
+\]
+
+The maximum near-bed orbital velocity and orbital semi-excursion were calculated as
+
+\[
+U_{0m} = \frac{H\omega}{2\sinh(kh)}
+\qquad
+a = \frac{U_{0m}}{\omega}
+\]
+
+The wave Reynolds number, relative roughness parameter, and equivalent sand roughness were calculated as
+
+\[
+Re_{\delta} = \frac{aU_{0m}}{\nu}
+\qquad
+\frac{a}{k_s}
+\qquad
+k_s = 2.5d_{50}
+\]
+
+These values were used to determine the flow regime. After selecting the correct regime, the corresponding expression for $f_w$ was used. Finally, the maximum friction velocity was calculated as
+
+\[
+U_{fm} = \sqrt{\frac{f_w}{2}}U_{0m}
+\]
+
+\begin{table}[H]
+\centering
+\caption{\small Wave friction calculation results.}
 \vspace{0.2cm}
+\label{tab:q2results}
+\begin{tabular}{c c c c c c c c c}
+\hline
+Case & $H$ (m) & $T$ (s) & $h$ (m) & $d_{50}$ (mm) & Regime & $f_w$ & $U_{fm}$ (m/s) & $\delta$ (m) \\
+\hline
+(a) & 0.152 & 1.6 & 0.5 & 0.1800 & Rough bed & 0.0116 & 0.0189 & 0.0023 \\
+(b) & 4.000 & 8.0 & 15.0 & 0.0005 & Smooth turbulent & 0.0036 & 0.0466 & 0.0252 \\
+\hline
+\end{tabular}
+\end{table}
 
-The plot in Figure 1 shows the surface elevation of a Stokes' second-order wave at x = 0 and t = 0-8s. The surface elevation is calculated using the following equations:
+Case (a) is classified as a rough-bed case because the bed roughness is significant compared with the near-bed orbital motion. Because of this, it gives the larger wave friction coefficient. This means that a larger part of the wave energy is lost due to bed resistance.
 
-\[\eta_1 = \frac{H}{2} \cos(\theta)\]
-\[\eta_2 = \frac{1}{16} k H^2 \left(3 \coth^3(kh) - \coth(kh)\right) \cos(2\theta)\]
-\[\eta = \eta_1 + \eta_2\]
+Case (b) is classified as smooth turbulent. Although its friction coefficient is smaller, the maximum friction velocity is larger because the wave height and period are much larger, so the near-bed orbital velocity is much higher. The boundary layer thickness is also larger in this case due to the stronger orbital motion.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CE591HW1-Q1a.png}
-    \caption{\small Surface elevation plot for Stokes' second-order wave theory.}
-    \label{fig:plot2a}
-\end{figure}
-\vspace{0.3cm}
-
-The surface elevation plot illustrates Stokes’ second-order wave theory, combining a first-order sinusoidal wave ($\eta_1$) and a smaller second-order correction ($\eta_2$). The linear term ($\eta_1$) dominates the wave shape, while $\eta_2$ introduces asymmetry by sharpening crests and flattening troughs. At crests, $\eta_2$ adds to $\eta_1$, increasing peak height. At troughs, $\eta_2$ opposes $\eta_1$, reducing depth. The second-order term remains minor caused by the weak non-linearity. This confirms Stokes’ theory accurately models wave steepening under the given conditions.
-\vspace{0.3cm}
-
-\noindent\textbf{(b)} Make a plot of the vertical variation of horizontal (\(u\)) and vertical (\(w\)) particle velocities
-\vspace{0.2cm}
-
-The vertical distributions of horizontal and vertical particle velocities were obtained using both linear theory and Stokes' second-order theory. Since the velocity values depend on phase, the horizontal velocity was plotted at $\theta = 0$, where its magnitude is maximum, while the vertical velocity was plotted at $\theta = \pi/4$ so that both first- and second-order contributions are visible.
-
-\[
-u_1(z,t)=\frac{H\omega}{2}\frac{\cosh[k(h+z)]}{\sinh(kh)}\cos\theta
-\]
-\[
-u_2(z,t)=\frac{3}{16}c(kH)^2
-\frac{\cosh[2k(h+z)]}{\sinh^4(kh)}
-\cos(2\theta)
-\]
-\[u = u_1 + u_2\]
-
-\[
-w_1(z,t)=-\frac{H\omega}{2}\frac{\sinh[k(h+z)]}{\sinh(kh)}\sin\theta
-\]
-\[
-w_2(z,t)=-\frac{3}{16}c(kH)^2
-\frac{\sinh[2k(h+z)]}{\sinh^4(kh)}
-\sin(2\theta)
-\]
-\[w = w_1 + w_2\]
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{CE591HW1-Q1b.png}
-    \caption{\small Horizontal velocity profiles for Stokes' second-order wave theory.}
-    \label{fig:plot2b}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{CE591HW1-Q1b_2.png}
-    \caption{\small Vertical velocity profiles for Stokes' second-order wave theory.}
-    \label{fig:plot2.2b}
-\end{figure}
-
-The results show that the horizontal velocity is largest near the free surface and decreases with depth, while the vertical velocity also becomes stronger toward the surface and approaches zero near the seabed. This behavior is consistent with wave kinematics, since orbital motion weakens with depth. Compared with linear theory, the second-order Stokes solution predicts slightly different velocity magnitudes, especially close to the free surface where nonlinear effects are stronger.
-
-Overall, the two theories give similar trends, but the second-order solution provides a more realistic description by including nonlinear corrections. These corrections do not completely change the shape of the velocity profiles, but they slightly modify the near-surface values and therefore improve the physical representation of the wave motion.
-\vspace{0.3cm}
-
-\noindent\textbf{(c)} Repeat the calculations in Part (b), changing the water depth as \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \). Compare your results with your results from Part (b).
-\vspace{0.3cm}
-
-Changing the water depth to \( h = 20 \, \text{m} \) and \( h = 30 \, \text{m} \) alters the velocity profiles:  
-
-\begin{itemize}  
-    \item {Shallower depth (\( h = 20 \, \text{m} \))}: The difference between linear theory and Stokes second-order theory becomes more noticeable. In the horizontal velocity plot, the Stokes second-order values are lower than the linear values near the surface. A similar trend appears in the vertical velocity plot, where the second-order profile also departs more clearly from the linear one. This indicates that nonlinear effects become relatively stronger as the depth decreases.
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{CE591HW1-Q1c1.png}
-            \caption{\small Horizontal velocity profiles for h = 20 m.}
-            \label{fig:plot2c_1}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{CE591HW1-Q1c2.png}
-            \caption{\small Vertical velocity profiles for h = 20 m.}
-            \label{fig:plot2c_2}
-        \end{minipage}
-    \end{figure}
-
-    \item {Deeper depth (\( h = 30 \, \text{m} \))}: Bottom inffluence decreases with increased depth. The horizontal velocity weakens near the surface, while the vertical velocity decays more gradually with depth. 
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{CE591HW1-Q1c3.png}
-            \caption{\small Horizontal velocity profiles for h = 30 m.}
-            \label{fig:plot2c_3}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{CE591HW1-Q1c4.png}
-            \caption{\small Vertical velocity profiles for h = 30 m.}
-            \label{fig:plot2c_4}
-        \end{minipage}
-    \end{figure}
-
-\end{itemize}  
-\vspace{1.2cm}
-
-\noindent\textbf{(d)} Non-dimensional dynamic pressure can be calculated by dividing the dynamic pressure with $\rho$g$\eta$. Plot the vertical variation of the non-dimensional dynamic pressure as a function of z/h at \( h = 20 \, \text{m} \), \( h = 25 \, \text{m} \) and \( h = 30 \, \text{m} \).
-\vspace{0.3cm}
-
-Figure 8 shows the dynamic pressure profiles for different water depths. The dynamic pressure is calculated using the following equation:
-
-\[
-P_d = \frac{\cosh(k(z+h))}{\cosh(kh)}
-\]
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{CE591HW1-Q1d.png}
-    \caption{\small Dynamic pressure profiles for different water depths.}
-    \label{fig:plot2d}
-\end{figure} 
-
-The results show that the pressure decays more rapidly with depth in deeper water. Therefore, for h=30 m, the non-dimensional dynamic pressure becomes smaller at a given relative depth than in the h=20 m case. In shallower water, the decay is weaker, so a larger portion of the surface pressure signal reaches the lower part of the water column. This behavior is physically consistent, since wave-induced pressure fluctuations penetrate more effectively through shallow water than through deeper water.
-
-\section{Question 3} Write a program that calculates the water surface elevation of a solitary wave for a given solitary wave height H and water depth h. Plot the water surface elevation for H = 0.074 m and h = 30 cm. Compare your theoretical calculation and experimental measurements. Discuss potential discrepancies.
-\vspace{0.3cm}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{CE591HW1-Q3.png}
-    \caption{\small Surface elevation of a solitary wave.}
-    \label{fig:plot3}
-\end{figure} 
-
-The surface elecation of the solitary wave is calculated using the following equations:
-
-\[X = x - c \cdot t\] 
-\[c = \sqrt{g \cdot (h+H)}\]. 
-\[\eta = H \cdot \text{sech}^2\left(X \cdot \sqrt{\frac{3H}{4h^3}}\right)\]
-
-The theoretical solution produces a single symmetric crest with amplitude equal to the wave height. When plotted against time at a fixed location, the curve rises to a maximum and then drops smoothly on both sides. In general, some difference between the two curves is expected because of laboratory effects such as measurement noise, viscous dissipation, and imperfect wave generation. However, since the overall crest shape and peak elevation are similar, the analytical solution can be considered a reasonable representation of the measured wave.
-
-\section{Question 4} Write a program utilizing cnoidal wave theory summarized in your lecture notes for a given wave height H, wave period T and water depth h. Plot the water surface elevations for at least three selected waves on the same figure for two wave periods. Describe the procedure you have used and discuss your results.
-
-\subsection*{Procedure}
-The MATLAB program calculates the water surface elevation of cnoidal waves using the following steps:
-
-\begin{enumerate}
-    \item \textbf{Selection of Wave Parameters:}
-    \begin{itemize}
-        \item The wave height \(H\), wave period \(T\), and water depth \(h\) were chosen to be within the applicable range for cnoidal waves. This ensures that the assumptions of cnoidal wave theory are valid and the results are physically meaningful.
-    \end{itemize}
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.38\textwidth]{CE591HW1-Q4.1.png}
-        \caption{\small Ranges of applicability for various wave theories.}
-        \label{fig:wavetheory}
-    \end{figure}
-
-    \item \textbf{Initialization of Parameters:}
-    \begin{itemize}
-        \item The program begins by defining constants such as gravitational acceleration (\(g = 9.81 \, \text{m/s}^2\)) and coefficients (\(a_0, b_0, a_1, b_1, a_2, b_2, e_1, f_1, e_2, f_2\)) that are used in the cnoidal wave theory. These coefficients are derived from approximations of elliptic integrals and are essential for accurately modeling the wave properties.
-    \end{itemize}
-
-    \item \textbf{Outer Loop for Ursell Number (\(Ur\)) and Parameter \(A\):}
-    \begin{itemize}
-        \item The outer loop iteratively calculates the Ursell number (\(Ur\)) and the parameter \(A\), which represents the wave nonlinearity. These values are updated until the error is less than the tolerance or the maximum number of iterations is reached.
-        \item The wavelength (\(L_c\)) is calculated using the formula:
-        \[
-        L_c = T \cdot \sqrt{\frac{g}{h}} \cdot \sqrt{1 + \frac{H}{h} \cdot A} \cdot h
-        \]
-        \item The Ursell number (\(Ur\)) is then calculated as:
-        \[
-        Ur = H \cdot \frac{L_c^2}{h^3}
-        \]
-    \end{itemize}
-
-    \item \textbf{Inner Loop for Parameter \(m_1\):}
-    \begin{itemize}
-        \item The inner loop uses the Newton-Raphson method to iteratively calculate the parameter \(m_1\), which is related to the elliptic parameter (\(m\)) of the cnoidal wave.
-        
-        \item The elliptic integral approximation (\(K\)) and its derivative (\(dK\)) are calculated using:
-        \[
-        K = a_0 + a_1 m_1 + a_2 m_1^2 - (b_0 + b_1 m_1 + b_2 m_1^2) \ln(m_1)
-        \]
-        \[
-        dK = a_1 + 2 a_2 m_1 + (b_1 + 2 b_2 m_1) \ln(m_1) - \frac{b_0 + b_1 m_1 + b_2 m_1^2}{m_1}
-        \]
-
-        \item The function \(f(m_1)\) and its derivative \(f'(m_1)\) are defined as:
-        \[
-        f(m_1) = 1 - m_1 - \frac{3}{16} \cdot \frac{Ur}{K^2}
-        \]
-        \[
-        f'(m_1) = \frac{3}{8} \cdot \frac{Ur}{K^3} \cdot dK - 1
-        \]
-        
-        \item The parameter \(m_1\) is updated using the Newton-Raphson formula:
-        \[
-        m_1^{\text{new}} = m_1 - \frac{f(m_1)}{f'(m_1)}
-        \]
-        The error is calculated as the absolute difference between the new and old values of \(m_1\), and the loop continues until the error is less than the tolerance.
-    \end{itemize}
-    \vspace{1.5cm}
-
-    \item \textbf{Calculation of \(m\) and Update of \(A\):}
-    \begin{itemize}
-        \item After the inner loop converges, the elliptic modulus (\(m\)) is calculated as:
-        \[
-        m = 1 - m_1
-        \]
-        \item The complete elliptic integral approximation (\(E\)) is calculated using:
-        \[
-        E = (1 + e_1 m_1 + e_2 m_1^2) - (f_1 m_1 + f_2 m_1^2) \ln(m_1)
-        \]
-        \item The parameter \(A\) is updated using:
-        \[
-        A^{\text{new}} = \frac{2}{m} - 1 - \frac{3}{m} \cdot \frac{E}{K}
-        \]
-        The error is calculated as the absolute difference between the new and old values of \(A\), and the outer loop continues until the error is less than the tolerance.
-    \end{itemize}
-
-    \item \textbf{Calculation of Wave Properties:}
-    \begin{itemize}
-        \item After the outer loop converges, the following wave properties are calculated:
-        \begin{itemize}
-            \item \textbf{Wave number (\(K_c\))}:
-            \[
-            K_c = \frac{2 \cdot K(m)}{L_c}
-            \]
-            \item \textbf{Wave celerity (\(c_c\))}:
-            \[
-            c_c = \sqrt{g \cdot (h + A \cdot H)}
-            \]
-            \item \textbf{Parameter \(B\)}:
-            \[
-            B = \frac{1}{m} \left(1 - m - \frac{E(m)}{K(m)}\right)
-            \]
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Calculation and Plotting of Surface Elevation:}
-    \begin{itemize}
-        \item The spatial (\(x\)) and temporal (\(t\)) domains are defined.
-        \item The surface elevation (\(\eta\)) is calculated using the cnoidal wave formula:
-        \[
-        \eta = H \cdot \left(B + \text{cn}^2\left(K_c \cdot (x - c_c \cdot t), m\right)\right)
-        \]
-        \item The surface elevation is plotted over time, showing the periodic nature of the cnoidal wave and its dependence on the wave parameters.
-    \end{itemize}
-\end{enumerate}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CE591HW1-Q4.png}
-    \caption{\small Cnoidal wave surface elevation.}
-    \label{fig:plot4}
-\end{figure} 
-
-\section{Question 5} In this question, you will generate a computational mesh using blockMesh utility of OpenFOAM. A wave will be generated using first-order wave theory in this flume. Generate a 2D computational mesh based on the information given.
-
-
-The mesh is generated with 1 m length in z direction, 25 m length in x direction and 0.1 m height in y direction. At x = 8.5 m, the slope of 1:25 is taken into account for the seabed. Using these coordinates, the vertices of the block is formed in the blockMeshDict file. It is then divided into 850 and 1650 cells in x direction for two blocks, 1 cell in y direction and 280 cells in z direction. To obtain the cell count for the z direction, the first cell size of $7.5 \cdot 10^{-4}$ m and last cell size of 0.01 m are used. The last cell size is selected to keep the aspect ratio equal to 1 at the free-surface. The grading on the z-direction is calculated to be 13.333 based on the first and last cell sizes and the total length.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{mesh1.png}
-    \caption{\small 2D computational mesh generated using blockMesh utility of OpenFOAM.}
-    \label{fig:mesh1}
-\end{figure} 
-\vspace{0.3cm}
-\begin{figure}[H]
-    \begin{minipage}{0.53\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mesh2.png}
-        \caption{\small Inlet part of the mesh.}
-        \label{fig:mesh2}
-    \end{minipage} 
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mesh3.png}
-        \caption{\small Outlet part of the mesh.}
-        \label{fig:mesh3}
-    \end{minipage} 
-\end{figure}
-
-\vspace{0.3cm}
-
-The total number of cells in the mesh is \textbf{700,000}, the minimum cell area is \textbf{$2.547 \cdot 10^{-6}$ m}, the maximum cell area is \textbf{0.001 m}, and the maximum aspect ratio is \textbf{1}, as obtained from the checkMesh function.
+Overall, the rough-bed case is controlled more by bed roughness, while the smooth turbulent case is controlled more by the stronger wave motion. This is why the first case gives the larger $f_w$, but the second case gives the larger $U_{fm}$
 
 \newpage
 \renewcommand{\refname}{}
 \section{References}
 \vspace{-1cm}
 \begin{thebibliography}{99}
-    \bibitem{CE591} CE591 Lecture Notes. (2025). 
-    \bibitem{CoastalBook} Ergin, A. (2019). \textit{Coastal engineering} (2nd ed.). Middle East Technical University Development Foundation Publishing and Communications Co.
+    \bibitem{CE591} CE591 Lecture Notes. (2026). 
+    \bibitem{CE580} CE580 Lecture Notes. (2026).
     \bibitem{GitHubCopilot} Microsoft. (2021). \textit{GitHub Copilot} [Large language model]. GitHub. Retrieved from \url{https://github.com/features/copilot}
 \end{thebibliography}
 
@@ -392,322 +352,173 @@ The total number of cells in the mesh is \textbf{700,000}, the minimum cell area
 
 \section{Appendix}
 
-\section*{\small MATLAB function for Stokes' second-order wave theory surface elevation}
+\section*{\small MATLAB Code}
 \begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-function stokes_surface_profile(T, h)
-    H = 3;
-    L = 1.56*T^2; 
-    tol = 3e-5;
-    err = tol + 1;
+clc; clear; close all;
 
-    while err > tol
-        L_new = 9.81*(T^2) * tanh(2*pi*h/L) / (2*pi);
-        err = abs(L-L_new);
-        L= L_new;
+%% Parameters
+h        = 0.07;
+U0       = 0.3;
+b        = 0.3;
+nu       = 1e-6;
+rho      = 1000;
+kappa    = 0.41;
+
+raw    = load('Question1.mat');
+y_data = raw.Question1(:,1);
+u_data = raw.Question1(:,2);
+
+y = [0;    y_data; h ];
+u = [0;    u_data; U0];
+
+%% Part a
+figure(1);
+plot(u, y, 'ko-', 'MarkerFaceColor','k', 'MarkerSize', 4);
+xlabel('u  (m/s)'); ylabel('y  (m)');
+title('Mean velocity profile'); grid on;
+
+%% Part b
+u_interp = @(yy) spline(y, u, yy);
+V = (1/h) * integral(u_interp, 0, h);
+fprintf('Part b: V = %.4f m/s\n', V);
+
+%% Part c
+A_cs = h * b;
+P    = 2*h + b;
+r_h  = A_cs / P;
+Re   = r_h * V / nu;
+f    = 0.0557 / Re^0.25;
+Uf_c = sqrt(f/2) * V;
+fprintf('Part c: Re = %.2e, f = %.4f, Uf_c = %.4f m/s\n', Re, f, Uf_c);
+
+%% Part d
+y_plus = Uf_c * y / nu;
+
+y_lower = 30;
+y_upper = Uf_c * (0.1*h) / nu;
+
+log_idx    = find(y_plus >= y_lower & y_plus <= y_upper);
+y_plus_log = y_plus(log_idx);
+u_log      = u(log_idx);
+
+p     = polyfit(log(y_plus_log), u_log, 1);
+m_fit = p(1);
+B_fit = p(2);
+Uf_d  = m_fit * kappa;
+
+fprintf('Part d: slope = %.5f, Uf_d = %.4f m/s\n', m_fit, Uf_d);
+fprintf('Difference from part c: %.2f%%\n', 100*abs(Uf_c-Uf_d)/Uf_c);
+
+u_fit = polyval(p, log(y_plus));
+
+figure(2);
+semilogx(y_plus, u, 'ko', 'DisplayName','Data'); hold on;
+semilogx(y_plus, u_fit, 'r-', 'DisplayName', ...
+    sprintf('u = %.4f ln(y^+) + %.4f', m_fit, B_fit));
+xline(y_lower, '--b', 'DisplayName','y^+ = 30');
+xline(y_upper, '--r', 'DisplayName',sprintf('y^+ = %.0f', y_upper));
+xlabel('y^+'); ylabel('u  (m/s)');
+title('Semi-log velocity profile'); 
+legend('Location','northwest'); grid on;
+
+%% Part e
+Uf = Uf_d;
+y_plus_e = Uf * y / nu;
+
+figure(3);
+semilogx(y_plus_e, u/Uf, 'ko', 'MarkerFaceColor','k', 'DisplayName','Data'); hold on;
+xline(5,  '--', 'Color',[0.6 0.6 0.6], 'DisplayName','y^+ = 5  (viscous sublayer end)');
+xline(30, '--b', 'DisplayName','y^+ = 30  (buffer layer end)');
+xline(Uf*(0.1*h)/nu, '--r', 'DisplayName','y^+ upper (log layer end)');
+xlabel('y^+'); ylabel('u / U_f');
+title('Dimensionless velocity profile'); 
+legend('Location','northwest'); grid on;
+
+%% Part f
+y_plus_vd  = linspace(0, max(y_plus_e), 2000);
+integrand  = 2 ./ (1 + sqrt(1 + 4*kappa^2 .* y_plus_vd.^2 .* (1 - exp(-y_plus_vd/25)).^2));
+uvd        = cumtrapz(y_plus_vd, integrand);
+
+semilogx(y_plus_vd, uvd, 'r-', 'LineWidth', 1.5, 'DisplayName','van Driest');
+legend('Location','northwest');
+
+%% Part g
+mu    = rho * nu;
+du_dy = diff(u) ./ diff(y);
+y_mid = (y(1:end-1) + y(2:end)) / 2;
+
+tau   = rho * Uf^2 * (1 - y_mid/h);
+RS    = tau - mu * du_dy;
+RS_nd = RS / (rho * Uf^2);
+
+figure(4);
+plot(RS_nd, y_mid/h, 'ko-', 'MarkerFaceColor','k', 'MarkerSize', 4);
+xlabel('-\rho u''v'' / U_f^2'); ylabel('y/h');
+title('Non-dimensional Reynolds stress'); grid on;
+
+
+%% Question 2
+
+wave_friction(0.152, 1.6, 0.5, 0.18)
+wave_friction(4, 8, 15, 0.0005)
+
+function wave_friction(H, T, h, d50_mm)
+
+nu  = 1e-6;
+d50 = d50_mm * 1e-3;
+k_s = 2.5 * d50;
+
+L = dispersion_equation(T, h);
+k = 2*pi/L;
+omega = 2*pi/T;
+
+U_0m = H*omega / (2*sinh(k*h));
+a    = U_0m / omega;
+
+Re_d = a * U_0m / nu;
+a_ks = a / k_s;
+
+fprintf('\n--- Input: H=%.3f m, T=%.1f s, h=%.2f m, d50=%.4f mm ---\n', ...
+    H, T, h, d50_mm);
+fprintf('L=%.4f m, U_0m=%.4f m/s, a=%.4f m\n', L, U_0m, a);
+fprintf('Re_delta=%.3e, a/ks=%.2f\n', Re_d, a_ks);
+
+if a_ks > 1e4   % Smooth bed
+    if Re_d < 1.5e5
+        f_w = 2 / sqrt(Re_d);
+        regime = 'Smooth laminar';
+        delta = (3*pi/4) * sqrt(2*nu/omega);
+    elseif Re_d > 5e5
+        f_w = 0.035 * Re_d^(-0.16);
+        regime = 'Smooth turbulent';
+        delta = 0.086 * a / Re_d^0.11;
+    else
+        f_w = 0.0045;
+        regime = 'Smooth transitional';
+        delta = 0.086 * a / Re_d^0.11;
     end
-
-    k = 2*pi/L;
-    omega = 2*pi/T;
-    t = 0:0.01:T;
-    x = 0;
-    theta = omega*t - k*x;
-
-    eta_1 = (H/2) * cos(theta);
-    eta_2 = (1/16) * k * H^2 * (3*coth(k*h)^3 - coth(k*h)) .* cos(2*theta);
-    eta = eta_1 + eta_2;
-
-    plot(t, eta_1, 'LineWidth', 1.5)
-    hold on
-    plot(t, eta_2, 'LineWidth', 1.5)
-    hold on
-    plot(t, eta, 'LineWidth', 1.5)
-    legend('\eta_1','\eta_2','\eta')
-    xlabel('Time (s)')
-    ylabel('Surface Elevation (m)')
-    title('Surface Elevation (Stokes 2nd Order)')
-    grid on
-end
-\end{lstlisting}
-\newpage
-
-\section*{\small MATLAB function for Stokes' second-order wave theory the vertical variation of horizontal \texorpdfstring{(\(u\))}{(u)} and vertical \texorpdfstring{(\(w\))}{(w)} particle velocities}
-\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-function stokes_velocity_profile(T, h)
-    H = 3;
-    L = 1.56*T^2;
-    tol = 3e-5;
-    err = tol + 1;
-
-    while err > tol
-        L_new = 9.81*(T^2) * tanh(2*pi*h/L) / (2*pi);
-        err = abs(L-L_new);
-        L= L_new;
+else            % Rough bed
+    if a_ks > 50
+        f_w = 0.04 * a_ks^(-0.25);
+    elseif a_ks >= 10
+        f_w = 0.4  * a_ks^(-0.75);
+    elseif a_ks >= 0.2
+        f_w = 0.32 * a_ks^(-0.8);
+    else
+        f_w = exp(5.5 * a_ks^(-0.16) - 6.7);
     end
+    regime = 'Rough bed';
+    delta = 0.09 * k_s * a_ks^0.82;
+end
 
-    k = 2*pi/L;
-    omega = 2*pi/T;
-    t = 4; 
-    x = 0;
-    theta = omega*t - k*x;
+U_fm = sqrt(f_w/2) * U_0m;
 
-    eta_1 = (H/2)*cos(theta);
-    eta_2 = (((k*H^2)/16) * ((3*coth(k*h)^3) - coth(k*h))) * cos(2*theta);
-    eta_total = eta_1 + eta_2;
-
-    z = (-h:0.1:eta_total);
-    c = L/T;
-
-    u_1 = ((H*omega/2)) * ((cosh(k*(h+z)) / sinh(k*h))) * (cos(omega*t-k*x));
-    u_2 = ((3/16)*c*(k*H)^2) * ((cosh(2*k*(z+h))) / (sinh(k*h)^4)) * cos(2*theta);
-    u = u_1 + u_2;
-
-    w_1 = -((H*omega/2)) * ((sinh(k*(h+z)) / sinh(k*h))) * (sin(omega*t-k*x));
-    w_2 = (-3/16) * ((sinh(2*k*(z+h))) / (sinh(k*h)^4)) * sin(2*theta);
-    w = w_1 + w_2;
-
-    figure(1)
-    plot(u_1, z, 'LineWidth', 1.5)
-    hold on
-    plot(u,z, 'LineWidth', 1.5)
-    legend('u_1','u_1_+_2','Location','northeast')
-    xlabel('u (m/s)')
-    ylabel('z (m)')
-    grid on
-
-    figure(2)
-    plot(w_1, z, 'LineWidth', 1.5)
-    hold on
-    plot(w,z, 'LineWidth', 1.5)
-    legend('w_1','w_1_+_2','Location','northeast')
-    xlabel('w (m/s)')
-    ylabel('z (m)')
-    grid on
+fprintf('Regime: %s\n', regime);
+fprintf('f_w  = %.4f\n', f_w);
+fprintf('U_fm = %.4f m/s\n', U_fm);
+fprintf('delta= %.4f m\n', delta);
 end
 \end{lstlisting}
 
-\section*{\small MATLAB function for non-dimensional dynamic pressure}
-\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-function stokes_dynamic_pressure(T, h)
-    H = 3;
-    L = 1.56*T^2;
-    tol = 3e-5;
-    err = tol + 1;
-
-    while err > tol
-        L_new = 9.81*(T^2) * tanh(2*pi*h/L) / (2*pi);
-        err = abs(L-L_new);
-        L= L_new;
-    end
-
-    k = 2*pi/L;
-    z = (-h:0.1:0);
-    
-    P_d = (cosh(k*(z+h)) / cosh(k*h));
-    
-    hold on
-    plot(P_d, z/h, 'LineWidth', 1.5); 
-    xlabel('P / (\rhog\eta)'); ylabel('z/h'); 
-    title('Non-Dimensional Dynamic Pressure');
-    grid on
-end
-\end{lstlisting}
-\newpage
-
-\section*{\small MATLAB function for solitary wave surface elevation}
-\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-function solitary_wave(t)
-    H = 0.074;
-    h = 0.3;
-    x = 26;
-    c = sqrt(9.81 * (H + h));
-    X = x - c * t;
-
-    eta = H * sech(X * sqrt((3*H) / (4 * h^3))).^2;
-
-    CE591_data = readcell('CE591_data.txt');
-    data_t = cell2mat(CE591_data(2:end,1));
-    data_n = cell2mat(CE591_data(2:end,2));
-    plot(data_t, data_n);
-    hold on
-    plot(t, eta)
-    xlabel('Time (s)');
-    ylabel('\eta (m)');
-    title('\eta (m) vs Time (s)');
-    legend('Experimental', 'Theoretical');
-end
-\end{lstlisting}
-
-\section*{\small MATLAB function for cnoidal wave surface elevation}
-\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
-function [m, L_c, Ur] = cnodial_wave(H, T, h)
-    max_iter = 1000;
-    tol = 3e-5;
-    err_out = tol + 1;
-    err_in = tol + 1;
-    g = 9.81;
-
-    a0 = 1.3862944;
-    b0 = 0.5;
-    a1 = 0.1119723;
-    b1 = 0.1213478;
-    a2 = 0.0725296;
-    b2 = 0.0288729;
-
-    e1 = 0.4630151;
-    f1 = 0.2452727;
-    e2 = 0.1077812;
-    f2 = 0.0412496;
-
-    A = 1;
-    i = 1;
-    while err_out > tol || i > max_iter
-        L_c = T * sqrt(g/h) * sqrt(1 + (H/h)*A) * h;
-        Ur = H * L_c^2 / h^3;
-        
-        m1 = exp((a0 - sqrt(3*Ur/16)) / b0);
-    
-        j = 1;
-        while err_in > tol || j > max_iter
-            K = a0 + a1*m1 + a2*m1^2 - (b0 + b1*m1 + b2*m1^2)*log(m1);
-            dK = a1 + 2*a2*m1 + (b1 + 2*b2*m1)*log(m1) - (b0 + b1*m1 + b2*m1^2)/m1;
-            
-            f = 1 - m1 - (3/16)*(Ur / K^2);
-            df = (3/8)*(Ur / K^3)*dK - 1;
-    
-            m1_new = m1 - f/df;
-            err_in = abs(m1_new - m1);
-            m1 = m1_new;
-    
-            j = j + 1;
-        end
-
-        m = 1 - m1;
-        E = (1 + e1*m1 + e2*m1^2) - (f1*m1 + f2*m1^2)*log(m1);
-        
-        A_new = (2/m - 1) - (3/m)*(E / K);
-        err_out = abs(A_new - A);
-        A = A_new;
-
-        i = i + 1;
-    end
-
-    K_c = 2 * ellipticK(m) / L_c;  
-    c_c = sqrt(g*(h + A*H));
-    B = (1/m)*(1 - m - ellipticE(m)/ellipticK(m));
-    x = 45;  
-    t = 0:0.1:2*T;  
-
-    eta = H * (B + jacobiCN(K_c*(x - c_c*t), m).^2 );
-    
-    hold on
-    plot(t, eta, 'LineWidth', 1.5);
-    xlabel('t (s)'); ylabel('\eta (m)');
-    title('Cnoidal Wave Profile');
-    grid on
-end
-\end{lstlisting}
-
-\section*{\small blockMeshDict file for the mesh generation}
-\begin{verbatim}
-
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2412                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    object      blockMeshDict;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-convertToMeters 1;
-
-vertices
-(
-    (0 0 0)        // Vertex 0
-    (8.5 0 0)      // Vertex 1
-    (25 0 0.66)    // Vertex 2
-    (25 0 1)       // Vertex 3
-    (8.5 0 1)      // Vertex 4
-    (0 0 1)        // Vertex 5
-    (0 0.1 0)      // Vertex 6
-    (8.5 0.1 0)    // Vertex 7
-    (25 0.1 0.66)  // Vertex 8
-    (25 0.1 1)     // Vertex 9
-    (8.5 0.1 1)    // Vertex 10
-    (0 0.1 1)      // Vertex 11
-);
-
-blocks
-(
-    hex (0 1 7 6 5 4 10 11) (850 1 280) simpleGrading (1 1 13.333)
-    hex (1 2 8 7 4 3 9 10) (1650 1 280) simpleGrading (1 1 13.333)
-);
-
-edges
-(
-);
-
-boundary
-(
-    inlet 
-    { 
-        type patch; 
-        faces 
-        (
-            (0 5 11 6)
-        ); 
-    }
-    outlet 
-    {
-        type patch; 
-        faces 
-        (
-            (2 3 9 8)
-        ); 
-    }
-    front 
-    {
-        type wall;
-        faces 
-        (
-            (0 1 4 5)
-            (1 2 3 4)
-        ); 
-    }
-    back 
-    {
-        type wall; 
-        faces
-        (
-            (6 7 10 11)
-            (7 8 9 10)
-        ); 
-    }
-    topAndBottom
-    {
-        type empty; 
-        faces 
-        (
-            (0 1 7 6) 
-            (5 4 10 11)
-            (1 2 8 7)
-            (4 3 9 10)
-        ); 
-    }
-);
-
-mergePatchPairs
-(
-);
-
-// ************************************************************************* //
-\end{verbatim}
 
 \end{document}
