@@ -1,0 +1,1333 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage{blindtext}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{matlab-prettifier}
+\usepackage{float}
+\usepackage{multirow}
+\definecolor{codemagenta}{rgb}{1,0,0.5}
+\definecolor{codegray}{rgb}{0.4,0.4,0.4}
+\definecolor{codepurple}{rgb}{0.8,0.2,1}
+\definecolor{codeorange}{rgb}{1,0.6,0}
+\definecolor{codecyan}{rgb}{0,0.8,1}
+\definecolor{codebrown}{rgb}{0.7,0.5,0.3}
+\definecolor{codered}{rgb}{1,0.2,0.2}
+\definecolor{backcolour}{rgb}{1,1,1}
+\lstset{
+    language=Python,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray}\itshape,
+    keywordstyle=\color{codepurple}\bfseries,
+    numberstyle=\tiny\color{codebrown},
+    stringstyle=\color{codemagenta}\bfseries,
+    basicstyle=\ttfamily\small\color{black},
+    emph={True,False,None,self,def,class,return,import,from,as,if,else,elif,for,while,in},
+    emphstyle=\color{codepurple}\bfseries,
+    emph={[2]np,plt,import,from},
+    emphstyle={[2]\color{codeorange}\bfseries},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    morekeywords={True,False,None}
+}
+\usepackage[small,bf,hypcap=true]{caption}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}
+   \captionsetup{type=figure}}
+  {\endminipage\par\medskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\newline}
+
+% Enable 4th-level numbering and ToC visibility
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\graphicspath{{./Figures}}
+
+% Configure the header
+\pagestyle{fancy}
+\fancyhead[L]{CE 598}
+\fancyhead[C]{Coastal \& Harbour Structures Design}
+\fancyhead[R]{13/06/2026}
+
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+
+\onehalfspacing
+
+\begin{document}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12}{10}\selectfont}
+  {\large\thesection.} 
+  {0.3em}
+  {}
+
+\thispagestyle{empty}
+% -------------------- Title Page --------------------
+\begin{titlepage}
+    \begin{figure}[H]
+        \vspace{0.6cm}
+        \centering
+        \includegraphics[width=0.45\textwidth]{logo.png}
+    \end{figure}
+    \vspace{0.8cm}
+
+    \centering
+    \textbf{\LARGE Middle East Technical University}\\[0.3cm]
+
+    \textbf{\LARGE Department of Civil Engineering}\\[0.5cm]
+
+    \textbf{\Large 2025-2026 Spring Semester}\\[1.5cm]
+
+    \textbf{\Large CE598 Coastal \& Harbour Structures Design}\\[0.9cm]
+
+    \textbf{\LARGE Final Project}\\[1.5cm]
+
+    \large Instructor:
+
+    \large Dr. Işıkhan Güler\\[1.2cm]
+
+    \large Submitted by:
+    
+    \large Bilge Kutay
+    
+    \large 2511798\\[1.5cm]
+
+\end{titlepage}
+
+% -------------------- Table of Contents --------------------
+\newpage
+\renewcommand{\contentsname}{Table of Contents} 
+\begin{center}
+    \tableofcontents
+\end{center}
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+
+% -------------------- Introduction --------------------
+\section{Introduction}
+
+\hspace*{0.5cm}This report presents the coastal structure design for the Ören/Milas Marina in Muğla, Türkiye. The design is completed for three sections, Section A-A, Section B-B, and Section C-C.
+
+The objective of this study is to select suitable structure types for the required sections and complete their design. Sections A-A and B-B are designed by comparing the possible structure alternatives and selecting the most suitable option for each section. Section C-C is designed as a floating breakwater. The work covers the appropriate design wave conditions, wave transformation to the sections, structure type selection, dimensional design, and stability checks.
+% -------------------- Methodology --------------------
+\section{Methodology}
+
+\subsection{Design Conditions}
+
+\hspace*{0.5cm}The design conditions were obtained before the structural design calculations. This part includes the selection of the critical wave direction, the calculation of the foreshore slope, and the transformation of the offshore wave conditions to the design sections.
+
+The offshore wave conditions given in the final exam statement were used directly. Therefore, no wind-wave hindcasting was carried out in this study. The deep-water wave conditions were taken as \(H_{s0}=3.07~\mathrm{m}\) and \(T_{s0}=6.58~\mathrm{s}\).
+
+\subsubsection{Critical Wave Direction}
+
+\hspace*{0.5cm} The critical wave direction was selected based on the directional fetch lengths. The fetch calculation was used to determine the critical direction of the site. It was not used for wave generation, since the offshore wave height and period were already given.
+
+Directional rays were checked around the project area, and the distance was determined for each direction. The direction with the largest fetch was WSW and accepted as the dominant wave direction for the SWANOne calculations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/fetch_map.png}
+    \caption{Directional fetch map used for selecting the critical wave direction.}
+    \label{fig:fetch_map}
+\end{figure}
+
+\subsubsection{Foreshore Slope Calculation}
+
+\hspace*{0.5cm} The foreshore slope used in SWANOne was obtained from the bathymetry plan. The scale of the drawing was first checked using a known dimension. After this scale was defined, the horizontal distance between the selected depth contours was measured along the wave direction. The measured distance was converted to the real distance using the same scale. The depth difference between the selected contours was then used with this horizontal distance to obtain the seabed slope.
+
+The measured distances and selected contours are shown in Figure~\ref{fig:slope_measurement}. The calculated slope was \(17\%\) and used as the foreshore slope input in the SWANOne runs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth]{figures/slope_measurement.png}
+    \caption{Scale and contour measurements used for the foreshore slope calculation.}
+    \label{fig:slope_measurement}
+\end{figure}
+
+\subsubsection{SWANOne Wave Transformation}
+
+\hspace*{0.5cm} The offshore wave conditions given in the final exam statement were transformed to the design sections using SWANOne. The offshore significant wave height was taken as \(H_{s0}=3.07~\mathrm{m}\). The given significant wave period was converted to peak period before it was used as model input, using \(T_p = 1.1T_s = 1.1 \times 6.58 = 7.238~\mathrm{s}\).
+
+The wave direction was taken as \(90^\circ\), to stay on the safe side for the design. The foreshore slope obtained from the bathymetry plan was used as the seabed slope input in SWANOne. Separate SWANOne outputs were used as the input for each section and the rubble mound, berm, vertical wall, and floating breakwater calculations so that the local wave height, period, and water depth could be taken directly from the model results.
+
+\subsection{Design Water Level}
+\label{sec:dwl}
+
+\hspace*{0.5cm} In this study, only the High Water Level (HWL) case was considered in the rubble mound and X-Bloc breakwater calculations. The design water level was taken as
+
+\begin{equation}
+    DWL_{HWL}=1.2697~\mathrm{m}
+\end{equation}
+
+above MSL.
+
+\begin{equation}
+    \Delta_{HWL} = \eta_{tide} + \Delta_{SLR} + \eta_{seasonal} 
+    + \eta_{wind} + \eta_{BC}
+\end{equation}
+
+Sea level rise was estimated over the 100-year design lifetime. The highest astronomical tide and seasonal water level variation were adopted from regional literature values for the eastern Black Sea coast. Wind setup was computed using the 
+gradient method from the Shore Protection Manual \cite{SPM1984}, 
+with the drag coefficient $C_D$ following the wind-speed-dependent 
+formulation of Wu (1980):
+
+\begin{equation}
+    C_D = (0.8 + 0.065\,U_{10}) \times 10^{-3}
+\end{equation}
+
+\begin{equation}
+    \eta_{wind} = \frac{\rho_{air}\,C_D\,U_{10}^2\,F}
+    {\rho_w\,g\,\bar{d}}
+\end{equation}
+
+where $F$ is the effective fetch corresponding to the dominant storm 
+direction, $\bar{d}$ is the fetch-averaged water depth, and $U_{10}$ 
+is the 100-year wind speed. Static and dynamic wave setup components were computed following the formulations given in the CE593 lecture notes \cite{CE593} and were incorporated only within the barometric and Coriolis 
+(B\&C) correction term, which accounts for additional water level 
+rise due to atmospheric pressure differences and Coriolis effects. 
+The B\&C term was taken as 20\% of the combined wind and wave 
+setup contributions:
+
+\begin{equation}
+    \eta_{BC} = 0.20\,(\eta_{wind} + \eta_{wave,static} + \eta_{wave,dyn})
+\end{equation}
+
+The static wave setup was computed as \cite{CE593}:
+
+\begin{equation}
+    \eta_{wave,static} = H_{s0} \left[ 
+    (0.0063 + 0.768\,s_{fs}) 
+    - (0.0083 + 0.011\,s_{fs})\ln\!\left(\frac{H_{s0}}{L_0}\right)
+    + (0.00372 + 0.0148\,s_{fs})
+    \ln^2\!\left(\frac{H_{s0}}{L_0}\right) \right]
+\end{equation}
+
+where $s_{fs}$ is the foreshore slope and $L_0 = gT_p^2/(2\pi)$ is 
+the deep-water wavelength. The dynamic wave setup at each section 
+was computed as \cite{CE593}:
+
+\begin{equation}
+    \eta_{wave,dyn} = \frac{0.01\,H_{s0}}
+    {\sqrt{\dfrac{H_{s0}}{L_0}\left(1 + \dfrac{h}{H_{s0}}\right)}}
+\end{equation}
+
+where $h$ is the water depth at the toe of the section.
+\subsection{Rubble Mound and X-Bloc Breakwater Design}
+
+\subsubsection{Run-up and Free Crest Height}
+\label{sec:runup}
+\hspace{0.5cm}Wave run-up and the crest freeboard were 
+computed following the EurOtop (2018) guidelines for rubble mound 
+structures. The spectral breaker index was calculated as:
+
+\begin{equation}
+    \xi_{m-1,0} = \frac{\tan\alpha}{\sqrt{2\pi H_{s,toe} / 
+    (g\,T_{m-1,0}^2)}}
+\end{equation}
+
+where $\tan\alpha$ is the armor slope and $T_{m-1,0}$ is the 
+spectral wave period at the toe obtained directly from SWANONE. 
+The 2\% exceedance run-up height was computed as the minimum of 
+the plunging and surging branch equations:
+
+\begin{equation}
+    \frac{R_{u,2\%}}{H_{m0}} = 
+    1.75\,\gamma_b\,\gamma_f\,\gamma_\beta\,\xi_{m-1,0}
+\end{equation}
+
+\begin{equation}
+    \frac{R_{u,2\%}}{H_{m0}} = 
+    1.07\,\gamma_{f,surging}\,\gamma_\beta
+    \left(4 - \frac{1.5}{\sqrt{\gamma_b\,\xi_{m-1,0}}}\right)
+\end{equation}
+
+where the surging friction factor is:
+
+\begin{equation}
+    \gamma_{f,surging} = \gamma_f + 
+    (\xi_{m-1,0} - 1.8)\,\frac{1 - \gamma_f}{8.2}
+\end{equation}
+
+The influence factors $\gamma_b = 1.0$ (no berm), 
+$\gamma_\beta = 1.0$ (normal wave attack), and $\gamma_f = 0.40$ 
+for natural rock and $\gamma_f = 0.44$ for X-Bloc were applied 
+\cite{EurOtop2018}.
+
+The required crest freeboard $R_c$ was determined for an allowable 
+mean overtopping discharge of $q = 1$~l/s/m, using the EurOtop 
+(2018) general freeboard equation:
+
+\begin{equation}
+    R_c = \frac{H_{s,toe}\,\gamma_f\,\gamma_\beta}{1.35}
+    \left(-\ln\frac{q}{0.1035\sqrt{g\,H_{s,toe}^3}}\right)^{1/1.3}
+\end{equation}
+
+
+\subsubsection{Armor Unit Selection and Design}
+
+\subsubsubsection{Natural Rock}
+
+\hspace*{0.5cm} Natural rock armour was evaluated using the Hudson formula, the Van der Meer (1988) formula, the Van der Meer (2021) formula, and the Van Gent et al. (2004) formula. Hudson was used as a comparison method, while the governing rock size was selected between Van der Meer (2021) and Van Gent by using the decision flowchart of G\"uler et al. (2014).
+
+The Hudson formula was written as
+
+\begin{equation}
+    W=
+    \frac{\gamma_s H_{design}^{3}\tan\alpha}
+    {(S_r-1)^3K_D}
+\end{equation}
+
+where \(\gamma_s\) is the armour stone unit weight, \(S_r\) is the relative density, \(\tan\alpha\) is the slope, and \(K_D\) is the stability coefficient. The design wave height in the Hudson calculation was taken as \(H_{1/10}\) from the SWANOne output. The breaking condition was checked by comparing \(H_{1/10}/h\) with the limit value 0.6. In the present code, both A-A and B-B were treated as trunk sections. Therefore, \(K_D=4.0\) was used for non-breaking waves and \(K_D=2.0\) for breaking waves.
+
+The Van der Meer (1988) formulation was applied using the mean wave period \(T_m\), taken as
+
+\begin{equation}
+    T_m=0.81\left(\frac{T_p}{1.08}\right)
+\end{equation}
+
+and the surf similarity parameter
+
+\begin{equation}
+    \xi_m=
+    \frac{\tan\alpha}
+    {\sqrt{2\pi H_{s,toe}/(gT_m^2)}}
+\end{equation}
+
+with the critical value
+
+\begin{equation}
+    \xi_{cr}=
+    \left(6.2P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
+\end{equation}
+
+For plunging waves \((\xi_m<\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    6.2P^{0.18}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \xi_m^{-0.5}
+\end{equation}
+
+and for surging waves \((\xi_m\geq\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    1.0P^{-0.13}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \sqrt{\cot\alpha}\xi_m^{P}
+\end{equation}
+
+The Van der Meer (2021) formulation was then applied using the spectral period \(T_{m-1,0}\) directly:
+
+\begin{equation}
+    \xi_{m-1,0}=
+    \frac{\tan\alpha}
+    {\sqrt{2\pi H_{s,toe}/(gT_{m-1,0}^{2})}}
+\end{equation}
+
+with
+
+\begin{equation}
+    \xi_{cr}=
+    \left(\frac{6.49}{0.97}P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
+\end{equation}
+
+For plunging waves \((\xi_{m-1,0}<\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    6.49P^{0.18}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \xi_{m-1,0}^{-0.5}
+\end{equation}
+
+and for surging waves \((\xi_{m-1,0}\geq\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    0.97P^{-0.13}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \sqrt{\cot\alpha}\xi_{m-1,0}^{P}
+\end{equation}
+
+The Van Gent et al. (2004) formulation was also checked, since it is intended for shallower-water conditions and includes the effect of \(H_{2\%}\). Its critical surf similarity parameter was taken as
+
+\begin{equation}
+    \xi_{cr}=
+    \left(\frac{8.4}{1.3}P^{0.31}\sqrt{\tan\alpha}\right)^{1/(P+0.5)}
+\end{equation}
+
+For plunging waves \((\xi_{m-1,0}<\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    8.4P^{0.18}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{H_{2\%}}
+    \xi_{m-1,0}^{-0.5}
+\end{equation}
+
+and for surging waves \((\xi_{m-1,0}\geq\xi_{cr})\),
+
+\begin{equation}
+    \frac{H_{s,toe}}{\Delta D_{n50}}
+    =
+    1.3P^{-0.13}
+    \left(\frac{S}{\sqrt{N}}\right)^{0.2}
+    \frac{H_{s,toe}}{H_{2\%}}
+    \sqrt{\cot\alpha}\xi_{m-1,0}^{P}
+\end{equation}
+
+In these formulations, \(P=0.4\) was used for the notional permeability, \(S=2\) for the damage level, \(N=3000\) for the number of waves, and
+
+\begin{equation}
+    \Delta=\frac{\gamma_s}{\gamma_w}-1
+\end{equation}
+
+for the relative buoyant density.
+
+The governing rock design method was selected using the flowchart of G\"uler et al. (2014), based on the three checks
+
+\begin{equation}
+    \frac{h}{H_{s,toe}}<3, \qquad
+    \frac{H_{2\%}}{H_{s,toe}}<1.4, \qquad
+    \frac{H_{s,toe}}{H_{s0}}<0.9
+\end{equation}
+
+If all three conditions were satisfied, Van Gent et al. (2004) was adopted. If any one of them failed, Van der Meer (2021) was adopted.
+
+After the governing armour weight was obtained, the nominal diameter was computed from
+
+\begin{equation}
+    D_{n50}=\left(\frac{W}{\gamma_s}\right)^{1/3}
+\end{equation}
+
+The armour layer thickness and underlayer size were then determined as
+
+\begin{equation}
+    r_{armor}=n k_{\Delta}D_{n50}
+\end{equation}
+
+\begin{equation}
+    D_{n50,ul}=\frac{D_{n50}}{2.2}
+\end{equation}
+
+where \(n=2\) armour layers and \(k_{\Delta}=1.0\). The crest width was taken as
+
+\begin{equation}
+    B=n_{crest}k_{\Delta}D_{n50}
+\end{equation}
+
+with \(n_{crest}=3\) stones across the crest in the final code.
+
+The core material range was estimated from the selected armour weight. The lower and upper limits were taken as
+
+\begin{equation}
+    W_{core,min}=\frac{W}{4000}
+\end{equation}
+
+\begin{equation}
+    W_{core,max}=\frac{W}{200}
+\end{equation}
+
+The natural rock toe was designed using the toe stability expression. The toe water depth was taken as \(h_t=0.6h\). The calculated toe rock diameter was compared with the underlayer diameter, and the larger value was adopted:
+
+\begin{equation}
+    D_{n50,toe}=
+    \max
+    \left[
+    \frac{H_{s,toe}}
+    {\left(2+6.2\left(\frac{h_t}{h}\right)^{2.7}\right)N_{od}^{0.15}\Delta},
+    D_{n50,ul}
+    \right]
+\end{equation}
+
+where \(N_{od}=0.5\). The toe thickness and toe length were then taken as
+
+\begin{equation}
+    t_{toe}=4D_{n50,toe}
+\end{equation}
+
+\begin{equation}
+    L_{toe}=6D_{n50,toe}
+\end{equation}
+
+
+\subsubsubsection{X-Bloc}
+
+\hspace*{0.5cm} The required X-Bloc unit volume was determined using the design equation given in the DMC X-Bloc Design Guidelines (2023):
+
+\begin{equation}
+    V_{Xbloc}=
+    \left(\frac{H_{m0,toe}}{2.77\Delta}\right)^3
+\end{equation}
+
+where \(\Delta=(\rho_c-\rho_w)/\rho_w\) is the relative buoyant density of the concrete unit, with \(\rho_c=2.400~\mathrm{t/m^3}\) and \(\rho_w=1.030~\mathrm{t/m^3}\). In the X-Bloc calculation, \(H_{m0,toe}\) from SWANOne was used in the unit volume equation.
+
+After the base unit volume was obtained, a depth correction factor was applied. In this study, \(CF=2.0\) was used. The corrected unit volume was then calculated as
+
+\begin{equation}
+    V_{CF}=V_{Xbloc}\times CF
+\end{equation}
+
+and rounded up to the nearest standard X-Bloc size given in the table used in the code.
+
+A row check was then carried out, since the maximum allowable number of rows on the slope is 20 for X-Bloc armour. The actual slope length was computed from the design water depth and the adopted seaward slope as
+
+\begin{equation}
+    L_{slope}=h\sqrt{1+\cot^2\alpha}
+\end{equation}
+
+The number of rows for the selected X-Bloc size was calculated as
+
+\begin{equation}
+    N_{rows}=
+    \frac{L_{slope}-0.5D}{D_y}
+\end{equation}
+
+where \(D_y\) is the upslope placement distance and \(D\) is the unit height. If the initial X-Bloc size did not satisfy the 20-row criterion, the unit size was increased until the row check was satisfied.
+
+The X-Bloc underlayer was selected according to the DMC guideline requirement that the underlayer rock mass should lie between \(W/15\) and \(W/6\) of the X-Bloc unit mass. In the code, the selected underlayer mass was taken inside this range and then converted into nominal diameter:
+
+\begin{equation}
+    D_{n50,ul}=
+    \left(\frac{W_{ul}}{\gamma_s}\right)^{1/3}
+\end{equation}
+
+The underlayer thickness was taken as
+
+\begin{equation}
+    t_{ul}=2D_{n50,ul}
+\end{equation}
+
+The X-Bloc toe design was based on the Van der Meer et al. (1995) toe stability expression recommended in the DMC guideline:
+
+\begin{equation}
+    D_{n50,toe}=
+    \frac{H_{s,toe}}
+    {\left(2+6.2\left(\frac{h_t}{h}\right)^{2.7}\right)N_{od}^{0.15}\Delta}
+\end{equation}
+
+with \(N_{od}=0.5\). The toe rock size was obtained iteratively, because the depth above the toe, \(h_t\), depends on the adopted toe thickness. In the final design, \(h_t\) was evaluated by considering the granular filter layer, foundation layer, and toe thickness. A granular filter thickness of \(0.60~\mathrm{m}\) was adopted, while the foundation rock size was taken as \(W/30\) of the X-Bloc unit mass.
+
+The toe thickness and toe length were taken as
+
+\begin{equation}
+    t_{toe}=2D_{n50,toe}
+\end{equation}
+
+\begin{equation}
+    L_{toe}=3D_{n50,toe}
+\end{equation}
+
+Finally, the rear slope was represented symmetrically to the front slope as a conceptual cross-section for the report drawings.
+
+\subsection{Berm Breakwater Design}
+
+\subsubsection{Berm Breakwater Classification}
+
+\hspace*{0.5cm} The structural behaviour of the berm breakwater was classified through the stability number \(H_0\), defined as
+
+\begin{equation}
+    H_0 = \frac{H_{sD}}{\Delta D_{n50,I}}
+    \label{eq:berm_stability_number}
+\end{equation}
+
+where \(\Delta=\rho_s/\rho_w-1\) is the relative buoyant density of the armour rock and \(D_{n50,I}\) is the nominal median diameter of the Class I rock. In this classification, \(H_0 \leq 2.0\) corresponds to a Hardly-Reshaping Icelandic-type structure, \(2.0 < H_0 \leq 2.5\) corresponds to a Partly-Reshaping structure, and \(2.5 < H_0 \leq 3.0\) corresponds to a Fully-Reshaping Mass-Armoured structure.
+
+In the present study, the berm breakwater design was carried out for Sections A-A and B-B under the HWL condition only. The actual section wave height from SWANOne was used for the final stability number check. Since the design wave height was approximately \(3~\mathrm{m}\), the rock classes were selected directly from the small-wave-height lecture table instead of using the full rock-class table.
+
+\subsubsection{Class I Armour Rock Selection}
+
+\hspace*{0.5cm} The Class I rock represents the main armour rock placed on the berm. In the final code, the Class I rock was selected directly as the \(1\text{--}4~\mathrm{t}\) class. A representative median mass of
+
+\begin{equation}
+    M_{50,I}=2.5~\mathrm{t}
+\end{equation}
+
+was adopted for the calculations. The corresponding nominal median diameter was computed from
+
+\begin{equation}
+    D_{n50,I}=\left(\frac{M_{50,I}}{\rho_s}\right)^{1/3}
+    \label{eq:berm_dn50_I}
+\end{equation}
+
+where \(\rho_s=2.700~\mathrm{t/m^3}\) is the rock density.
+
+The selected Class I rock was checked using both \(H_{sD}=3.0~\mathrm{m}\), which represents the lecture-table selection basis, and the actual \(H_{sD}\) value from each section. The actual stability number was then used to classify the berm behaviour.
+
+\subsubsection{Recession and Berm Width}
+
+\hspace*{0.5cm} The expected recession of the berm under wave attack was computed using the Van der Meer and Sigurdarson (2016) relation:
+
+\begin{equation}
+    Rec = D_{n50,I}\,1.6\,(H_0-1)^{2.5}
+    \label{eq:berm_recession}
+\end{equation}
+
+This equation was applied separately for the design wave height \(H_{sD}\) and the overload wave height \(H_{sOL}\). The overload wave height was taken as
+
+\begin{equation}
+    H_{sOL}=1.2H_{sD}
+\end{equation}
+
+The recession values obtained for the design and overload conditions were denoted as \(Rec_{ND}\) and \(Rec_{OL}\). The design recession was then calculated as
+
+\begin{equation}
+    Rec_{des}=Rec_{ND}+\frac{Rec_{OL}-Rec_{ND}}{2}
+    \label{eq:berm_rec_des}
+\end{equation}
+
+The minimum berm width based on the resiliency criterion was calculated as
+
+\begin{equation}
+    B_{resil}=\frac{Rec_{des}}{P/100}
+    \label{eq:berm_width_resil}
+\end{equation}
+
+where \(P=15\%\) was used in the final code. The berm width was also checked against the geometric minimum
+
+\begin{equation}
+    B_{min}=\max(Rec_{des}+D_{n50,I},\,3D_{n50,I})
+    \label{eq:berm_width_min}
+\end{equation}
+
+and the selected berm width was taken as
+
+\begin{equation}
+    B=\max(B_{resil},B_{min})
+    \label{eq:berm_width_final}
+\end{equation}
+
+\subsubsection{Horizontal Armour Width and Berm Level}
+
+\hspace*{0.5cm} The minimum horizontal armour width \(A_h\) defines the total extent of the Class I rock placement at the berm level. It was calculated as
+
+\begin{equation}
+    A_h=\frac{2H_{sD}^{2}}{\Delta D_{n50,I}}
+    \label{eq:berm_Ah}
+\end{equation}
+
+The berm elevation was determined from the required height above the high tide level. Two criteria were checked. The first criterion is based on the design wave height:
+
+\begin{equation}
+    d_{b,wave}=0.6H_{sD}
+    \label{eq:berm_db_wave}
+\end{equation}
+
+The second criterion is based on construction clearance:
+
+\begin{equation}
+    d_{b,constr}=\Delta_w+2D_{n50,I}
+    \label{eq:berm_db_constr}
+\end{equation}
+
+where \(\Delta_w=1.0~\mathrm{m}\) is the construction safety margin. The governing berm height above MHWS was taken as
+
+\begin{equation}
+    d_b=\max(d_{b,wave},d_{b,constr})
+    \label{eq:berm_db}
+\end{equation}
+
+The berm elevation above MSL was then obtained as
+
+\begin{equation}
+    z_{berm}=MHWS+d_b
+    \label{eq:berm_elev}
+\end{equation}
+
+In the final code, \(MHWS=0.20~\mathrm{m}\) was used. The berm level was also checked using \(d_b/H_{sD}\geq0.6\), and it was verified that the berm elevation remained above the adopted HWL.
+
+\subsubsection{Transition and Lower Rock Class}
+
+\hspace*{0.5cm} Below the Class I berm armour, the section was transitioned to a smaller rock class. The transition depth between Class I and Class II rock was calculated as
+
+\begin{equation}
+    h_{I-II}=
+    \max(1.85\Delta D_{n50,I},\,0.4H_{sD})
+    \label{eq:berm_transition}
+\end{equation}
+
+In the final code, the lower rock class was selected directly as Class II. The selected Class II range was \(0.2\text{--}1~\mathrm{t}\), and the representative median mass was taken as the geometric mean:
+
+\begin{equation}
+    M_{50,II}=\sqrt{0.2\times1.0}
+    \label{eq:berm_M50_II}
+\end{equation}
+
+The corresponding nominal median diameter was calculated as
+
+\begin{equation}
+    D_{n50,II}=\left(\frac{M_{50,II}}{\rho_s}\right)^{1/3}
+    \label{eq:berm_Dn50_II}
+\end{equation}
+
+A separate Class III rock was not used in this design because the design wave height was small enough for the simplified two-class rock arrangement.
+
+\subsubsection{Crest Height}
+
+\hspace*{0.5cm} The crest elevation was determined from the allowable mean overtopping discharge using the berm breakwater overtopping formula of Van der Meer and Sigurdarson (2016):
+
+\begin{equation}
+    q=0.09\sqrt{gH_s^3}
+    \exp\left[
+    -\left(
+    \frac{1.5R_c}{\gamma_{BB}H_s}
+    \right)^{1.3}
+    \right]
+    \label{eq:berm_overtopping}
+\end{equation}
+
+where \(q\) is the mean overtopping discharge per unit width, \(R_c\) is the freeboard measured from the design water level to the crest, and \(\gamma_{BB}\) is the berm breakwater influence factor. Rearranging this expression gives
+
+\begin{equation}
+    R_c=
+    \frac{H_s\gamma_{BB}}{1.5}
+    \left[
+    -\ln\left(
+    \frac{q}{0.09\sqrt{gH_s^3}}
+    \right)
+    \right]^{1/1.3}
+    \label{eq:berm_Rc}
+\end{equation}
+
+The influence factor was calculated as
+
+\begin{equation}
+    \gamma_{BB}=0.68-4.5s_{op}-0.05\frac{B}{H_s}
+    \label{eq:berm_gammaBB}
+\end{equation}
+
+where
+
+\begin{equation}
+    s_{op}=\frac{2\pi H_s}{gT_p^2}
+    \label{eq:berm_sop}
+\end{equation}
+
+The crest freeboard was calculated for both the design condition and the overload condition. For the design condition, \(H_s=H_{sD}\) and \(q=1~\mathrm{L/s/m}\) were used. For the overload condition, \(H_s=H_{sOL}\) and \(q=10~\mathrm{L/s/m}\) were used. The governing freeboard was taken as the larger of the two calculated values.
+
+The crest elevation above MSL was then obtained as
+
+\begin{equation}
+    z_{crest}=DWL_{HWL}+R_c
+    \label{eq:berm_zcrest}
+\end{equation}
+
+where \(DWL_{HWL}=1.2697~\mathrm{m}\) was used in the final code. The crest width was calculated from the Class II rock size as
+
+\begin{equation}
+    B_{crest}=4D_{n50,II}
+    \label{eq:berm_crest_width}
+\end{equation}
+
+\subsubsection{Validity Check}
+
+\hspace*{0.5cm} After the main berm dimensions were obtained, a validity check was carried out. The design slope was taken as \(cot\alpha_d=1.5\), corresponding to a \(1V:1.5H\) reshaped/design slope. The berm level was checked using
+
+\begin{equation}
+    \frac{d_b}{H_{sD}}\geq0.6
+\end{equation}
+
+The water depth condition was also checked using
+
+\begin{equation}
+    \frac{h}{H_{sD}}
+\end{equation}
+
+where \(h\) is the design water depth at HWL. In the final code, values greater than 2.5 were treated as conservative deep-toe conditions.
+
+\subsubsection{Toe Berm Design}
+
+\hspace*{0.5cm} The toe berm was designed to stabilise the base of the armour slope and prevent undermining of the berm section. Since no separate Class III rock was used in the simplified design, the toe berm was constructed from the selected Class II rock.
+
+The toe stability relation was written as
+
+\begin{equation}
+    \frac{H_s}{\Delta D_{n50,toe}N_{od}^{0.15}}
+    =
+    2+6.2\left(\frac{h_t}{h}\right)^{2.7}
+    \label{eq:berm_toe}
+\end{equation}
+
+where \(h_t\) is the water depth above the toe, \(h\) is the total design water depth, and \(N_{od}\) is the allowable damage number. Since the toe rock size was already selected as the Class II rock size, the equation was rearranged to calculate the corresponding toe depth:
+
+\begin{equation}
+    h_t
+    =
+    h\left[
+    \frac{
+    H_s/(\Delta D_{n50,toe}N_{od}^{0.15})-2
+    }{6.2}
+    \right]^{1/2.7}
+    \label{eq:berm_ht}
+\end{equation}
+
+The toe design was checked for both design and overload conditions. For the design condition, \(N_{od}=2\) was used. For the overload condition, \(N_{od}=4\) was used. The final toe depth was taken as the larger of the two calculated values.
+
+The toe elevation was then calculated as
+
+\begin{equation}
+    z_{toe}=DWL_{HWL}-h_t
+    \label{eq:berm_toe_elev}
+\end{equation}
+
+The validity limits of the toe equation were checked using
+
+\begin{equation}
+    0.4\leq\frac{h_t}{h}\leq0.9
+\end{equation}
+
+and
+
+\begin{equation}
+    3\leq\frac{h_t}{D_{n50,toe}}\leq25
+\end{equation}
+
+A constructability check was also made by comparing the calculated toe elevation with the lowest possible toe level. The lowest possible toe level was based on a minimum core thickness of \(1.5~\mathrm{m}\) above the seabed and two toe stone diameters:
+
+\begin{equation}
+    z_{toe,low}=z_{seabed}+1.5+2D_{n50,toe}
+    \label{eq:berm_toe_low}
+\end{equation}
+
+The toe elevation was accepted only if it remained above this lower limit.
+
+
+\subsection{Vertical Wall Breakwater Design}
+
+\hspace*{0.5cm} The vertical wall was designed as a composite vertical wall breakwater with a concrete caisson seated on a rubble mound foundation. The calculations were carried out for Sections A-A and B-B. The design follows the Extended Goda (Takahashi) method as presented in Ergin (2019).
+
+\subsubsection{Hydraulic Input and Design Wave Height}
+
+\hspace*{0.5cm} The offshore wave conditions were taken as \(H_{s0}=3.07~\mathrm{m}\) and \(T_{s0}=6.58~\mathrm{s}\). The offshore peak period was calculated as \(T_{p0}=1.1T_{s0}\). For the vertical wall calculations, the SWANOne HWL output row was used for each section. The local water depth \(h_s\), \(H_{m0}\), \(T_p\), \(T_{m01}\), \(T_{m-1,0}\), \(H_{1/3}\), \(H_{2\%}\), and \(H_{1/10}\) were taken directly from the corresponding SWANOne output.
+
+The design water level was taken as
+
+\begin{equation}
+    DWL_{HWL}=1.2697~\mathrm{m}
+\end{equation}
+
+above MSL. The local NWL depth was back-calculated from the SWANOne HWL depth as
+
+\begin{equation}
+    h_{NWL}=h_s-DWL_{HWL}
+\end{equation}
+
+The significant wave period used in the wavelength calculation was estimated from the SWANOne peak period as
+
+\begin{equation}
+    T_s=\frac{T_p}{1.08}
+\end{equation}
+
+The deep-water wavelength was calculated as
+
+\begin{equation}
+    L_0=\frac{gT_s^2}{2\pi}
+\end{equation}
+
+and the local wavelength \(L\) was obtained from the linear dispersion relation:
+
+\begin{equation}
+    L=\frac{gT_s^2}{2\pi}\tanh\left(\frac{2\pi h_s}{L}\right)
+\end{equation}
+
+A representative foreshore slope of \(\tan\theta=0.17\) was used in the random wave breaking calculation. The diffraction and refraction coefficients were taken as \(K_d=1.0\) and \(K_r=1.0\), so that
+
+\begin{equation}
+    H'_0=K_dK_rH_{s0}
+\end{equation}
+
+The random wave breaking coefficients were calculated as
+
+\begin{equation}
+    \beta_0
+    =
+    0.028
+    \left(\frac{H'_0}{L_0}\right)^{-0.38}
+    e^{20\tan^{1.5}\theta}
+\end{equation}
+
+\begin{equation}
+    \beta_1
+    =
+    0.52e^{4.2\tan\theta}
+\end{equation}
+
+\begin{equation}
+    \beta_{max}
+    =
+    \max\left[
+    0.92,\,
+    0.32
+    \left(\frac{H'_0}{L_0}\right)^{-0.29}
+    e^{2.4\tan\theta}
+    \right]
+\end{equation}
+
+The significant breaking wave height was then estimated as
+
+\begin{equation}
+    H_{s,break}
+    =
+    \min\left[
+    \beta_0H'_0+\beta_1h_s,\,
+    \beta_{max}H'_0,\,
+    K_sH'_0
+    \right]
+\end{equation}
+
+where \(K_s=0.916\) was used. The breaking depth was calculated as
+
+\begin{equation}
+    h_b=h_s+5H_{s,break}\tan\theta
+\end{equation}
+
+The maximum wave height was calculated using
+
+\begin{equation}
+    \beta_0^*
+    =
+    0.052
+    \left(\frac{H'_0}{L_0}\right)^{-0.38}
+    e^{20\tan^{1.5}\theta}
+\end{equation}
+
+\begin{equation}
+    \beta_1^*
+    =
+    0.63e^{3.8\tan\theta}
+\end{equation}
+
+\begin{equation}
+    \beta_{max}^*
+    =
+    \max\left[
+    1.65,\,
+    0.53
+    \left(\frac{H'_0}{L_0}\right)^{-0.29}
+    e^{2.4\tan\theta}
+    \right]
+\end{equation}
+
+\begin{equation}
+    H_{max}
+    =
+    \min\left[
+    \beta_0^*H'_0+\beta_1^*h_b,\,
+    \beta_{max}^*H'_0,\,
+    1.8K_sH'_0
+    \right]
+\end{equation}
+
+In the final code, the vertical wall pressure calculation was carried out using
+
+\begin{equation}
+    H_{design}=H_{max}
+\end{equation}
+
+as the design wave height.
+
+\subsubsection{Rubble Foundation Design}
+
+\hspace*{0.5cm} The rubble mound foundation was sized using the Madrigal-Valdes formula:
+
+\begin{equation}
+    N_s=
+    \left(5.8\frac{h_1}{h_s}-0.6\right)N_{od}^{0.19},
+    \qquad
+    0.5\leq\frac{h_1}{h_s}\leq0.8
+\end{equation}
+
+where \(h_1\) is the water depth at the mound crest, \(h_s\) is the total local water depth at the toe, and \(N_{od}=0.5\) is the allowable damage number. The median armour stone diameter and mass were calculated as
+
+\begin{equation}
+    D_{n50}=\frac{H_{m0}}{N_s\Delta}
+\end{equation}
+
+\begin{equation}
+    M_{50}=\rho_rD_{n50}^3
+\end{equation}
+
+where
+
+\begin{equation}
+    \Delta=\frac{\rho_r-\rho_w}{\rho_w}
+\end{equation}
+
+The practical rock-size limit was taken as \(M_{50}\leq15~\mathrm{t}\). The clear water depth above the mound armour was calculated as
+
+\begin{equation}
+    d=h_1-2D_{n50}
+\end{equation}
+
+Only geometries with \(d>0\) and \(M_{50}\leq15~\mathrm{t}\) were accepted. The mound crest level was varied using \(h_1/h_s\) between 0.50 and 0.80. The mound berm width was varied using \(B_M/h_s\) between 0.30 and 0.55. The final geometry was selected by searching all valid combinations and choosing the section that gave the minimum required caisson width.
+
+\subsubsection{Crest Height}
+
+\hspace*{0.5cm} The wall freeboard \(h_c\) was calculated from the allowable mean overtopping discharge. In the final code, the allowable discharge was taken as \(q=1~\mathrm{L/s/m}\), or \(q=10^{-3}~\mathrm{m^3/s/m}\). The freeboard was calculated using
+
+\begin{equation}
+    q=
+    0.054\sqrt{gH_{s0}^{3}}
+    \exp\left[
+    -\left(
+    \frac{2.12h_c}{H_{s0}}
+    \right)^{1.3}
+    \right]
+\end{equation}
+
+Rearranging for \(h_c\) gives
+
+\begin{equation}
+    h_c=
+    \frac{H_{s0}}{2.12}
+    \left[
+    -\ln\left(
+    \frac{q}{0.054\sqrt{gH_{s0}^{3}}}
+    \right)
+    \right]^{1/1.3}
+\end{equation}
+
+This freeboard was used in the caisson height and stability calculations. For the wave force integration, an effective freeboard was also defined as
+
+\begin{equation}
+    h_{c,eff}=\min(h_c,\eta^*)
+\end{equation}
+
+so that the pressure integration height does not exceed the wave run-up level.
+
+\subsubsection{Wave Pressure Calculation}
+
+\hspace*{0.5cm} Wave pressures on the caisson were calculated using the Extended Goda (Takahashi) method. The wave attack angle was taken as \(\beta=0^\circ\). The wave run-up level was calculated as
+
+\begin{equation}
+    \eta^*=0.75(1+\cos\beta)H_{design}
+\end{equation}
+
+The Goda pressure coefficients were calculated as
+
+\begin{equation}
+    \alpha_1
+    =
+    0.6+
+    \frac{1}{2}
+    \left(
+    \frac{4\pi h_s/L}{\sinh(4\pi h_s/L)}
+    \right)^2
+\end{equation}
+
+\begin{equation}
+    \alpha_2
+    =
+    \min\left[
+    \frac{h_b-d}{3h_b}
+    \left(\frac{H_{design}}{d}\right)^2,\,
+    \frac{2d}{H_{design}}
+    \right]
+\end{equation}
+
+\begin{equation}
+    \alpha_3
+    =
+    1-
+    \frac{h_1}{h_s}
+    \left(
+    1-\frac{1}{\cosh(2\pi h_s/L)}
+    \right)
+\end{equation}
+
+The Takahashi impulsive pressure coefficients were included to account for the effect of the rubble mound geometry on impulsive wave loading. The auxiliary parameters were calculated as
+
+\begin{equation}
+    \delta_{11}
+    =
+    0.93\left(\frac{B_M}{L}-0.12\right)
+    +
+    0.36\left(\frac{h_s-d}{h_s}-0.6\right)
+\end{equation}
+
+\begin{equation}
+    \delta_{22}
+    =
+    -0.36\left(\frac{B_M}{L}-0.12\right)
+    +
+    0.93\left(\frac{h_s-d}{h_s}-0.6\right)
+\end{equation}
+
+The parameters \(\delta_1\) and \(\delta_2\) were then defined as
+
+\begin{equation}
+    \delta_1=
+    \begin{cases}
+    20\delta_{11}, & \delta_{11}\leq0 \\
+    15\delta_{11}, & \delta_{11}>0
+    \end{cases}
+\end{equation}
+
+\begin{equation}
+    \delta_2=
+    \begin{cases}
+    4.9\delta_{22}, & \delta_{11}\leq0 \\
+    3\delta_{22}, & \delta_{11}>0
+    \end{cases}
+\end{equation}
+
+The impulsive pressure geometry factor was calculated as
+
+\begin{equation}
+    \alpha_{IB}=
+    \begin{cases}
+    \dfrac{\cosh(\delta_2)}{\cosh(\delta_1)}, & \delta_2\leq0 \\[6pt]
+    \dfrac{1}{\cosh(\delta_1)\sqrt{\cosh(\delta_2)}}, & \delta_2>0
+    \end{cases}
+\end{equation}
+
+The impulsive pressure height factor was taken as
+
+\begin{equation}
+    \alpha_{IH}=
+    \min\left(\frac{H_{max}}{d},\,2.0\right)
+\end{equation}
+
+and the impulsive pressure coefficient was obtained as
+
+\begin{equation}
+    \alpha_I=\alpha_{IH}\alpha_{IB}
+\end{equation}
+
+The modified pressure coefficient was then selected as
+
+\begin{equation}
+    \alpha^*=\max(\alpha_2,\alpha_I)
+\end{equation}
+
+The pressure intensities were calculated as
+
+\begin{equation}
+    p_1=
+    \frac{1}{2}(1+\cos\beta)
+    \left(\alpha_1+\alpha^*\cos^2\beta\right)
+    \rho_wgH_{design}
+\end{equation}
+
+\begin{equation}
+    p_3=\alpha_3p_1
+\end{equation}
+
+\begin{equation}
+    p_u=
+    \frac{1}{2}(1+\cos\beta)\alpha_1\alpha_3\rho_wgH_{design}
+\end{equation}
+
+The pressure at the top of the wall was calculated as
+
+\begin{equation}
+    p_2=
+    \begin{cases}
+    \left(1-\dfrac{h_c}{\eta^*}\right)p_1, & \eta^*>h_c \\
+    0, & \eta^*\leq h_c
+    \end{cases}
+\end{equation}
+
+The submerged caisson height was calculated as
+
+\begin{equation}
+    h'=d+2D_{n50}
+\end{equation}
+
+The horizontal force and overturning moment per unit length of the caisson were then calculated as
+
+\begin{equation}
+    F_H=
+    \frac{1}{2}(p_1+p_3)h'
+    +
+    \frac{1}{2}(p_1+p_2)h_{c,eff}
+\end{equation}
+
+\begin{equation}
+    M_{FH}
+    =
+    \frac{1}{6}(2p_1+p_3)h'^2
+    +
+    \frac{1}{2}(p_1+p_2)h'h_{c,eff}
+    +
+    \frac{1}{6}(p_1+2p_2)h_{c,eff}^{2}
+\end{equation}
+
+\subsubsection{Stability Analysis}
+
+\hspace*{0.5cm} The caisson was checked against sliding and overturning failure. The wall weight, buoyancy force, and uplift force per unit length were calculated as
+
+\begin{equation}
+    W=\rho_cg(h_c+h')B
+\end{equation}
+
+\begin{equation}
+    F_B=\rho_wgh'B
+\end{equation}
+
+\begin{equation}
+    F_U=\frac{1}{2}p_uB
+\end{equation}
+
+The overturning moment caused by uplift was calculated as
+
+\begin{equation}
+    M_{FU}=\frac{2}{3}F_UB
+\end{equation}
+
+The factors of safety against sliding and overturning were calculated as
+
+\begin{equation}
+    FS_s=
+    \frac{\mu(W-F_B-F_U)}{F_H}
+    \geq1.2
+\end{equation}
+
+\begin{equation}
+    FS_o=
+    \frac{(W-F_B)\dfrac{B}{2}-M_{FU}}{M_{FH}}
+    \geq1.2
+\end{equation}
+
+where \(\mu=0.6\) is the friction coefficient. The required caisson width was first calculated from the sliding condition as
+
+\begin{equation}
+    B_{slide}
+    =
+    \frac{FS_{req}F_H}
+    {\mu(W_{unit}-F_{B,unit}-F_{U,unit})}
+\end{equation}
+
+where
+
+\begin{equation}
+    W_{unit}=\rho_cg(h_c+h')
+\end{equation}
+
+\begin{equation}
+    F_{B,unit}=\rho_wgh'
+\end{equation}
+
+\begin{equation}
+    F_{U,unit}=\frac{1}{2}p_u
+\end{equation}
+
+The required caisson width from the overturning condition was calculated as
+
+\begin{equation}
+    B_{overturn}
+    =
+    \sqrt{
+    \frac{FS_{req}M_{FH}}
+    {
+    \dfrac{1}{2}(W_{unit}-F_{B,unit})
+    -
+    \dfrac{2}{3}p_u
+    }}
+\end{equation}
+
+The exact required caisson width was taken as
+
+\begin{equation}
+    B_{exact}=\max(B_{slide},B_{overturn})
+\end{equation}
+
+For each valid mound geometry, the sliding and overturning factors of safety were checked using \(B_{exact}\). The optimum section was selected as the valid combination of \(h_1/h_s\) and \(B_M/h_s\) that gave the minimum \(B_{exact}\). The final wall width was then rounded up to the nearest \(0.1~\mathrm{m}\), and the sliding and overturning checks were repeated using the rounded width.
+\subsection{Floating Breakwater Design}
+
+% -------------------- Results and Discussion --------------------
+\section{Results and Discussion}
+
+\subsection{Rubble Mound Breakwater Design}
+
+\subsection{Berm Breakwater Design}
+
+\subsection{Vertical Wall Breakwater Design}
+
+\subsection{Floating Breakwater Design}
+
+\subsection{Structure Type Selection and Final Designs}
+
+\subsubsection{Section A-A}
+
+\subsubsection{Section B-B}
+
+\subsubsection{Section C-C}
+
+
+\newpage
+% -------------------- Conclusion --------------------
+\section{Conclusion}
+\hspace{0.5cm}
+
+\newpage
+
+% -------------------- References --------------------
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{References}
+
+\bibitem{RockManual}
+CIRIA, CUR, CETMEF. (2007). \textit{The Rock Manual: The use of rock in hydraulic engineering} (2nd ed.). CIRIA.
+
+\bibitem{Ergin2019}
+Ergin, A. (2019). \textit{Coastal engineering}. Middle East 
+Technical University.
+
+\bibitem{CE598}
+Middle East Technical University, Department of Civil Engineering. (2025). \textit{CE 598 lecture notes} [Course notes].
+
+\bibitem{CE593}
+Middle East Technical University, Department of Civil Engineering. (2025). \textit{CE 593 lecture notes} [Course notes].
+
+\bibitem{EurOtop2018}
+Van der Meer, J.W., Allsop, N.W.H., Bruce, T., De Rouck, J., Kortenhaus, A., Pullen, T., Sch\"{u}ttrumpf, H., Troch, P., \& Zanuttigh, B. (2018). \textit{EurOtop: Manual on wave overtopping of sea defences and related structures} (2nd ed.). www.overtopping-manual.com.
+
+\bibitem{SPM1984}
+U.S. Army Corps of Engineers. (1984). \textit{Shore protection manual}.
+
+\end{thebibliography}
+\newpage
+
+% -------------------- Appendix --------------------
+\appendix
+\section{Appendix}
+
+\subsection{MATLAB Code:}
+\begin{lstlisting}[frame=single, numbers=left, style=Matlab-Pyglike]
+
+
+\end{lstlisting}
+
+\end{document}
