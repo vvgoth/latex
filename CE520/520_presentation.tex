@@ -1,0 +1,524 @@
+% CE520 M.S. Graduate Seminar — thesis progress, Fall 2026
+% Source for local TeX Live / MiKTeX. Keep the .sty files, references.bib,
+% and logos/ directory alongside main.tex.
+% Compile: pdflatex main.tex; biber main; pdflatex main.tex; pdflatex main.tex
+% The compiled PDF is the normal, full-screen presentation format for Beamer.
+%
+% Research-status discipline: An objective, target, or proposed method is NEVER
+% claimed below as a measured thesis result. Replace status labels only once
+% you have verified the corresponding case and have plots/coefficients.
+
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{metu}
+\usefonttheme{serif}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.pathreplacing,shapes.geometric,fit}
+\usepackage{graphicx}
+
+% ---------------- EDIT THESE FIELDS ----------------
+\newcommand{\PresenterName}{Bilge Kutay}
+\newcommand{\Advisor}{Asst. Prof. Dr. Cüneyt Baykal}
+\newcommand{\TalkDate}{November 11 2026}
+\newcommand{\CourseCode}{CE520 Graduate Seminar}
+% ---------------------------------------------------
+
+\title{Machine-Learning-Based Active Wave Absorption in a Numerical Wave Flume}
+\author{\PresenterName\\[1mm] \scriptsize M.S. Candidate, Coastal and Harbor Engineering\\[1mm] \scriptsize Supervisor: \Advisor}
+\institute{CE520 Graduate Seminar -- Fall 2026}
+\date{\TalkDate}
+\addbibresource{references.bib}
+\AtBeginBibliography{\scriptsize}
+\DeclareLanguageMapping{english}{english-apa}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+
+% Typography and diagram palette
+\definecolor{water}{RGB}{210,237,249}
+\definecolor{deepblue}{RGB}{19,93,166}
+\definecolor{teal}{RGB}{0,120,133}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{amber}{RGB}{171,113,28}
+\setbeamercolor{normal text}{fg=metublack}
+\setbeamerfont{normal text}{size=\small}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamerfont{block body}{size=\small}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setlength{\parskip}{3pt}
+\newcommand{\subtle}[1]{{\scriptsize\color{metugray}#1}}
+\newcommand{\smallsource}[1]{\par\vspace{1mm}{\tiny\color{metugray}#1}}
+\newcommand{\redrule}{\color{metured}\rule{\linewidth}{0.6pt}}
+\newcommand{\tagline}[1]{{\color{metured}\bfseries #1}}
+\newcommand{\status}[1]{\textcolor{metured}{\textbf{#1}}}
+\tikzset{
+  flow/.style={draw=metugray!65,fill=softgray,rounded corners=2pt,
+    align=center,inner sep=4pt,font=\scriptsize},
+  redflow/.style={draw=metured!85,fill=metured!7,rounded corners=2pt,
+    align=center,inner sep=4pt,font=\scriptsize},
+  arr/.style={-{Latex[length=2.2mm]},line width=0.85pt,deepblue},
+  arrred/.style={-{Latex[length=2.2mm]},line width=0.85pt,metured}
+}
+
+\begin{document}
+
+% ==============================================================
+% 01 — approx. 15 s: Introduce the thesis as ongoing work.
+% ==============================================================
+\begin{frame}[noframenumbering,plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[t]{Outline}
+\color{metublack}
+    \tableofcontents
+\end{frame}
+
+% ==============================================================
+% 02 — approx. 55 s: Observed engineering problem.
+% ==============================================================
+\section{Problem and Motivation}
+\begin{frame}[t]{Why are reflections a problem?}
+\begin{center}
+\begin{tikzpicture}[x=0.92cm,y=0.92cm]
+  \fill[water] (0.7,0.55) rectangle (10.8,1.55);
+  \fill[metugray!70] (0.58,0.44) rectangle (11.00,0.56);
+  \fill[metugray!70] (10.80,0.55) rectangle (10.96,2.50);
+  \fill[metured] (0.65,0.55) rectangle (0.89,2.45);
+  \draw[deepblue,line width=1.1pt,samples=90,domain=0.9:10.8]
+     plot (\x,{1.55+0.13*sin(360*(\x-0.9)/1.65)});
+  \draw[metured,dashed,line width=1.1pt,samples=90,domain=0.9:10.8]
+     plot (\x,{1.55+0.23*sin(360*(\x-3.9)/1.65)});
+  \draw[arr,line width=1.8pt] (2.4,2.10)--(6.7,2.10);
+  \node[deepblue,font=\scriptsize\bfseries] at (4.55,2.35) {Incident waves};
+  \draw[arrred,dashed,line width=1.5pt] (9.45,1.02)--(5.75,1.02);
+  \node[metured,font=\scriptsize\bfseries] at (7.57,0.77) {Reflected waves};
+  \node[metured,font=\scriptsize,anchor=south] at (1.0,2.58) {Wavemaker};
+  \node[metugray,font=\scriptsize,anchor=south] at (10.30,2.63) {End boundary};
+\end{tikzpicture}
+\end{center}
+\vspace{0.5mm}
+\begin{block}{Observed problem}
+  Reflected waves return to the wavemaker and may be \textcolor{metured}{re-reflected},
+  contaminating the intended wave field during long experiments.
+\end{block}
+\vspace{1mm}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item Reflections alter free-surface records and limit useful test duration.
+  \item Reliable experiments require \textbf{wave generation and absorption}.
+\end{itemize}
+\end{frame}
+
+% ==============================================================
+% 03 — approx. 60 s: Point of departure and precise research gap.
+% ==============================================================
+\section{Research Gap}
+
+\begin{frame}[t]{What is known, and what is missing?}
+
+\begin{columns}[T,onlytextwidth]
+
+  \begin{column}{0.30\textwidth}
+    \begin{block}{Passive absorption}
+      \begin{minipage}[t][2.18cm][t]{\linewidth}
+        \raggedright\footnotesize
+        Beaches and porous layers dissipate wave energy,
+        but need space and are sensitive to wave conditions.
+      \end{minipage}
+    \end{block}
+  \end{column}
+
+  \hfill
+
+  \begin{column}{0.30\textwidth}
+    \begin{block}{Classical AWA}
+      \begin{minipage}[t][2.18cm][t]{\linewidth}
+        \raggedright\footnotesize
+        Wave-gauge feedback and physics-based filters
+        correct wavemaker motion to limit re-reflection.
+      \end{minipage}
+    \end{block}
+  \end{column}
+
+  \hfill
+
+  \begin{column}{0.30\textwidth}
+    \begin{block}{Xie et al. (2023)}
+      \begin{minipage}[t][2.18cm][t]{\linewidth}
+        \raggedright\footnotesize
+        An ANN controls a \emph{plunger} wavemaker.
+        It was trained at one water depth and
+        tested for generalization.
+      \end{minipage}
+    \end{block}
+  \end{column}
+
+\end{columns}
+
+\vspace{2.5mm}
+
+\begin{beamercolorbox}[
+  rounded=true,
+  sep=1.0ex,
+  wd=\linewidth
+]{block body}
+  {\small
+  \textcolor{metured}{
+    \textbf{Research gap and planned extension}
+  }\\[1mm]
+  Adapt the ML approach to a \textbf{piston-type wavemaker};
+  train across \textbf{several depths and wave conditions};
+  test gauge inputs and
+  \textbf{benchmark conventional AWA}.
+  }
+\end{beamercolorbox}
+
+\smallsource{
+  Sch\"affer \& Jakobsen (2003);
+  Altomare et al. (2017);
+  Xie et al. (2023).
+}
+
+\end{frame}
+
+
+% ==============================================================
+% 04 — approx. 40 s: Research questions.
+% ==============================================================
+\section{Research Questions}
+\begin{frame}[t]{Thesis Objective and Research Questions}
+\vspace{0.5cm}
+\begin{block}{Overall objective}
+  Implement and evaluate a \textbf{machine-learning-assisted active wave absorption}
+  controller for a piston-type wavemaker in OpenFOAM.
+\end{block}
+\vspace{2mm}
+\begin{enumerate}
+    \item Can ML-based active wave absorption be
+    successfully implemented in OpenFOAM?
+    \item How does ML-based absorption perform
+    compared with conventional active absorption
+    methods?
+    \item How does the controller's performance
+    vary under different wave conditions?
+\end{enumerate}
+\end{frame}
+
+% ==============================================================
+% 05 — approx. 65 s: Flume geometry, 13 gauges, important near-paddle WG0.
+% ==============================================================
+\section{Numerical Model}
+\begin{frame}[t]{OpenFOAM Numerical Wave-flume Setup}
+\begin{center}
+\begin{tikzpicture}[x=0.88cm,y=0.90cm]
+  % Flume geometry is a schematic; gauge distances are listed below.
+  \fill[water] (0.4,0.57) rectangle (11.3,1.42);
+  \draw[deepblue,very thick,samples=110,domain=0.65:11.1]
+    plot (\x,{1.42+0.105*sin(360*(\x-0.65)/1.5)});
+  \fill[metugray!70] (0.40,0.42) rectangle (11.33,0.58);
+  \fill[metugray!70] (11.16,0.57) rectangle (11.33,2.21);
+  \fill[metured] (0.57,0.58) rectangle (0.78,2.18);
+  \draw[<->,metured,line width=1pt] (0.18,1.08)--(1.18,1.08);
+  \node[font=\scriptsize,metured,above] at (0.65,2.30) {Piston};
+  % Near-paddle gauge; labels offset so near-zero spacing is intelligible.
+  % Near-paddle gauge
+  \draw[teal,line width=1.0pt] (1.22,0.63)--(1.22,1.85);
+  \fill[teal] (1.22,1.41) circle (0.052);
+  \node[font=\tiny\bfseries,teal,anchor=south] at (1.22,1.91) {WG0};
+  \draw[teal,densely dotted] (0.83,1.61)--(1.16,1.61);
+  \draw[metugray!60] (1.22,0.38)--(1.22,0.25);
+  \node[font=\scriptsize] at (1.22,0.06) {$0.10$ m};
+  % Four triplets at nominal x = 3, 6, 9, 12 m. Schematically spaced.
+  \foreach \xc/\tag/\pos in {3.12/{WG1--3}/3,5.42/{WG4--6}/6,7.72/{WG7--9}/9,10.02/{WG10--12}/12}{
+     \foreach \dx in {-0.16,0,0.16}{
+       \draw[teal,line width=0.9pt] (\xc+\dx,0.62)--(\xc+\dx,1.85);
+       \fill[teal] (\xc+\dx,1.43) circle (0.045);
+     }
+     \node[font=\tiny\bfseries,teal,anchor=south] at (\xc,1.91) {\tag};
+     \draw[metugray!60] (\xc,0.38)--(\xc,0.25);
+     \node[font=\scriptsize] at (\xc,0.06) {$\pos$ m};
+  }
+\end{tikzpicture}
+\end{center}
+\vspace{1mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.49\textwidth}
+\begin{itemize}
+    \item \textbf{Numerical model:} OpenFOAM / olaDyMFlow
+    \item \textbf{Flume geometry:} $L \approx 17.5$ m, $h = 0.50$ m
+    \item \textbf{Wavemaker:} Piston-type with deforming mesh
+\end{itemize}
+\end{column}
+\begin{column}{0.53\textwidth}
+\begin{itemize}
+    \item \textbf{Numerical resolution:} 374,872 cells; $\Delta t = 0.0005$ s
+    \item \textbf{Mesh resolution:} $\Delta x = 4$ mm near piston; $\Delta z = 2$ mm near surface
+    \item \textbf{Wave case:} $T = 1.0$ s, $H \approx 0.071$ m, stroke $= 0.04$ m
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ==============================================================
+% 06 — approx. 60 s: Study design and validation benchmarks.
+% ==============================================================
+\section{Numerical Methodology}
+\begin{frame}[t]{Numerical Methodology}
+\begin{center}
+\begin{tikzpicture}[node distance=7mm and 6mm]
+  \node[flow,minimum width=2.30cm,minimum height=1cm] (model)
+    {Moving-piston\\CFD flume};
+  \node[flow,right=of model,minimum width=2.30cm,minimum height=1cm] (waves)
+    {Regular waves\\$H,\ T,\ h$};
+  \node[flow,right=of waves,minimum width=2.30cm,minimum height=1cm] (gauge)
+    {Virtual wave\\gauges $\eta(t)$};
+  \node[redflow,right=of gauge,minimum width=2.30cm,minimum height=1cm] (eval)
+    {Wave reflection\\analysis};
+  \draw[arr] (model)--(waves);
+  \draw[arr] (waves)--(gauge);
+  \draw[arr] (gauge)--(eval);
+\end{tikzpicture}
+\end{center}
+\vspace{4mm}
+\textbf{Comparison strategy}
+\begin{enumerate}\setlength{\itemsep}{4pt}
+  \item No active absorption \hfill \subtle{reference / uncontrolled case}
+  \item Conventional active absorption \hfill \subtle{classical benchmark}
+  \item ML-based active absorption \hfill \subtle{planned test case}
+\end{enumerate}
+\vspace{3mm}
+\begin{block}{Verification before ML training}
+  Verify piston motion about its neutral position, obtain real-time near-paddle free-surface measurements, and check the accuracy of generated incident waves.
+\end{block}
+\end{frame}
+
+% ==============================================================
+% 07 — approx. 60 s: Feedback method, terms and separation.
+% ==============================================================
+\section{ML-based Controller}
+\begin{frame}[t]{ML-based Feedback Control}
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 4mm]
+  \node[flow,minimum width=2.1cm,minimum height=1.05cm] (target)
+    {Target wave\\$\eta_{\mathrm{target}}(t)$};
+  \node[flow,right=of target,minimum width=2.1cm,minimum height=1.05cm] (model)
+    {Moving piston\\and CFD flume};
+  \node[flow,right=of model,minimum width=2.1cm,minimum height=1.05cm] (signal)
+    {Measured $\eta(t)$\\and paddle state};
+  \node[redflow,below=1.25cm of signal,minimum width=2.2cm,minimum height=0.97cm] (ann)
+    {ML controller};
+  \node[redflow,left=of ann,minimum width=2.25cm,minimum height=0.97cm] (corr)
+    {Motion correction\\$X_{\mathrm{abs}}(t)$};
+  \draw[arr] (target)--(model);
+  \draw[arr] (model)--(signal);
+  \draw[arr] (signal) -- (ann);
+  \node[font=\tiny,deepblue] at ($(model.south)!0.5!(signal.south)+(0,-0.625cm)$)
+  {feedback loop};
+  \draw[arrred] (ann)--(corr);
+  \draw[arrred] (corr.north) -- (model.south);
+\end{tikzpicture}
+\end{center}
+\vspace{1mm}
+\[
+\boxed{\,X_{\mathrm{piston}}(t)=X_{\mathrm{gen}}(t)+X_{\mathrm{abs}}(t)\,}
+\]
+\vspace{-1mm}
+\begin{itemize}\setlength{\itemsep}{3pt}
+  \item \textbf{Inputs being investigated:} $h$, $T$, $\eta(t)$, its recent history,
+        and piston position/velocity.
+  \item \textbf{Output:} a bounded piston-motion correction $X_{\mathrm{abs}}(t)$.
+  \item \textbf{Goal:} minimize re-reflection while maintaining accurate wave generation.
+\end{itemize}
+\end{frame}
+
+% ==============================================================
+% 08 — approx. 55 s: Real status, carefully avoids false results.
+% ==============================================================
+\section{Research progress}
+\begin{frame}[t]{Research progress (November 2026)}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.49\textwidth}
+  \begin{block}{Current setup}
+    \footnotesize
+    \begin{itemize}\setlength{\itemsep}{5pt}
+      \item OpenFOAM / olaFlow numerical workflow
+      \item Moving-piston flume configuration
+      \item Regular-wave base conditions
+      \item Virtual wave-gauge layout
+    \end{itemize}
+  \end{block}
+\end{column}
+\begin{column}{0.49\textwidth}
+  \begin{block}{Next verification}
+    \footnotesize
+    \begin{itemize}\setlength{\itemsep}{5pt}
+      \item Confirm piston motion about $x=0$
+      \item Extract near-paddle $\eta(t)$ in real time
+      \item Check propagation and numerical drift
+      \item Quantify baseline reflection coefficient
+    \end{itemize}
+  \end{block}
+\end{column}
+\end{columns}
+\vspace{4mm}
+\begin{beamercolorbox}[rounded=true,sep=1.5ex,wd=\linewidth]{block body}
+  \textbf{Current research stage:} numerical-model and measurement verification,
+  before training and testing the proposed ML absorption controller.
+\end{beamercolorbox}
+\vspace{1mm}
+\subtle{Measured time series and reflection coefficients will be added after validation.}
+\end{frame}
+
+% ==============================================================
+% 09 — approx. 55 s: Metrics and expected results (not claims).
+% ==============================================================
+\section{Expected Results}
+\begin{frame}[t]{Evaluation and Expected Contribution}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.48\textwidth}
+\textbf{How performance will be measured}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item Agreement with target wave elevation
+  \item Reflection coefficient $K_r=H_r/H_i$
+  \item Performance under different wave conditions
+  \item Piston-motion limits and stability
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+\textbf{What the thesis aims to deliver}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item Reproducible CFD benchmark cases
+  \item Training dataset generated in OpenFOAM
+  \item An implemented ML-based absorption controller
+  \item Comparison with conventional AWA
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{1mm}
+\begin{block}{Project-level target}
+  The larger laboratory project targets \textbf{$K_r<0.10$} under its intended test
+  conditions.
+\end{block}
+\vspace{1mm}
+% Reflection-separation methods and analysis windows will be documented.
+\end{frame}
+
+% ==============================================================
+% 10 — approx. 35 s: Practical relevance.
+% ==============================================================
+\section{Practical Relevance}
+\begin{frame}[t]{Why does this matter in practice?}
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 5mm]
+  \node[flow,minimum height=1.3cm,minimum width=2.55cm] (a)
+    {Cleaner laboratory\\wave conditions};
+  \node[flow,right=of a,minimum height=1.3cm,minimum width=2.55cm] (b)
+    {Longer useful\\testing windows};
+  \node[flow,right=of b,minimum height=1.3cm,minimum width=2.55cm] (c)
+    {More reliable\\coastal model tests};
+  \draw[arr] (a)--(b);
+  \draw[arr] (b)--(c);
+\end{tikzpicture}
+\end{center}
+\vspace{2mm}
+\begin{itemize}\setlength{\itemsep}{9pt}
+  \item \textbf{Scientific value:}
+        improve the accuracy of wave experiments by
+        reducing unwanted re-reflections.
+  \item \textbf{Engineering value:}
+        enable longer, more reliable tests of coastal
+        and offshore structures.
+  \item \textbf{Open-source value:}
+        demonstrate ML-based active wave absorption
+        in the freely available OpenFOAM framework.
+  \item \textbf{Institutional value:}
+        support the development of a wave-control
+        system for METU's laboratory.
+\end{itemize}
+\end{frame}
+
+% ==============================================================
+% 11 — approx. 50 s: Requested Gantt chart through June 2027.
+% ==============================================================
+\section{Research Schedule}
+\begin{frame}[t]{Research Timeline}
+\vfill
+\centering
+\begin{tikzpicture}[x=0.95cm,y=0.80cm,font=\tiny]
+  \def\xstart{3.25}
+  \def\mw{0.98}
+
+  % Month columns
+  \foreach \i/\m in {0/Nov,1/Dec,2/Jan,3/Feb,4/Mar,5/Apr,6/May,7/Jun}{
+    \fill[softgray] (\xstart+\i*\mw,7.45) rectangle ++(\mw,0.60);
+    \draw[metugray!35] (\xstart+\i*\mw,-0.13)--++(0,8.18);
+    \node[font=\scriptsize\bfseries] at (\xstart+\i*\mw+0.49,7.72) {\m};
+  }
+  \draw[metugray!40] (\xstart+8*\mw,-0.13)--++(0,8.18);
+
+  % Activities
+  \foreach \yy/\lab in {
+    6.95/{CFD / piston verification},
+    6.10/{Wave-gauge validation},
+    5.25/{Wave-generation validation},
+    4.40/{Baseline AWA comparison},
+    3.55/{Training data preparation},
+    2.70/{ML training / integration},
+    1.85/{Controller evaluation},
+    1.00/{Performance comparison},
+    0.15/{Thesis writing / defence}
+  }{
+    \node[anchor=east,align=right] at (\xstart-0.15,\yy) {\lab};
+    \draw[metugray!25] (-0.35,\yy-0.28)--(\xstart+8*\mw,\yy-0.28);
+  }
+
+  % Schedule bars
+  \fill[deepblue!85,rounded corners=1pt] (\xstart+0.06,6.73) rectangle (\xstart+1.90,7.16);
+  \fill[deepblue!85,rounded corners=1pt] (\xstart+0.06,5.88) rectangle (\xstart+1.90,6.31);
+  \fill[deepblue!85,rounded corners=1pt] (\xstart+1.04,5.03) rectangle (\xstart+2.88,5.46);
+  \fill[deepblue!85,rounded corners=1pt] (\xstart+1.04,4.18) rectangle (\xstart+2.88,4.61);
+  \fill[teal!85,rounded corners=1pt] (\xstart+3.00,3.33) rectangle (\xstart+4.84,3.76);
+  \fill[teal!85,rounded corners=1pt] (\xstart+3.98,2.48) rectangle (\xstart+5.82,2.91);
+  \fill[metured!85,rounded corners=1pt] (\xstart+4.96,1.63) rectangle (\xstart+6.80,2.06);
+  \fill[metured!85,rounded corners=1pt] (\xstart+5.94,0.78) rectangle (\xstart+6.80,1.21);
+  \fill[metured!85,rounded corners=1pt] (\xstart+4.96,-0.08) rectangle (\xstart+7.78,0.35);
+\end{tikzpicture}
+\vfill
+\end{frame}
+
+
+% ==============================================================
+% 12 — approx. 40 s: Required elevator pitch and conclusion.
+% ==============================================================
+\section{Conclusion}
+\begin{frame}[t]{Conclusion: the thesis in three sentences}
+\vspace{0.4cm}
+\begin{beamercolorbox}[rounded=true,sep=2.5ex,wd=\linewidth]{block body}
+  \large
+  Unwanted re-reflections reduce the reliability of laboratory wave testing.
+
+  \vspace{3mm}
+  This thesis investigates whether a \textcolor{metured}{machine-learning based
+  feedback controller} can adjust a piston wavemaker to absorb returning waves while maintaining accurate wave generation.
+
+  \vspace{3mm}
+  By implementing  the controller in \textbf{OpenFOAM} and comparing
+  it with conventional approaches, the study aims to evaluate its effectiveness and feasibility within an accessible, open-source CFD framework.
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+% ==============================================================
+% 13 — Backup references. Does not need discussion in the 8-10 min.
+% ==============================================================
+\begin{frame}[t]{Selected References}
+\nocite{schaffer2003,altomare2017,xie2023,xie2022easily,higuera2013realistic,schaffer2000review}
+\printbibliography[heading=none]
+\end{frame}
+
+% ==============================================================
+% 14 — final Q&A.
+% ==============================================================
+\makethanks
+
+\end{document}

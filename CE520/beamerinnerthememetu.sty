@@ -1,0 +1,47 @@
+%This file sets up the title frame.
+
+\mode<presentation>
+
+%Font Sizes
+\setbeamerfont{title}{size=\LARGE}
+\setbeamerfont{author}{size=\Large}
+\setbeamerfont{date}{size=\normalsize, series=\mdseries, shape=\upshape}
+
+\setbeamertemplate{background}{
+
+  \begin{tikzpicture}
+  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+  \fill[color=white] (0,0) rectangle (\the\paperwidth,\the\paperheight);
+    \shade[left color=metured,right color=metugray] (0,8) rectangle (6,8.05);
+    \shade[left color=metugray,right color=metublack] (6,8) rectangle (13,8.05);
+    
+  \ifnum\thepage=1\relax%
+  \includegraphics[scale=0.29, origin=0, bb=-7 -780 400 370]{logos/odtulogo1.png}
+  \transparent{0.025}\includegraphics[scale=0.33, origin=c, bb=50 400 200 200]{logos/odtulogo3.png}
+  \fi
+ 
+  \end{tikzpicture}
+}
+
+% Title page
+
+\defbeamertemplate*{title page}{metu}[1][]
+{\justify
+
+   \vskip1.5cm \hskip1.25cm%
+    \begin{beamercolorbox}[wd=10cm, leftskip=-1.5cm, #1]{title page header}
+      \usebeamerfont{title}\inserttitle\par%
+    \end{beamercolorbox}%
+    \vskip1cm \hskip1.25cm%
+    \begin{beamercolorbox}[wd=8cm, leftskip=-1.5cm, #1]{author}
+      \usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}
+     \vskip2cm \hskip1.25cm%
+    \begin{beamercolorbox}[wd=5cm, leftskip=-1.5cm, #1]{date}
+      \usebeamerfont{date}\insertdate%
+    \end{beamercolorbox}
+  \vfill
+}
+
+\mode
+<all>

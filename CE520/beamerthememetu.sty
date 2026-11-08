@@ -1,0 +1,28 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor} %To define RGB colour codes.
+\usepackage{transparent}%To make pictures transparent.
+\usepackage{verbatim}%To comment out multiple lines.
+\usepackage{multicol}%To create multiple columns.
+\usepackage[document]{ragged2e}%To align the text as desired.
+\usepackage[backend=biber, style=apa, citestyle=authoryear, autocite=inline]{biblatex}
+
+% Settings
+\useinnertheme{metu}
+\useoutertheme{metu}
+\usecolortheme{metu}
+
+\setbeamertemplate{navigation symbols}{} %No navigation symbols
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{blocks}[rounded][shadow=true]  
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{bibliography item}{}%You can add bullet points using this command.
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{itemize items}[circle]
+
+\mode<all>

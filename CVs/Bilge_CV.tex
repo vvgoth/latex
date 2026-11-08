@@ -1,0 +1,76 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.72in,top=0.67in,bottom=0.66in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\definecolor{muted}{HTML}{474747}
+
+% Simple academic section headings with horizontal rules
+\titleformat{\section}{\normalsize\bfseries}{}{0pt}{}[\vspace{-4pt}\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{7pt}
+\setlist[itemize]{leftmargin=14pt,topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt}
+\newcommand{\cventry}[2]{\textbf{#1}\hfill\textcolor{muted}{#2}\\}
+\newcommand{\cvsub}[1]{{\small\textit{#1}}\\[-1pt]}
+
+\begin{document}
+\begin{center}
+  {\Large\bfseries Bilge Evran}\\[4pt]
+  {\small Ankara, T\"urkiye \enspace|\enspace [email address] \enspace|\enspace [phone number]}\\[2pt]
+  {\small \textcolor{muted}{[LinkedIn profile, optional]}}
+\end{center}
+\vspace{-6pt}
+
+\section*{Education}
+\cventry{Middle East Technical University (METU), Ankara, T\"urkiye}{Expected June 2027}
+\cvsub{MSc in Civil Engineering, Coastal and Harbor Engineering \quad | \quad GPA: 3.71/4.00}
+\begin{itemize}
+  \item \textbf{MSc thesis (ongoing):} Machine-learning-based active wave absorption for a numerical wave flume, using OpenFOAM and a piston-type wavemaker.
+\end{itemize}
+\vspace{2pt}
+\cventry{Middle East Technical University (METU), Ankara, T\"urkiye}{[Graduation year]}
+\cvsub{BSc in Civil Engineering}
+
+\section*{Research Experience}
+\cventry{Project Assistant, Department of Civil Engineering, METU}{[Start date] -- Present}
+\begin{itemize}
+  \item Developing and evaluating numerical wave-flume simulations using OpenFOAM and olaFlow, focusing on wave generation, propagation, and active absorption.
+  \item Investigating piston-type wavemaker motion, free-surface elevation, and methods for quantifying wave reflections through numerical wave gauges.
+  \item Working with Linux-based high-performance computing environments to prepare and execute computational fluid dynamics simulations.
+\end{itemize}
+
+\section*{Selected Engineering Projects}
+\textbf{Nearshore Wave Modeling, Genova Pr\`a Harbor} \hfill \textcolor{muted}{Graduate project}
+\begin{itemize}
+  \item Developed nested SWAN model domains to investigate wave transformation and significant wave heights across offshore and harbor areas.
+\end{itemize}
+\vspace{2pt}
+\textbf{Breakwater Design, \"Oren/Milas Marina} \hfill \textcolor{muted}{Graduate project}
+\begin{itemize}
+  \item Assessed design wave conditions and compared rubble-mound, berm, and vertical-wall breakwater alternatives using coastal engineering calculations and wave-model results.
+\end{itemize}
+\vspace{2pt}
+\textbf{Bathymetric Data and Coastal Model Preparation} \hfill \textcolor{muted}{Modeling work}
+\begin{itemize}
+  \item Processed XYZ bathymetry, generated grids, and managed coordinate reference systems using Surfer and Delft3D-related workflows.
+\end{itemize}
+
+\section*{Technical Skills}
+\textbf{Coastal and CFD modeling:} OpenFOAM, olaFlow, SWAN; familiarity with Delft3D\\[3pt]
+\textbf{Programming and computing:} Python, MATLAB, Linux, HPC/SLURM\\[3pt]
+\textbf{Other tools:} Surfer, AutoCAD, Revit; scientific data processing and visualization\\[3pt]
+\textbf{Languages:} Turkish (native), English (fluent)
+
+\section*{Additional Experience}
+\textbf{Research Intern, Michigan State University, USA} \hfill \textcolor{muted}{[Dates]}\\[3pt]
+\textbf{Engineering Intern, Y\i ld\i zlar Construction, T\"urkiye} \hfill \textcolor{muted}{[Dates]}
+
+\end{document}

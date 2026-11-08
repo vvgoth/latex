@@ -1,0 +1,62 @@
+%This file sets up the presentation frames (other than the title page).
+
+\mode<presentation>
+
+\setbeamerfont*{frametitle}{}
+\setbeamerfont{page number in head/foot}{size=\tiny}
+
+% Frame title
+\defbeamertemplate*{frametitle}{metu}[1][]
+{
+\vskip0cm%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1cm]{frametitle}
+  
+  \begin{tikzpicture}[
+    remember picture,
+    overlay,
+    shift={([yshift=-2cm]current page.north west)}
+  ]
+
+  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+  \fill[color=white] (0,0) rectangle (\the\paperwidth,\the\paperheight);
+  
+    \shade[left color=metured,right color=metugray] (0,1) rectangle (6.01,1.05);
+    \shade[left color=metugray,right color=metublack] (6,1) rectangle (13,1.05);
+    
+    \shade[left color=metured,right color=metugray] (0,-7.2) rectangle (6.01,-8);
+    \shade[left color=metugray,right color=metublack] (6,-7.2) rectangle (13,-8);
+    
+    \node[anchor=west, metublack, font=\Large] at (0.75,1.5){\insertframetitle};
+    \node[anchor=west, white, font=\tiny] at (0.1,-7.35){\insertinstitute};
+    \node[anchor=west] at (9.8,1.5){\includegraphics[scale=0.25]{logos/odtulogo2.png}};
+  
+  \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+%Thank you page
+
+\def\makethanks{%
+
+{
+\vskip1cm%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1cm]{frametitle}
+  \begin{tikzpicture}
+  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+  \fill[color=white] (0,0) rectangle (\the\paperwidth,\the\paperheight);
+  
+    \shade[left color=metured,right color=metugray] (0,1) rectangle (6.1,1.05);
+    \shade[left color=metugray,right color=metublack] (5.8,1) rectangle (13,1.05);
+    
+    \node[anchor=west] at (-0.3,0.25){\includegraphics[scale=0.29]{logos/odtulogo1.png}};
+    \node[anchor=west] at (0.4,-1.5){\textcolor{metured}{\Huge{Thank You}}};
+    \node[anchor=west] at (0.52,-2.2){\Large{\textcolor{metugray}{for your} \textcolor{metublack}{attention.}}};
+    \node[anchor=west] at (0.52,-4.5){\textcolor{metublack}{\large{Do you have any questions?}}};
+  
+  \transparent{0.075}\includegraphics[scale=0.33, origin=c, bb=-300 1125 200 200]{logos/odtulogo3.png}
+  \end{tikzpicture}
+  \end{beamercolorbox}
+}
+}
+
+\mode<all>

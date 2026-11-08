@@ -1,0 +1,335 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global/global}
+    \entry{altomare2017}{article}{}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=7aa79368b79223cf844a067a70066ec8}{%
+           family={Altomare},
+           familyi={A\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fc7d48a00d992a1f4f2ee63d92c7f400}{%
+           family={Domínguez},
+           familyi={D\bibinitperiod},
+           given={J.\bibnamedelimi M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff2b10647bb3dd544e5eb11c77200089}{%
+           family={Crespo},
+           familyi={C\bibinitperiod},
+           given={A.\bibnamedelimi J.\bibnamedelimi C.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=241d4182707760b286da30830ff25089}{%
+           family={González-Cao},
+           familyi={G\bibinithyphendelim C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=48a1e4f9aa44a68931a3bd8138ba6970}{%
+           family={Suzuki},
+           familyi={S\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5d90a7d9798dc9a6b33521130fdeb962}{%
+           family={Gómez-Gesteira},
+           familyi={G\bibinithyphendelim G\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f9fa0659baf8a50022bcdeb09e8a63c5}{%
+           family={Troch},
+           familyi={T\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d284ae777e6f48653d42c0abf70862d9}
+      \strng{fullhash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{fullhashraw}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{bibnamehash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authorbibnamehash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authornamehash}{d284ae777e6f48653d42c0abf70862d9}
+      \strng{authorfullhash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authorfullhashraw}{904a103e9f7268e244b44aa4b1c858a1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Coastal Engineering}
+      \field{title}{Long-crested wave generation and absorption for {SPH}-based {DualSPHysics} model}
+      \field{volume}{127}
+      \field{year}{2017}
+      \true{nocite}
+      \field{pages}{37\bibrangedash 54}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1016/j.coastaleng.2017.06.004
+      \endverb
+    \endentry
+    \entry{schaffer2003}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=9c36b2ab18f700cf3b83176d9995573c}{%
+           family={Schäffer},
+           familyi={S\bibinitperiod},
+           given={Hemming\bibnamedelima A.},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f7278b5850eae57238f9b75a1562cd30}{%
+           family={Jakobsen},
+           familyi={J\bibinitperiod},
+           given={Kim\bibnamedelima P.},
+           giveni={K\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{fullhash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{fullhashraw}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{bibnamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorbibnamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authornamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorfullhash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorfullhashraw}{4cde894c958e0fc8916405f67739f9ad}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the IAHR Congress}
+      \field{note}{DHI Water \& Environment}
+      \field{title}{Non-linear Wave Generation and Active Absorption in Wave Flumes}
+      \field{year}{2003}
+      \true{nocite}
+    \endentry
+    \entry{xie2023}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=ec6db48f459f3a9b72c71f6f44efc6db}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Yulin},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8894606e8794d8e57fbd69fe650e9bd3}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Xizeng},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=987426c8eaecd4fade4798cb0857330d}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zhongbo},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5dd3fd7d04912fc9aee8a148b48b04bd}
+      \strng{fullhash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{fullhashraw}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{bibnamehash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authorbibnamehash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authornamehash}{5dd3fd7d04912fc9aee8a148b48b04bd}
+      \strng{authorfullhash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authorfullhashraw}{5a33157fe41cf51ff57253060c9df7fe}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Coastal Engineering}
+      \field{title}{A simple approach for wave absorbing control of plunger wavemakers using machine learning: Numerical study}
+      \field{volume}{179}
+      \field{year}{2023}
+      \true{nocite}
+      \field{pages}{104253}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.coastaleng.2022.104253
+      \endverb
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global/global}
+    \entry{altomare2017}{article}{}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=7aa79368b79223cf844a067a70066ec8}{%
+           family={Altomare},
+           familyi={A\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fc7d48a00d992a1f4f2ee63d92c7f400}{%
+           family={Domínguez},
+           familyi={D\bibinitperiod},
+           given={J.\bibnamedelimi M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff2b10647bb3dd544e5eb11c77200089}{%
+           family={Crespo},
+           familyi={C\bibinitperiod},
+           given={A.\bibnamedelimi J.\bibnamedelimi C.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=241d4182707760b286da30830ff25089}{%
+           family={González-Cao},
+           familyi={G\bibinithyphendelim C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=48a1e4f9aa44a68931a3bd8138ba6970}{%
+           family={Suzuki},
+           familyi={S\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5d90a7d9798dc9a6b33521130fdeb962}{%
+           family={Gómez-Gesteira},
+           familyi={G\bibinithyphendelim G\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f9fa0659baf8a50022bcdeb09e8a63c5}{%
+           family={Troch},
+           familyi={T\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d284ae777e6f48653d42c0abf70862d9}
+      \strng{fullhash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{fullhashraw}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{bibnamehash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authorbibnamehash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authornamehash}{d284ae777e6f48653d42c0abf70862d9}
+      \strng{authorfullhash}{904a103e9f7268e244b44aa4b1c858a1}
+      \strng{authorfullhashraw}{904a103e9f7268e244b44aa4b1c858a1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Coastal Engineering}
+      \field{title}{Long-crested wave generation and absorption for {SPH}-based {DualSPHysics} model}
+      \field{volume}{127}
+      \field{year}{2017}
+      \true{nocite}
+      \field{pages}{37\bibrangedash 54}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1016/j.coastaleng.2017.06.004
+      \endverb
+    \endentry
+    \entry{schaffer2003}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=9c36b2ab18f700cf3b83176d9995573c}{%
+           family={Schäffer},
+           familyi={S\bibinitperiod},
+           given={Hemming\bibnamedelima A.},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f7278b5850eae57238f9b75a1562cd30}{%
+           family={Jakobsen},
+           familyi={J\bibinitperiod},
+           given={Kim\bibnamedelima P.},
+           giveni={K\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{fullhash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{fullhashraw}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{bibnamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorbibnamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authornamehash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorfullhash}{4cde894c958e0fc8916405f67739f9ad}
+      \strng{authorfullhashraw}{4cde894c958e0fc8916405f67739f9ad}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the IAHR Congress}
+      \field{note}{DHI Water \& Environment}
+      \field{title}{Non-linear Wave Generation and Active Absorption in Wave Flumes}
+      \field{year}{2003}
+      \true{nocite}
+    \endentry
+    \entry{xie2023}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=ec6db48f459f3a9b72c71f6f44efc6db}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Yulin},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8894606e8794d8e57fbd69fe650e9bd3}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Xizeng},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=987426c8eaecd4fade4798cb0857330d}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zhongbo},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5dd3fd7d04912fc9aee8a148b48b04bd}
+      \strng{fullhash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{fullhashraw}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{bibnamehash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authorbibnamehash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authornamehash}{5dd3fd7d04912fc9aee8a148b48b04bd}
+      \strng{authorfullhash}{5a33157fe41cf51ff57253060c9df7fe}
+      \strng{authorfullhashraw}{5a33157fe41cf51ff57253060c9df7fe}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Coastal Engineering}
+      \field{title}{A simple approach for wave absorbing control of plunger wavemakers using machine learning: Numerical study}
+      \field{volume}{179}
+      \field{year}{2023}
+      \true{nocite}
+      \field{pages}{104253}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.coastaleng.2022.104253
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

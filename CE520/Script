@@ -1,0 +1,225 @@
+% ================================================================
+% 01 — approx. 25 s: Title and introduction.
+% ================================================================
+
+Good afternoon, everyone. My name is Bilge Kutay, and I'm currently pursuing my master's degree in Coastal and Harbor Engineering, under the supervision of Prof. Cüneyt Baykal.
+
+Today, I'll be presenting the current progress of my thesis, which focuses on developing a machine-learning-based active wave absorption method for numerical wave flumes using OpenFOAM.
+
+% ================================================================
+% 02 — approx. 20 s: Outline.
+% ================================================================
+
+I'll begin by introducing the problem of wave reflections in laboratory experiments and explaining the motivation behind this research.
+
+Then, I'll briefly discuss existing approaches, identify the research gap, and introduce my research questions.
+
+After that, I'll explain the numerical model and the proposed machine-learning-based controller, followed by the progress I've made so far.
+
+Finally, I'll discuss the expected results, the research schedule, and the conclusions.
+
+% ==============================================================
+% 03 — approx. 50 s: Observed engineering problem.
+% ==============================================================
+
+In laboratory experiments, we use a wavemaker to generate waves in a long, narrow channel called a wave flume.
+
+These waves, travelling away from the wavemaker, are called incident waves.  When they encounter a structure or the end boundary, some of their energy can travel back in the opposite direction. We call these reflected waves.
+
+In the real ocean, reflected waves can propagate back into the open sea without encountering another boundary. However, in a wave flume, they eventually reach the wavemaker, where they may be reflected once again. We call these re-reflected waves.
+
+These additional reflections interfere with the intended wave field, distort our measurements, and reduce the duration of reliable experiments.
+
+To prevent this, we need active wave absorption at the generation end of the flume, allowing the wavemaker to generate the desired waves while also absorbing the returning ones.
+
+% ================================================================
+% 04 — approx. 65 s: Literature review and research gap.
+% ================================================================
+
+Several methods have been developed to reduce wave reflections in laboratory flumes.
+
+The simplest approach is passive absorption, using structures such as sloping beaches or porous materials to dissipate wave energy. However, these systems require additional space, and their effectiveness depends on the wave conditions.
+
+Another approach is classical active wave absorption, where wave measurements are used with theoretical equations and digital filters to adjust the wavemaker motion and reduce re-reflections.
+
+More recently, Xie and colleagues proposed a machine-learning-based approach using artificial neural networks. Their method predicts the required wavemaker velocity using wave parameters and measurements.
+
+They demonstrated this approach for both piston-type and plunger-type wavemakers, including different water depths and wave conditions.
+
+However, the method was implemented using their own CFD solver, and its performance was not systematically compared with conventional active absorption methods.
+
+My research aims to address these limitations by implementing a similar machine-learning-based controller in OpenFOAM, an open-source computational fluid dynamics software.
+
+I will then compare its performance with conventional active wave absorption and cases without absorption, using the same wave conditions.
+
+% ================================================================
+% 05 — approx. 40 s: Thesis objective and research questions.
+% ================================================================
+
+The overall objective of my thesis is to implement and evaluate a machine-learning-based active wave absorption controller for a piston-type wavemaker using OpenFOAM.
+
+To achieve this, I've defined three main research questions.
+
+First, can machine-learning-based active wave absorption be successfully implemented in OpenFOAM? This involves connecting the neural network controller to the numerical wavemaker so that it can adjust the paddle motion based on the measured water-surface elevation.
+
+Second, how does the ML-based controller perform compared with conventional active absorption methods? I'll compare simulations with ML-based absorption, conventional absorption, and no absorption, focusing on wave reflections and the accuracy of the generated waves.
+
+Finally, how does the controller's performance change under different wave conditions, such as different wave heights and periods?
+
+Together, these questions will help determine how effective and practical the proposed approach is compared with existing methods.
+
+% ================================================================
+% 06 — approx. 85 s: OpenFOAM numerical wave-flume setup.
+% ================================================================
+
+To investigate these research questions, I first established a numerical wave-flume model in OpenFOAM, which will serve as the basis for developing and testing the active absorption controller.
+
+The working flume length is 17.5 metres, and the water depth is currently 0.5 metres.
+
+At the left end, we have a piston-type wavemaker, which moves horizontally to generate waves. The model uses a moving mesh, meaning that the computational grid deforms as the piston moves back and forth.
+
+For the mesh, I used a nonuniform grid. I refined the mesh near the piston and around the water surface, where more detailed resolution is required.
+
+Near the piston, the horizontal cell size is 4 millimetres, gradually increasing to 10 millimetres farther along the flume. Around the still-water level, the vertical cell size is 2 millimetres.
+
+I also performed mesh and time-step convergence studies. For the mesh study, I tested approximately 94 thousand, 375 thousand, and 1.5 million cells.
+
+The medium mesh was selected because its predicted wave height differed from the fine-mesh result by only about 0.01 percent.
+
+For the time-step convergence study, I similarly examined how changing the time interval between the calculations affected the simulated wave response. The selected time step was 0.0005 seconds, meaning the solver calculates the flow conditions every half a millisecond.
+
+The regular-wave case used for the convergence study has a period of 1 second and a generated wave height of approximately 7.1 centimetres, with a piston stroke of 4 centimetres.
+
+Finally, the flume includes a wave gauge near the piston and four additional groups of gauges along its length. These allow us to monitor the free-surface elevation.
+
+% ================================================================
+% 07 — approx. 70 s: Numerical methodology.
+% ================================================================
+
+After establishing the numerical wave flume, the next step is to evaluate different active wave absorption methods.
+
+First, the piston generates regular waves, defined by their wave height, period, and water depth. The resulting free-surface elevation is recorded using virtual wave gauges positioned along the flume.
+
+These measurements will then be used to evaluate the accuracy of the generated waves and calculate the reflection coefficient, which represents the ratio of reflected wave amplitude to incident wave amplitude.
+
+To assess the effectiveness of machine learning, I plan to compare three different configurations.
+
+The first is a simulation without active absorption, which serves as our reference case.
+
+The second uses conventional active wave absorption available through olaFlow, providing a benchmark for comparison.
+
+The third is the proposed machine-learning-based controller.
+
+All three configurations will be tested under the same wave conditions so that their performance can be compared directly.
+
+Before training the neural network, some aspects of the numerical model need to be verified.
+
+These include confirming that the piston moves correctly around its neutral position, obtaining free-surface measurements near the moving piston during the simulation, and verifying that the generated incident waves match the intended wave conditions.
+
+Once these steps are completed, the numerical model can be used to generate training data and evaluate the different control strategies.
+
+% ================================================================
+% 08 — approx. 90 s: Proposed ML-based feedback control.
+% ================================================================
+
+Now, moving on to the machine-learning-based controller, this diagram illustrates how the system is intended to work.
+
+First, we define the target wave conditions, which represent the waves we want to generate in the flume.
+
+The piston initially follows a prescribed motion to generate these waves. At the same time, a wave gauge measures the actual water-surface elevation in front of the piston.
+
+The important part is that the controller has access to both the target and measured surface elevations.
+
+By subtracting the target elevation from the measured elevation, we can calculate the difference between what we want to generate and what is actually occurring in the flume.
+
+When reflected waves return to the wavemaker, they interfere with the incident waves, causing the measured elevation to deviate from the expected value.
+
+This difference provides information about the returning waves that need to be absorbed.
+
+The machine-learning model is trained to determine the piston response using this information, together with parameters such as the water depth, wave period, and the current piston position and velocity.
+
+The idea is to use this correction to produce a compensating wave response that is opposite in phase to the unwanted reflected wave. In simple terms, where the reflected wave creates a crest, we want to create a trough, and where it creates a trough, we want to create a crest. This opposing motion helps cancel the returning waves rather than allowing it to be reflected back into the flume.
+
+To achieve this, the controller adjusts the piston motion based on the updated measurements.
+
+As shown in the equation, the total piston displacement is the sum of the original wave-generation motion and the additional absorption correction.
+
+% ================================================================
+% 09 — approx. 65 s: Evaluation and expected contributions.
+% ================================================================
+
+After implementing the controller, the next step will be to evaluate its performance and compare it with the existing absorption methods.
+
+One of the main evaluation criteria will be how closely the generated waves match the target wave conditions. Ideally, the measured water-surface elevation should follow the intended wave profile.
+
+Another important parameter is the reflection coefficient, which is the ratio of reflected wave height to incident wave height. A lower reflection coefficient indicates that less wave energy is being reflected relative to the incoming waves.
+
+I'll also investigate how the controller performs under different wave conditions, including changes in wave height and period, and whether the required piston motion remains within its operating limits.
+
+In terms of contributions, the first is a reproducible numerical wave-flume model developed in OpenFOAM, together with the simulation data needed to train the neural network.
+
+The second is the implementation of the machine-learning-based active absorption controller within this framework.
+
+Finally, the study will provide a quantitative comparison between the ML-based controller and conventional active absorption methods, helping us understand whether machine learning offers any practical advantages.
+
+Ultimately, I aim to establish both the effectiveness and the limitations of the this approach.
+
+% ================================================================
+% 10 — approx. 55 s: Practical significance.
+% ================================================================
+
+Beyond the numerical results, this research also has practical applications.
+
+First, effective wave absorption can help us maintain cleaner wave conditions in laboratory experiments by preventing re-reflections from interfering with the generated waves.
+
+This would allow experiments to run for longer periods without the measurements becoming  affected by reflected waves.
+
+For coastal and offshore engineering, this is particularly important because wave flumes are used to investigate how structures such as breakwaters, offshore platforms, and other marine structures respond to wave loading.
+
+Another important contribution of my research is its accessibility.
+
+Previous machine-learning-based approaches have been demonstrated using in-house numerical solvers. By implementing a similar method in OpenFOAM, I aim to demonstrate that ML-based active wave absorption can also be developed and evaluated using freely available, open-source CFD software.
+
+This could provide a more accessible and reproducible framework for other researchers and support the future development of a wave-control system for METU's laboratory.
+
+Ultimately, the aim is not only to evaluate a new control strategy, but also to make its implementation more accessible for future research.
+
+% ================================================================
+% 11 — approx. 45 s: Research timeline to June 2027.
+% ================================================================
+
+This chart presents the remaining stages of my research, with the goal of completing my  thesis by June 2027.
+
+During November and December, I plan to finalize the numerical model by verifying the piston motion and validating the wave-gauge measurements.
+
+In December and January, I'll focus on validating the generated waves and establishing baseline simulations using conventional active wave absorption methods.
+
+From February to March, I'll prepare the training dataset using OpenFOAM simulations. This data will be used to train the neural network to predict the appropriate wavemaker corrections.
+
+The machine-learning model will then be trained and integrated into the numerical wave flume during March and April.
+
+From April to May, I'll evaluate the controller's performance under different wave conditions, followed by a comparison with conventional active absorption methods in May.
+
+Finally, thesis writing will take place alongside these activities, with the aim of completing and defending the thesis by June.
+
+% ================================================================
+% 12 — approx. 40 s: Conclusion.
+% ================================================================
+
+To conclude, the main motivation behind this research is the problem of unwanted wave re-reflections in laboratory experiments.
+
+When reflected waves return to the wavemaker and are reflected again, they interfere with the intended wave conditions and reduce the reliability of experimental measurements.
+
+My thesis investigates whether a machine-learning-based controller can address this problem by adjusting the piston motion to absorb returning waves while preserving the incident waves.
+
+The main contribution will be implementing this approach in OpenFOAM, a freely available and open-source CFD framework, and comparing its performance with conventional methods.
+
+Through these comparisons, I aim to establish both the potential advantages and the limitations of machine-learning-based wave absorption.
+
+% ================================================================
+% 12 — approx. 4 s: Ending
+% ================================================================
+
+These are my references.
+
+And thank you for your attention.
