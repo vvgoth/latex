@@ -3,10 +3,6 @@
 % and logos/ directory alongside main.tex.
 % Compile: pdflatex main.tex; biber main; pdflatex main.tex; pdflatex main.tex
 % The compiled PDF is the normal, full-screen presentation format for Beamer.
-%
-% Research-status discipline: An objective, target, or proposed method is NEVER
-% claimed below as a measured thesis result. Replace status labels only once
-% you have verified the corresponding case and have plots/coefficients.
 
 \documentclass[aspectratio=43,11pt]{beamer}
 \usetheme{metu}
@@ -21,7 +17,7 @@
 % ---------------- EDIT THESE FIELDS ----------------
 \newcommand{\PresenterName}{Bilge Kutay}
 \newcommand{\Advisor}{Asst. Prof. Dr. Cüneyt Baykal}
-\newcommand{\TalkDate}{November 11 2026}
+\newcommand{\TalkDate}{November 11, 2026}
 \newcommand{\CourseCode}{CE520 Graduate Seminar}
 % ---------------------------------------------------
 
@@ -30,7 +26,9 @@
 \institute{CE520 Graduate Seminar -- Fall 2026}
 \date{\TalkDate}
 \addbibresource{references.bib}
-\AtBeginBibliography{\scriptsize}
+\AtBeginBibliography{%
+  \fontsize{8}{8.8}\selectfont
+}
 \DeclareLanguageMapping{english}{english-apa}
 \renewcommand*{\nameyeardelim}{\addcomma\space}
 
@@ -143,12 +141,12 @@
   \hfill
 
   \begin{column}{0.30\textwidth}
-    \begin{block}{Xie et al. (2023)}
+    \begin{block}{ML wave control}
       \begin{minipage}[t][2.18cm][t]{\linewidth}
         \raggedright\footnotesize
-        An ANN controls a \emph{plunger} wavemaker.
-        It was trained at one water depth and
-        tested for generalization.
+        Xie and colleagues used ANNs for piston
+        and plunger wave generation and absorption
+        in their own CFD solver.
       \end{minipage}
     \end{block}
   \end{column}
@@ -166,21 +164,21 @@
   \textcolor{metured}{
     \textbf{Research gap and planned extension}
   }\\[1mm]
-  Adapt the ML approach to a \textbf{piston-type wavemaker};
-  train across \textbf{several depths and wave conditions};
-  test gauge inputs and
-  \textbf{benchmark conventional AWA}.
+  Implement \textbf{ML-based active absorption}
+  within OpenFOAM's moving-piston system and
+  \textbf{compare its performance with conventional AWA}
+  under the same wave conditions.
   }
 \end{beamercolorbox}
 
 \smallsource{
   Sch\"affer \& Jakobsen (2003);
   Altomare et al. (2017);
+  Xie \& Zhao (2022);
   Xie et al. (2023).
 }
 
 \end{frame}
-
 
 % ==============================================================
 % 04 — approx. 40 s: Research questions.
@@ -189,13 +187,13 @@
 \begin{frame}[t]{Thesis Objective and Research Questions}
 \vspace{0.5cm}
 \begin{block}{Overall objective}
-  Implement and evaluate a \textbf{machine-learning-assisted active wave absorption}
-  controller for a piston-type wavemaker in OpenFOAM.
+  Implement and evaluate a \textbf{machine-learning-based active wave absorption}
+  controller within OpenFOAM's piston-type wavemaker system.
 \end{block}
 \vspace{2mm}
 \begin{enumerate}
-    \item Can ML-based active wave absorption be
-    successfully implemented in OpenFOAM?
+    \item Can a trained ML controller be integrated into
+    OpenFOAM's moving-piston system for active wave absorption?
     \item How does ML-based absorption perform
     compared with conventional active absorption
     methods?
@@ -284,11 +282,13 @@
 \begin{enumerate}\setlength{\itemsep}{4pt}
   \item No active absorption \hfill \subtle{reference / uncontrolled case}
   \item Conventional active absorption \hfill \subtle{classical benchmark}
-  \item ML-based active absorption \hfill \subtle{planned test case}
+  \item ML-based active absorption \hfill \subtle{planned OpenFOAM implementation}
 \end{enumerate}
 \vspace{3mm}
 \begin{block}{Verification before ML training}
-  Verify piston motion about its neutral position, obtain real-time near-paddle free-surface measurements, and check the accuracy of generated incident waves.
+  Verify piston motion about its neutral position, validate
+  real-time water-level measurements at the moving piston,
+  and check the accuracy of generated incident waves.
 \end{block}
 \end{frame}
 
@@ -297,6 +297,7 @@
 % ==============================================================
 \section{ML-based Controller}
 \begin{frame}[t]{ML-based Feedback Control}
+\vspace{-2mm}
 \begin{center}
 \begin{tikzpicture}[node distance=5mm and 4mm]
   \node[flow,minimum width=2.1cm,minimum height=1.05cm] (target)
@@ -318,55 +319,15 @@
   \draw[arrred] (corr.north) -- (model.south);
 \end{tikzpicture}
 \end{center}
-\vspace{1mm}
 \[
 \boxed{\,X_{\mathrm{piston}}(t)=X_{\mathrm{gen}}(t)+X_{\mathrm{abs}}(t)\,}
 \]
-\vspace{-1mm}
+\vspace{-4mm}
 \begin{itemize}\setlength{\itemsep}{3pt}
-  \item \textbf{Inputs being investigated:} $h$, $T$, $\eta(t)$, its recent history,
-        and piston position/velocity.
-  \item \textbf{Output:} a bounded piston-motion correction $X_{\mathrm{abs}}(t)$.
+  \item \textbf{Inputs being investigated:} $h$, $T$, $\eta(t)$, its recent history, and piston position/velocity.
+  \item \textbf{Output:} predicted piston velocity, used to calculate the absorption correction $X_{\mathrm{abs}}(t)$.
   \item \textbf{Goal:} minimize re-reflection while maintaining accurate wave generation.
 \end{itemize}
-\end{frame}
-
-% ==============================================================
-% 08 — approx. 55 s: Real status, carefully avoids false results.
-% ==============================================================
-\section{Research progress}
-\begin{frame}[t]{Research progress (November 2026)}
-\begin{columns}[T,onlytextwidth]
-\begin{column}{0.49\textwidth}
-  \begin{block}{Current setup}
-    \footnotesize
-    \begin{itemize}\setlength{\itemsep}{5pt}
-      \item OpenFOAM / olaFlow numerical workflow
-      \item Moving-piston flume configuration
-      \item Regular-wave base conditions
-      \item Virtual wave-gauge layout
-    \end{itemize}
-  \end{block}
-\end{column}
-\begin{column}{0.49\textwidth}
-  \begin{block}{Next verification}
-    \footnotesize
-    \begin{itemize}\setlength{\itemsep}{5pt}
-      \item Confirm piston motion about $x=0$
-      \item Extract near-paddle $\eta(t)$ in real time
-      \item Check propagation and numerical drift
-      \item Quantify baseline reflection coefficient
-    \end{itemize}
-  \end{block}
-\end{column}
-\end{columns}
-\vspace{4mm}
-\begin{beamercolorbox}[rounded=true,sep=1.5ex,wd=\linewidth]{block body}
-  \textbf{Current research stage:} numerical-model and measurement verification,
-  before training and testing the proposed ML absorption controller.
-\end{beamercolorbox}
-\vspace{1mm}
-\subtle{Measured time series and reflection coefficients will be added after validation.}
 \end{frame}
 
 % ==============================================================
@@ -389,7 +350,7 @@
 \begin{itemize}\setlength{\itemsep}{2pt}
   \item Reproducible CFD benchmark cases
   \item Training dataset generated in OpenFOAM
-  \item An implemented ML-based absorption controller
+  \item ML-based absorption integrated into OpenFOAM
   \item Comparison with conventional AWA
 \end{itemize}
 \end{column}
@@ -421,7 +382,7 @@
 \end{tikzpicture}
 \end{center}
 \vspace{2mm}
-\begin{itemize}\setlength{\itemsep}{9pt}
+\begin{itemize}\setlength{\itemsep}{8pt}
   \item \textbf{Scientific value:}
         improve the accuracy of wave experiments by
         reducing unwanted re-reflections.
@@ -429,8 +390,7 @@
         enable longer, more reliable tests of coastal
         and offshore structures.
   \item \textbf{Open-source value:}
-        demonstrate ML-based active wave absorption
-        in the freely available OpenFOAM framework.
+        demonstrate ML-based active absorption within OpenFOAM's moving-piston system.
   \item \textbf{Institutional value:}
         support the development of a wave-control
         system for METU's laboratory.
@@ -501,9 +461,11 @@
   This thesis investigates whether a \textcolor{metured}{machine-learning based
   feedback controller} can adjust a piston wavemaker to absorb returning waves while maintaining accurate wave generation.
 
-  \vspace{3mm}
-  By implementing  the controller in \textbf{OpenFOAM} and comparing
-  it with conventional approaches, the study aims to evaluate its effectiveness and feasibility within an accessible, open-source CFD framework.
+  \vspace{3mm} 
+  By integrating the trained controller directly into
+  \textbf{OpenFOAM} and comparing it with conventional
+  active absorption, this study aims to evaluate its
+  feasibility and performance.
 \end{beamercolorbox}
 \vfill
 \end{frame}
@@ -512,7 +474,7 @@
 % 13 — Backup references. Does not need discussion in the 8-10 min.
 % ==============================================================
 \begin{frame}[t]{Selected References}
-\nocite{schaffer2003,altomare2017,xie2023,xie2022easily,higuera2013realistic,schaffer2000review}
+\nocite{schaffer2003,altomare2017,xie2023,xie2022easily,higuera2013realistic,schaffer2000review,gillan2022}
 \printbibliography[heading=none]
 \end{frame}
 
