@@ -265,13 +265,16 @@
 \begin{center}
 \begin{tikzpicture}[node distance=7mm and 6mm]
   \node[flow,minimum width=2.30cm,minimum height=1cm] (model)
-    {Moving-piston\\CFD flume};
+    {CFD model\\verification};
+
   \node[flow,right=of model,minimum width=2.30cm,minimum height=1cm] (waves)
-    {Regular waves\\$H,\ T,\ h$};
+    {Prescribed\\piston motion};
+
   \node[flow,right=of waves,minimum width=2.30cm,minimum height=1cm] (gauge)
-    {Virtual wave\\gauges $\eta(t)$};
+    {Piston-side\\water level $\eta(t)$};
+
   \node[redflow,right=of gauge,minimum width=2.30cm,minimum height=1cm] (eval)
-    {Wave reflection\\analysis};
+    {ML training\\dataset};
   \draw[arr] (model)--(waves);
   \draw[arr] (waves)--(gauge);
   \draw[arr] (gauge)--(eval);
@@ -285,10 +288,10 @@
   \item ML-based active absorption \hfill \subtle{planned OpenFOAM implementation}
 \end{enumerate}
 \vspace{3mm}
-\begin{block}{Verification before ML training}
-  Verify piston motion about its neutral position, validate
-  real-time water-level measurements at the moving piston,
-  and check the accuracy of generated incident waves.
+\begin{block}{Wave reflection analysis}
+  Use virtual wave-gauge measurements to estimate
+  the reflection coefficient $K_r=H_r/H_i$
+  for each of the three cases.
 \end{block}
 \end{frame}
 
@@ -299,35 +302,76 @@
 \begin{frame}[t]{ML-based Feedback Control}
 \vspace{-2mm}
 \begin{center}
-\begin{tikzpicture}[node distance=5mm and 4mm]
-  \node[flow,minimum width=2.1cm,minimum height=1.05cm] (target)
-    {Target wave\\$\eta_{\mathrm{target}}(t)$};
-  \node[flow,right=of target,minimum width=2.1cm,minimum height=1.05cm] (model)
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+  % Target wave: separate from the feedback loop
+  \node[flow,minimum width=1.9cm,
+        minimum height=0.95cm] (target) at (0,1.6)
+    {Target wave\\$\eta_d(t)$};
+
+  % Upper part of the feedback loop
+  \node[flow,minimum width=2.3cm,
+        minimum height=0.95cm] (flume) at (3.4,1.6)
     {Moving piston\\and CFD flume};
-  \node[flow,right=of model,minimum width=2.1cm,minimum height=1.05cm] (signal)
-    {Measured $\eta(t)$\\and paddle state};
-  \node[redflow,below=1.25cm of signal,minimum width=2.2cm,minimum height=0.97cm] (ann)
-    {ML controller};
-  \node[redflow,left=of ann,minimum width=2.25cm,minimum height=0.97cm] (corr)
-    {Motion correction\\$X_{\mathrm{abs}}(t)$};
-  \draw[arr] (target)--(model);
-  \draw[arr] (model)--(signal);
-  \draw[arr] (signal) -- (ann);
-  \node[font=\tiny,deepblue] at ($(model.south)!0.5!(signal.south)+(0,-0.625cm)$)
-  {feedback loop};
-  \draw[arrred] (ann)--(corr);
-  \draw[arrred] (corr.north) -- (model.south);
+
+  \node[flow,minimum width=2.2cm,
+        minimum height=0.95cm] (measured) at (7,1.6)
+    {Measured level\\$\eta_m(t)$};
+
+  % Lower part of the feedback loop
+  \node[flow,minimum width=2.5cm,
+        minimum height=1cm] (corrected) at (7,0)
+    {Corrected target\\$\eta_c=2\eta_d-\eta_m$};
+
+  \node[redflow,minimum width=2.4cm,
+        minimum height=1cm] (ann) at (3.4,0)
+    {Trained ANN\\predicts piston velocity};
+
+  % Target input
+  \draw[arr] (target.east) -- (flume.west);
+
+  % Closed feedback loop
+  \draw[arr] (flume.east) -- (measured.west);
+  \draw[arr] (measured.south) -- (corrected.north);
+  \draw[arrred] (corrected.west) -- (ann.east);
+  \draw[arrred] (ann.north) -- (flume.south);
+
+  % Feedback arrow label
+  \node[font=\tiny,metured,anchor=west]
+    at ($(ann.north)!0.5!(flume.south)+(0.12cm,0)$)
+    {Piston update};
+
+  
+  % Wave elevation notation — below target wave
+  \node[
+      anchor=north west,
+      align=left,
+      font=\tiny,
+      text=black!65
+  ] at ($(target.south west)+(-1cm,-0.55cm)$) {
+      $\eta_d$: Desired elevation\\[2pt]
+      $\eta_m$: Measured elevation\\[2pt]
+      $\eta_c$: Corrected elevation
+  };
+
 \end{tikzpicture}
+
 \end{center}
 \[
 \boxed{\,X_{\mathrm{piston}}(t)=X_{\mathrm{gen}}(t)+X_{\mathrm{abs}}(t)\,}
 \]
 \vspace{-4mm}
+
 \begin{itemize}\setlength{\itemsep}{3pt}
-  \item \textbf{Inputs being investigated:} $h$, $T$, $\eta(t)$, its recent history, and piston position/velocity.
-  \item \textbf{Output:} predicted piston velocity, used to calculate the absorption correction $X_{\mathrm{abs}}(t)$.
-  \item \textbf{Goal:} minimize re-reflection while maintaining accurate wave generation.
+  \item \textbf{ANN inputs:} corrected target signal,
+        wave period $T$, and water depth $h$.
+  \item \textbf{Output:} predicted piston velocity,
+        used to update piston displacement.
+  \item \textbf{Control:} limit piston drift while
+        maintaining the intended waves.
 \end{itemize}
+
 \end{frame}
 
 % ==============================================================
